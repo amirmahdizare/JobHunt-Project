@@ -85,7 +85,7 @@ const DesktopHeader = (props) => {
     })
     console.log(stickyHeaderTheme)
     return (
-        <Box display = {props.display}>
+        <Box display = {{'lg':'block'}}>
             <ThemeProvider theme={headerStatus == "normal" ? normalHeaderTheme : stickyHeaderTheme} >
                 <AppBar className={classes.appBar} style={headerStatus == "normal" ? { boxShadow: 'none' } : {}} position={headerStatus == "normal" ? "absolute" : "sticky"}>
                     <Toolbar className={classes.toolbar}>
@@ -96,11 +96,6 @@ const DesktopHeader = (props) => {
                         <DesktopViewHeaderMenus headerStatus={headerStatus}/>
                         <DesktopViewHeaderButtons headerStatus={headerStatus}/>
                         </Box >
-                        <Box display={{ 'md': 'none' }}>
-                            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                                <MenuIcon />
-                            </IconButton>
-                        </Box>
 
                     </Toolbar>
                 </AppBar>
