@@ -1,14 +1,12 @@
 import { React, useState } from 'react'
 import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Box from '@material-ui/core/Box';
-import { Logo } from '../../components/Logo'
-import { Logo2 } from '../../components/Logo2'
 import { DesktopViewHeaderMenus } from './components/HeaderMenus';
 import { DesktopViewHeaderButtons } from './components/HeaderButtons';
+import Toolbar from '@material-ui/core/Toolbar';
+import { Logo } from '../../components/Logo'
+import { Logo2 } from '../../components/Logo2'
 const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
@@ -18,13 +16,30 @@ const useStyles = makeStyles((theme) => ({
     },
     toolbar: {
         padding: '1em',
-        width: '80%',
+        width: '85%',
         display: 'flex',
         justifyContent: 'space-between',
+        // '& .MuiTypography-h6':{[theme.breakpoints.down('xl')]:
+        //     {fontSize:'1.2rem',
+        // }},
+        [theme.breakpoints.up('md')]:
+        {
+            '& .MuiTypography-h6': {
+                fontSize: '19px',
+            },
+        },
+        [theme.breakpoints.down(1450)]:
+        {
+            '& .MuiTypography-h6': {
+                fontSize: '13px',
+            },
+        }
+
     },
     appBar: {
         alignItems: 'center',
-        transition: 'all .3s ease 0'
+        transition: 'all .3s ease 0',
+        top: '0px'
     },
     button: {
         color: 'inherit',
@@ -48,14 +63,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const fontTheme = {
-    typography:{
-            fontFamily:'Open Sans',
-            h6:{
-                fontSize:'18px',
-                fontWeight:'600'
-            }
-            
+    typography: {
+        fontFamily: 'Open Sans',
+
     }
+
 }
 const stickyHeaderTheme = createTheme({
     palette: {
@@ -63,7 +75,7 @@ const stickyHeaderTheme = createTheme({
             main: 'rgb(255,255,255)',
             contrastText: 'rgb(0,0,0)'
         },
-    },...fontTheme
+    }, ...fontTheme
 });
 const normalHeaderTheme = createTheme({
     palette: {
@@ -71,7 +83,7 @@ const normalHeaderTheme = createTheme({
             main: 'rgba(0,0,0,0)',
             contrastText: '#fff',
         },
-    },...fontTheme
+    }, ...fontTheme
 });
 const DesktopHeader = (props) => {
     const classes = useStyles();
@@ -85,16 +97,16 @@ const DesktopHeader = (props) => {
     })
     console.log(stickyHeaderTheme)
     return (
-        <Box display = {{'lg':'block'}}>
+        <Box display={{ 'xs': 'none', 'lg': 'block' }} position={headerStatus == "normal" ? "absolute" : "sticky"}>
             <ThemeProvider theme={headerStatus == "normal" ? normalHeaderTheme : stickyHeaderTheme} >
-                <AppBar className={classes.appBar} style={headerStatus == "normal" ? { boxShadow: 'none' } : {}} position={headerStatus == "normal" ? "absolute" : "sticky"}>
+                <AppBar className={classes.appBar} style={headerStatus == "normal" ? { boxShadow: 'none' } : {}} >
                     <Toolbar className={classes.toolbar}>
                         <Box>
                             {headerStatus == "normal" ? <Logo /> : <Logo2 />}
                         </Box>
                         <Box display="flex">
-                        <DesktopViewHeaderMenus headerStatus={headerStatus}/>
-                        <DesktopViewHeaderButtons headerStatus={headerStatus}/>
+                            <DesktopViewHeaderMenus headerStatus={headerStatus} />
+                            <DesktopViewHeaderButtons headerStatus={headerStatus} />
                         </Box >
 
                     </Toolbar>
