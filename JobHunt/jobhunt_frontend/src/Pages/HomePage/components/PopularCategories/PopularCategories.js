@@ -10,7 +10,6 @@ const useClasses = makeStyles(theme => ({
         flexDirection: 'column',
         textAlign: 'center',
         color:'black',
-        zIndex:'100',
         position:'relative'
     }
     ,
