@@ -2,7 +2,7 @@ import { Box, Button, Container, Typography } from '@material-ui/core'
 import React from 'react'
 import CategoriesContainer from './components/CategoriesContainer'
 import { makeStyles } from '@material-ui/core'
-import JumpButton from '../JumpButton/JumpButton'
+import JumpButton from './JumpButton/JumpButton'
 const useClasses = makeStyles(theme => ({
     root: {
         alignItems: 'center',
@@ -36,8 +36,9 @@ const PopularCategories = () => {
     return (
         <Container maxWidth="lg" className={classes.root}>
             <JumpButton/>
-            <Box id="categories" mb={3} mt={10}><Typography variant="h3">Popular Categories</Typography></Box>
-            <Box  ><Typography variant="h5">37 jobs live - 0 added today.</Typography></Box>
+            <Box id="categories" position="absolute" top="-30px"></Box>
+            <Box mb={3} mt={10}><Typography variant="h3">Popular Categories</Typography></Box>
+            <Box ><Typography variant="h5">37 jobs live - 0 added today.</Typography></Box>
             <CategoriesContainer />
             <Button  className={classes.button} color="secondary" variant="outlined"><Typography variant="h6" style={{fontSize:'16px'}} >Browse All Categories</Typography></Button>
         </Container>

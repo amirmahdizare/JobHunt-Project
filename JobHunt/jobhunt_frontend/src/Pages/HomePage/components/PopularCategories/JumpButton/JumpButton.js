@@ -31,7 +31,7 @@ const useClasses = makeStyles(theme => ({
 const JumpButton = () => {
     const classes = useClasses()
     return (
-        <Box className={classes.root}>
+        <Box className={classes.root} display={{'xs':'none','md':'block'}}>
                 <Button href="#categories"  className={classes.inner}><ArrowDownwardIcon fontSize="large"/></Button>
         </Box>
     )
