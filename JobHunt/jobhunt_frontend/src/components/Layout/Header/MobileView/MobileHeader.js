@@ -25,7 +25,12 @@ const mobileHeaderTheme = createTheme({
 })
 const useStyles = makeStyles((theme) => ({
     box: {
+        alignItems:'center',
         backgroundColor: '#0b1b46',
+        flexDirection:'row-reverse',
+        padding:theme.spacing(4),
+        position:'relative',
+        zIndex:'100'
     },
     button: {
         [theme.breakpoints.down('xs')]:{
@@ -72,7 +77,7 @@ const MobileHeader = () => {
     }
     return (
         <ThemeProvider theme={mobileHeaderTheme}>
-            <Box display={{ 'xs': 'block', 'lg': 'none' }} className={classes.box} p={4} flexDirection="row-reverse" alignItems="center" height={1} position="relative" >
+            <Box display={{ 'xs': 'block', 'lg': 'none' }} className={classes.box}   height={1}  >
                 <Box display='flex' flexDirection='row-reverse' justifyContent="space-between" alignItems='center'>
                     <Box >
                         {expand

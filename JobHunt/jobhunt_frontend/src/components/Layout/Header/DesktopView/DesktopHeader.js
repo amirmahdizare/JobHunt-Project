@@ -97,7 +97,7 @@ const DesktopHeader = (props) => {
     })
     console.log(stickyHeaderTheme)
     return (
-        <Box display={{ 'xs': 'none', 'lg': 'block' }} position={headerStatus == "normal" ? "absolute" : "sticky"}>
+        <Box display={{ 'xs': 'none', 'lg': 'block' }} position={headerStatus == "normal" ? "absolute" : "sticky"} zIndex={100}>
             <ThemeProvider theme={headerStatus == "normal" ? normalHeaderTheme : stickyHeaderTheme} >
                 <AppBar className={classes.appBar} style={headerStatus == "normal" ? { boxShadow: 'none' } : {}} >
                     <Toolbar className={classes.toolbar}>
