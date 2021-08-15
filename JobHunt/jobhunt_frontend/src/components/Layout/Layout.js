@@ -8,7 +8,7 @@ import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/co
 
 let theme = createTheme({
     typography: {
-        fontFamily: 'Open Sans',
+        fontFamily: 'Quicksand',
     }
 });
 theme = responsiveFontSizes(theme);
