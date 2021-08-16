@@ -62,20 +62,23 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const fontTheme = {
-    typography: {
-        fontFamily: 'Open Sans',
+// const fontTheme = {
+//     typography: {
+//         fontFamily: 'Open Sans',
 
-    }
+//     }
 
-}
+// }
 const stickyHeaderTheme = createTheme({
     palette: {
         primary: {
             main: 'rgb(255,255,255)',
             contrastText: 'rgb(0,0,0)'
         },
-    }, ...fontTheme
+    },
+    typography:{
+        fontFamily:'Quicksand'
+    }
 });
 const normalHeaderTheme = createTheme({
     palette: {
@@ -83,7 +86,10 @@ const normalHeaderTheme = createTheme({
             main: 'rgba(0,0,0,0)',
             contrastText: '#fff',
         },
-    }, ...fontTheme
+    },
+    typography:{
+        fontFamily:'Quicksand'
+    }
 });
 const DesktopHeader = (props) => {
     const classes = useStyles();

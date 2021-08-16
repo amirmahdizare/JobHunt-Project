@@ -38,7 +38,7 @@ const DesktopViewHeaderButtons = (props) => {
                 color="secondary"
                 startIcon={<AddOutlinedIcon />}
             >
-                <Typography variant="h6"> Post Jobs</Typography>
+                <Typography variant="body1"> Post Jobs</Typography>
 
             </Button>
             <Button
@@ -46,14 +46,14 @@ const DesktopViewHeaderButtons = (props) => {
                 className={classes.button}
                 startIcon={<VpnKeyOutlinedIcon />}
             >
-                <Typography variant="h6">Sign Up</Typography>
+                <Typography variant="body1">Sign Up</Typography>
             </Button>
             <Button
                 size="large"
                 className={classes.button}
                 startIcon={<ExitToAppIcon />}
             >
-                <Typography variant="h6">Login</Typography>
+                <Typography variant="body1">Login</Typography>
             </Button>
         </Box>
     )

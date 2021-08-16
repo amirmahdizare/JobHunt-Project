@@ -9,19 +9,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     button: {
-        [theme.breakpoints.down('xs')]: {
-            '& .MuiTypography-root': { fontSize: '12px' }
-        },
         color: 'white',
-        margin: theme.spacing(0.5),
         transition: 'all .4s ease',
         textTransform: 'none'
     },
 
     postJobButton: {
-        [theme.breakpoints.down('xs')]: {
-            '& .MuiTypography-root': { fontSize: '12px' }
-        },
         boxSizing: 'border-box',
         border: '2px solid #fb236a',
         borderRadius: '40px',
@@ -34,13 +27,15 @@ const useStyles = makeStyles((theme) => ({
             color: 'white',
             transform: 'none',
         },
+        
     }
 }))
 const HeaderButtons = (props) => {
     const classes = useStyles();
 
     return (
-        <Box py={2} display='flex' flexDirection='row' justifyContent='space-between'>
+        <Box py={2} display='flex' flexDirection='row' justifyContent='space-between' >
+            <Box>
             <Button
                 className={classes.postJobButton}
                 variant="contained"
@@ -48,25 +43,23 @@ const HeaderButtons = (props) => {
                 startIcon={<AddOutlinedIcon />}
                 onClick={props.onButtonClick}
                 >
-                <Typography variant="h5"> Post Jobs</Typography>
+                <Typography variant="body1"> Post Jobs</Typography>
 
-            </Button>
+            </Button></Box>
             <Box>
                 <Button
-                    size="large"
                     className={classes.button}
                     startIcon={<VpnKeyOutlinedIcon />}
                     onClick={props.onButtonClick}
                     >
-                    <Typography variant="h5">Sign Up</Typography>
+                    <Typography variant="body1">Sign Up</Typography>
                 </Button>
                 <Button
-                    size="large"
                     className={classes.button}
                     startIcon={<ExitToAppIcon />}
                     onClick={props.onButtonClick}
                     >
-                    <Typography variant="h5">Login</Typography>
+                    <Typography variant="body1">Login</Typography>
                 </Button>
             </Box>
         </Box>

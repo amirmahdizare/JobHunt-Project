@@ -12,38 +12,39 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import SearchBox from './components/SearchBox'
 import Typography from '@material-ui/core/Typography';
-import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, makeStyles, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
+import { Container } from '@material-ui/core';
 
-const mobileHeaderTheme = createTheme({
+var mobileHeaderTheme = createTheme({
     typography: {
         button: {
             textTransform: 'none',
         },
-        fontFamily: 'Open Sans',
-        
+        fontFamily: 'Quicksand',
+
     }
 })
+mobileHeaderTheme = responsiveFontSizes(mobileHeaderTheme);
 const useStyles = makeStyles((theme) => ({
-    box: {
-        alignItems:'center',
+    root: {
+        alignItems: 'center',
         backgroundColor: '#0b1b46',
-        flexDirection:'row-reverse',
-        padding:theme.spacing(4),
-        position:'relative',
-        zIndex:'100'
+        flexDirection: 'row-reverse',
+        padding: theme.spacing(4),
+        position: 'relative',
+        zIndex: '100',
+
     },
     button: {
-        [theme.breakpoints.down('xs')]:{
-            '& .MuiTypography-root':{fontSize:'12px'}
-        },
         color: 'white',
         margin: theme.spacing(0.5),
         transition: 'all .4s ease',
-        textTransform:'none'
+        textTransform: 'none'
     },
-    container: {
-        height: '620px',
-        overflowY: 'auto'
+    divider: {
+        backgroundColor: 'gray',
+        color: 'gray',
+        height: '0.25px',
     },
     hidden: {
         visibility: 'hidden'
@@ -55,16 +56,17 @@ const useStyles = makeStyles((theme) => ({
         boxSizing: 'border-box',
         transform: 'unset !important',
         top: 'unset !important',
-        width: "100vw",
-        '& .MuiPaper-root': {
-            backgroundColor: '#0b1b46',
-            borderRadius: '0',
-            padding: '20px',
-        },
-        '& .MuiDivider-light': {
-            backgroundColor: 'gray',
-        }
-    }
+        width: "100%",
+        position: 'unset'
+
+    },
+    wrapper: {
+        background: '#0b1b46',
+        height: '500px',
+        overflowY: 'auto',
+
+    },
+
 }))
 
 const MobileHeader = () => {
@@ -72,12 +74,12 @@ const MobileHeader = () => {
     const [expand, setExpand] = useState(false)
     const anchorRef = useRef(null);
 
-    const toggleExpand = () =>{
+    const toggleExpand = () => {
         setExpand(!expand)
     }
     return (
         <ThemeProvider theme={mobileHeaderTheme}>
-            <Box display={{ 'xs': 'block', 'lg': 'none' }} className={classes.box}   height={1}  >
+            <Box display={{ 'xs': 'block', 'lg': 'none' }} className={classes.root} height={1}  >
                 <Box display='flex' flexDirection='row-reverse' justifyContent="space-between" alignItems='center'>
                     <Box >
                         {expand
@@ -94,15 +96,15 @@ const MobileHeader = () => {
                             {...TransitionProps}
                             style={{ transformOrigin: placement === 'top' ? 'center top' : 'center bottom' }}
                         >
-                            <Paper>
-                                <Box className={classes.container} px={1}>
-                                    <Divider light />
-                                    <HeaderButtons onButtonClick ={toggleExpand}/>
-                                    <Divider light />
+                            <Paper className={classes.wrapper} >
+                                <Container >
+                                    <Divider className={classes.divider} />
+                                    <HeaderButtons onButtonClick={toggleExpand} />
+                                    <Divider className={classes.divider} />
                                     <SearchBox />
-                                    <Divider light />
+                                    <Divider className={classes.divider} />
                                     <HeaderMenus onMenuItemClick={toggleExpand} />
-                                </Box>
+                                </Container>
                             </Paper>
                         </Grow>
                     )}

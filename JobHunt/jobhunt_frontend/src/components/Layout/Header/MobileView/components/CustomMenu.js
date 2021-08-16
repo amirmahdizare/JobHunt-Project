@@ -11,19 +11,15 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& .MuiAccordionSummary-root': {
-      padding: 'unset'
-    }
+    backgroundColor: '#0b1b46',
   },
   heading: {
     color: props => { return props.expanded == props.title ? 'white' : '#96a0bd' },
-    fontSize: '22px',
     flexBasis: '33.33%',
     flexShrink: 0,
   },
   icon: {
     color: 'white',
-    fontSize: '1.5em',
   },
   menuItem: {
     color: props => { return props.expanded == props.title ? 'white' : 'gray' },
@@ -60,7 +56,7 @@ const CustomMenu = (props) => {
         aria-controls={`${props.title}-content`}
         id={props.title}
       >
-        <Typography className={classes.heading}>{props.title}</Typography>
+        <Typography className={classes.heading} variant="h5">{props.title}</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <MenuList className={classes.menuList}>

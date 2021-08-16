@@ -76,7 +76,7 @@ export default function CustomMenu(props) {
     }
     const makeMenuItems =() => {
         if(props.menuItems.length!=0)
-       {return  props.menuItems.map((menuItem)=><MenuItem className={classes.menuItem} onClick={handleClose}><Link className={classes.menuItemLink} underline="none" href={menuItem.href}>{menuItem.name}</Link></MenuItem>)}
+       {return  props.menuItems.map((menuItem)=><MenuItem className={classes.menuItem} onClick={handleClose}><Link className={classes.menuItemLink} underline="none" href={menuItem.href}><Typography variant="body2">{menuItem.name}</Typography></Link></MenuItem>)}
     }
     const prevOpen = React.useRef(open);
     return (
@@ -92,7 +92,7 @@ export default function CustomMenu(props) {
                 endIcon={<ExpandMoreIcon />}
                 className={classes.menuTitle}
             >
-              <Typography variant="h6" style={{textTransform:'none'}}>{props.menuTitle} </Typography>  
+              <Typography variant="body1" style={{textTransform:'none'}}>{props.menuTitle} </Typography>  
             </Button>
             <Popper className={classes.menuPaper}  open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                 {({ TransitionProps, placement }) => (
