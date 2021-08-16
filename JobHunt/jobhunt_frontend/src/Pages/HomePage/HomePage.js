@@ -5,7 +5,7 @@ import JobHuntResume from './components/JobHuntResume/JobHuntResume'
 import FeaturedJobs from './components/FeaturedJobs/FeaturedJobs'
 import { HappyCandidates } from './components/HappyCandidates/HappyCandidates'
 import { Supporters } from './components/Supporters/Supporters'
-
+import { QuickCareerTips } from './components/QuickCareerTips/QuickCareerTips'
 const HomePage = () => {
     return (
         <div>
@@ -15,6 +15,7 @@ const HomePage = () => {
                 <FeaturedJobs/>
                 <HappyCandidates/>
                 <Supporters/>
+                <QuickCareerTips/>
         </div>
     )
 }
