@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Grid, Typography } from '@material-ui/core'
 import { Logo } from '../../../components/Logo'
 import SocialMedias from './components/SocialMedias'
 import { makeStyles } from '@material-ui/core'
@@ -21,17 +21,19 @@ const useClasses = makeStyles((theme) => ({
 const ContactUs = (props) => {
   const classes = useClasses()
   return (
-    <Box className={classes.root} height="100%">
-      <Logo />
-      {/* Address */}
-      <Typography className={classes.text} variant="h6">Collin Street West, Victor 8007, Australia.</Typography>
-      {/* Phone Number */}
-      <Typography className={classes.text} variant="h6">+1 246-345-0695</Typography>
-      {/* Email */}
-      <Typography className={classes.text} variant="h6">info@jobhunt.com</Typography>
-      <SocialMedias />
+    <Grid item xs={6} md={3}>
+      <Box className={classes.root} height="100%">
+        <Logo />
+        {/* Address */}
+        <Typography className={classes.text} variant="h6">Collin Street West, Victor 8007, Australia.</Typography>
+        {/* Phone Number */}
+        <Typography className={classes.text} variant="h6">+1 246-345-0695</Typography>
+        {/* Email */}
+        <Typography className={classes.text} variant="h6">info@jobhunt.com</Typography>
+        <SocialMedias />
 
-    </Box>
+      </Box>
+    </Grid>
   )
 }
 export default ContactUs

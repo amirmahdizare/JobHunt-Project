@@ -1,9 +1,10 @@
-import { Box } from '@material-ui/core'
+import { Box, Grid } from '@material-ui/core'
 import React from 'react'
 import { ListMenu } from './ListMenu'
 import { Typography } from '@material-ui/core'
 const FindJobs = () => {
     return (
+        <Grid item  xs={12} md={3} >
         <Box p={2}>
             <Typography variant="h5" style={{ color: 'white' }}>
                 Find Jobs
@@ -19,6 +20,7 @@ const FindJobs = () => {
                 ]}
             />
         </Box>
+        </Grid>
     )
 }
 export { FindJobs }

@@ -3,7 +3,7 @@ import {logo} from '../../../asset/index'
 const Logo = () => {
     return (
         <>
-          <img style ={{height:'100%'}} src= {logo} /> 
+          <img  src= {logo} /> 
         </>
     )
 }
