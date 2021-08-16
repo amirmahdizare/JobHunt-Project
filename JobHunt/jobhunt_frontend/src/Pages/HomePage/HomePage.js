@@ -6,6 +6,7 @@ import FeaturedJobs from './components/FeaturedJobs/FeaturedJobs'
 import { HappyCandidates } from './components/HappyCandidates/HappyCandidates'
 import { Supporters } from './components/Supporters/Supporters'
 import { QuickCareerTips } from './components/QuickCareerTips/QuickCareerTips'
+import {GotQuestion} from './components/GotQuestion/GotQuestion'
 const HomePage = () => {
     return (
         <div>
@@ -16,6 +17,7 @@ const HomePage = () => {
                 <HappyCandidates/>
                 <Supporters/>
                 <QuickCareerTips/>
+                <GotQuestion/>
         </div>
     )
 }
