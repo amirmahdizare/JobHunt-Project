@@ -7,6 +7,7 @@ import { DesktopViewHeaderButtons } from './components/HeaderButtons';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Logo } from '../../components/Logo'
 import { Logo2 } from '../../components/Logo2'
+import { Container } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
@@ -15,13 +16,9 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     toolbar: {
-        padding: '1em',
-        width: '85%',
+        // padding: '0.5em',
         display: 'flex',
         justifyContent: 'space-between',
-        // '& .MuiTypography-h6':{[theme.breakpoints.down('xl')]:
-        //     {fontSize:'1.2rem',
-        // }},
         [theme.breakpoints.up('md')]:
         {
             '& .MuiTypography-h6': {
@@ -62,13 +59,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// const fontTheme = {
-//     typography: {
-//         fontFamily: 'Open Sans',
-
-//     }
-
-// }
 const stickyHeaderTheme = createTheme({
     palette: {
         primary: {
@@ -76,8 +66,8 @@ const stickyHeaderTheme = createTheme({
             contrastText: 'rgb(0,0,0)'
         },
     },
-    typography:{
-        fontFamily:'Quicksand'
+    typography: {
+        fontFamily: 'Quicksand'
     }
 });
 const normalHeaderTheme = createTheme({
@@ -87,8 +77,8 @@ const normalHeaderTheme = createTheme({
             contrastText: '#fff',
         },
     },
-    typography:{
-        fontFamily:'Quicksand'
+    typography: {
+        fontFamily: 'Quicksand'
     }
 });
 const DesktopHeader = (props) => {
@@ -106,16 +96,17 @@ const DesktopHeader = (props) => {
         <Box display={{ 'xs': 'none', 'lg': 'block' }} position={headerStatus == "normal" ? "absolute" : "sticky"} zIndex={100}>
             <ThemeProvider theme={headerStatus == "normal" ? normalHeaderTheme : stickyHeaderTheme} >
                 <AppBar className={classes.appBar} style={headerStatus == "normal" ? { boxShadow: 'none' } : {}} >
-                    <Toolbar className={classes.toolbar}>
-                        <Box>
-                            {headerStatus == "normal" ? <Logo /> : <Logo2 />}
-                        </Box>
-                        <Box display="flex">
-                            <DesktopViewHeaderMenus headerStatus={headerStatus} />
-                            <DesktopViewHeaderButtons headerStatus={headerStatus} />
-                        </Box >
-
-                    </Toolbar>
+                    <Container maxWidth="lg">
+                        <Toolbar className={classes.toolbar}>
+                            <Box>
+                                {headerStatus == "normal" ? <Logo /> : <Logo2 />}
+                            </Box>
+                            <Box display="flex">
+                                <DesktopViewHeaderMenus headerStatus={headerStatus} />
+                                <DesktopViewHeaderButtons headerStatus={headerStatus} />
+                            </Box >
+                        </Toolbar>
+                    </Container>
                 </AppBar>
             </ThemeProvider>
         </Box>
