@@ -13,14 +13,18 @@ import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 const useStyles = makeStyles(theme => ({
     table: {
         minWidth: 650,
-      
-        
+        overflow: 'auto',
+
+
     },
-    tableContainer:{
-        marginLeft:theme.spacing(2),
-          '& .MuiTableCell-body':{
-            paddingTop:theme.spacing(4),
-            paddingBottom:theme.spacing(3)
+    tableContainer: {
+        marginLeft: theme.spacing(2),
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: 'unset'
+        },
+        '& .MuiTableCell-body': {
+            paddingTop: theme.spacing(4),
+            paddingBottom: theme.spacing(3),
         }
     },
     thead: {
@@ -28,8 +32,8 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.secondary.main
 
     },
-    tooltip:{
-        fontSize:theme.typography.body1.fontSize
+    tooltip: {
+        fontSize: theme.typography.body1.fontSize
     }
 }));
 
@@ -64,24 +68,25 @@ export const JobsTable = (props) => {
                         <TableRow key={row.name}>
                             <TableCell align="left">
                                 <Typography variant="body1">{row.jobTitle}</Typography>
-                                <Typography variant="body2" color="textSecondary"><LocationOnOutlinedIcon style={{verticalAlign:'middle'}} fontSize="small" />{row.jobLocation}</Typography>
+                                <Typography variant="body2" color="textSecondary"><LocationOnOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize="small" />{row.jobLocation}</Typography>
                             </TableCell>
                             <TableCell align="left"><Typography variant="body2" color="textSecondary">{row.application}+&nbsp;Applied</Typography></TableCell>
-                          <TableCell align="left">
+                            <TableCell align="left">
                                 <Typography color="textSecondary" variant="body2">{row.created}</Typography>
                                 <Typography color="textSecondary" variant="body2">{row.expired}</Typography>
-                                </TableCell>
+                            </TableCell>
                             <TableCell align="left">
 
-                                <Typography color={row.status=='Active' ? 'primary' : 'secondary'} variant="body2">{row.status}</Typography>
-                                </TableCell>
-                               <TableCell align="left">
-                                <Jh_Tooltip fontSize={classes.tooltip.fontsize}  title="View Job" laIcon={SvgEye}  />
-                                <Jh_Tooltip fontSize={classes.tooltip.fontsize} title="Edit" laIcon={SvgPencilAltSolid}  />
-                                <Jh_Tooltip fontSize={classes.tooltip.fontsize} title="Delete" laIcon={SvgTrashAlt}  />
+                                <Typography color={row.status == 'Active' ? 'primary' : 'secondary'} variant="body2">{row.status}</Typography>
+                            </TableCell>
+                            <TableCell align="left" >
+                                <Box display="flex" flexWrap="nowrap">
+                                    <Jh_Tooltip  title="View Job" laIcon={SvgEye} />
+                                    <Jh_Tooltip  title="Edit" laIcon={SvgPencilAltSolid} />
+                                    <Jh_Tooltip  title="Delete" laIcon={SvgTrashAlt} />
+                                </Box>
 
-
-                            </TableCell> 
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

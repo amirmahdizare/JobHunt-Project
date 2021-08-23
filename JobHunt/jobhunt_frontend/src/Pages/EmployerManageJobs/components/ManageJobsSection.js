@@ -8,10 +8,15 @@ const useStyles = makeStyles(theme => ({
     buttonContainer: {
         border: '2px solid #e8ecec',
         borderRadius: theme.spacing(1),
-        display: 'flex',
+        display: 'flex', 
+        marginLeft: theme.spacing(2),
+        [theme.breakpoints.down('sm')]:{
+            flexDirection:'column',
+            marginLeft:'unset'
+        },
         justifyContent: 'space-around',
         marginBottom: theme.spacing(2),
-        marginLeft: theme.spacing(2),
+       
         marginTop: theme.spacing(2),
         padding: theme.spacing(1),
         '& .MuiButton-root': {
