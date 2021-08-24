@@ -1,4 +1,4 @@
-import { Button, Card, CardActionArea, CardMedia, Grid, makeStyles, Typography } from '@material-ui/core'
+import { Box, Button, Card, CardActionArea, CardMedia, Grid, makeStyles, Typography } from '@material-ui/core'
 import { React, useState } from 'react'
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -46,7 +46,9 @@ const useClasses = makeStyles(theme => ({
         alignItems: 'center',
         color: 'gray',
         display: 'flex',
+        flexWrap: 'wrap',
         justifyContent: 'space-around',
+        alignItems: "center",
         [theme.breakpoints.down('xs')]: {
             justifyContent: 'center',
         },
@@ -91,7 +93,7 @@ const Jh_JobCard = (props) => {
         <Card className={classes.root}>
             <CardActionArea className={classes.content}>
                 <Grid container spacing={1}>
-                    <Grid item xs={12} sm={props.hideDetail ? 4 :  1} className={classes.companyLogoContainer}>
+                    <Grid item xs={12} sm={props.hideDetail ? 4 : 1} className={classes.companyLogoContainer}>
 
                         <CardMedia
                             className={classes.companyLogo}
@@ -104,18 +106,21 @@ const Jh_JobCard = (props) => {
 
                     </Grid>
                     {!props.hideDetail ?
-                    <>
-                    <Grid item xs={12} sm={3} className={classes.locationContainer} >
-                        <LocationOnOutlinedIcon className={classes.icon} />
-                        <Typography variant="body2" >{props.companyLocation} </Typography>
+                        <>
+                            <Grid item xs={12} sm={3} className={classes.locationContainer} >
+                                <LocationOnOutlinedIcon className={classes.icon} />
+                                <Typography variant="body2" >{props.companyLocation} </Typography>
 
-                    </Grid>
-                    <Grid item xs={12} sm={3} className={classes.itemContainer}>
-                        <FavoriteBorderIcon className={classes.icon} style={{ color: !like ? 'gray' : 'red' }} onClick={() => setLike(!like)} />
-                        <Button className={classes.workTime} style={makeWorkTimestatus()} variant="outlined">{props.workTime} </Button>
-                    </Grid>
-                    </>
-                    : undefined}
+                            </Grid>
+                            <Grid item xs={12} sm={3} className={classes.itemContainer}>
+                                <FavoriteBorderIcon className={classes.icon} style={{ color: !like ? 'gray' : 'red' }} onClick={() => setLike(!like)} />
+                                <Box>
+                                    <Button className={classes.workTime} style={makeWorkTimestatus()} variant="outlined">{props.workTime} </Button>
+                                    <Typography display="block" variant="body2" color="textSecondary">{props.registeredDate}</Typography>
+                                </Box>
+                            </Grid>
+                        </>
+                        : undefined}
                 </Grid>
             </CardActionArea>
         </Card>
