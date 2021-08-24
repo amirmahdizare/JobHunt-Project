@@ -6,6 +6,7 @@ import { ShareBox } from './components/ShareBox'
 import { AboutBusiness } from './components/AboutBusiness'
 import { CompanyInformation } from './components/CompanyInformation/CompanyInformation'
 import { JobsFromBusiness } from './components/JobsFromBusiness'
+import { ContactBusiness } from './components/ContactBusiness'
 export const EmployerSingle = () => {
     return (
         <Box >
@@ -32,6 +33,7 @@ export const EmployerSingle = () => {
                             "Repeatedly dreamed alas opossum but dramatically despite expeditiously that jeepers loosely yikes that as or eel underneath kept and slept compactly far purred sure abidingly up above fitting to strident wiped set waywardly far the and pangolin horse approving paid chuckled cassowary oh above a much opposite far much hypnotically more therefore wasp less that hey apart well like while superbly orca and far hence one.Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy."]} />
                     <CompanyInformation />
                     <JobsFromBusiness/>
+                    <ContactBusiness/>
                 </Grid>
             </Container>
         </Box>
