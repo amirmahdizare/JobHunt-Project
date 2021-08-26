@@ -1,7 +1,8 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, IconButton, makeStyles, Slider, Typography, withStyles } from '@material-ui/core'
 import React, { useState } from 'react'
 import { Jh_Card } from '../../../components/Jh_Card'
-import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 const useStyles = makeStyles(theme => ({
     root: {
         flex: '1'
@@ -61,6 +62,7 @@ export const Since = (props) => {
         min: props.min,
         max: props.max
     })
+    const [expand,setExpand] =useState(true)
 
     const handleSliderChange = (event, range) => {
         setRange({ min: range[0], max: range[1] })
@@ -71,7 +73,7 @@ export const Since = (props) => {
         <Jh_Card>
             <Accordion defaultExpanded elevation={0} classes={{ root: classes.root }}>
                 <AccordionSummary
-                    expandIcon={<IconButton><ExpandMoreOutlinedIcon /></IconButton>}
+                    expandIcon={<IconButton onClick={() => setExpand(!expand)} >{expand ? <RemoveIcon /> : <AddIcon/>}</IconButton>}
                     aria-controls="Since Filter"
                     id="Since Filter"
                     classes={{ root: classes.summary, expandIcon: classes.expandIcon }}
