@@ -2,6 +2,8 @@ import { Box, Container, Divider, Grid } from '@material-ui/core'
 import React from 'react'
 import { Jh_ContentHeader } from '../../components/Jh_ContentHeader'
 import { AccordionFilterBox } from './components/AccordionFilterBox'
+import { List } from './components/List'
+import { ListPagination } from './components/ListPagination'
 import { SearchKeyword } from './components/SearchKeyword'
 import { SelectLocation } from './components/SelectLocation'
 import { Since } from './components/Since'
@@ -39,10 +41,10 @@ export const EmployerList = () => {
                         <Since min={1991} max={2022} />
 
                     </Grid>
-                    <Divider orientation="vertical" flexItem />
-                    <Grid item xs={12} md={7} spacing={2} >
+                    <Grid item xs={12} md={9} spacing={2} >
                         <Grid item xs={12}>
-                           
+                           <List/>
+                           <ListPagination/>
                         </Grid>
                     </Grid>
 
