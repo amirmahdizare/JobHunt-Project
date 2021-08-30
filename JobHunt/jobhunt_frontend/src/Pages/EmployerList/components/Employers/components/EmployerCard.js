@@ -43,18 +43,15 @@ export const EmployerCard = (props) => {
                         <CardMedia
                         className={classes.cardMedia}
                             image={props.logo}
-                            // height="80px"
                             component="img" />
                     </Grid>
                     <Grid item xs={12} sm={10}  className={classes.alignItemsinXs}>
-                        {/* <CardContent> */}
                         <Typography className={classes.openPosition} color="primary" gutterBottom>{props.numberOfOpenPositions}&nbsp;Open Position</Typography>
                         <Typography variant="h6" gutterBottom>{props.name}</Typography>
                         <Typography color="secondary"gutterBottom>{props.category}</Typography>
                         <Typography gutterBottom variant="body2"><LocationOnOutlinedIcon color="action" style={{ verticalAlign: 'middle' }} />&nbsp;{props.location}</Typography>
                         <Typography variant="body2" color="textSecondary" gutterBottom>{props.description}</Typography>
 
-                        {/* </CardContent> */}
                     </Grid>
 
                 </Grid>
