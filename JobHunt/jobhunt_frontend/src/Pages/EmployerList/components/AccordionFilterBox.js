@@ -50,7 +50,7 @@ export const AccordionFilterBox = (props) => {
                     <FormGroup >
                         {props.items ? props.items.map(item => (<FormControlLabel
                             control={<Checkbox checked={state[item.name]} onChange={handleChange} name={item.name} color="primary" />}
-                            label={<Typography >{item.name}&nbsp;{item.number ? <>&nbsp;({item.number})</> : undefined}</Typography>}
+                            label={<Typography variant="body2">{item.name}&nbsp;{item.number ? <>&nbsp;({item.number})</> : undefined}</Typography>}
                         />)) : <Typography>No Item Found!</Typography>}
 
                     </FormGroup>
