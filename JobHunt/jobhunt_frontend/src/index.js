@@ -1,14 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+// import {Jh_MainLayout} from './components/Jh_layout/Jh_MainLayout/Jh_MainLayout'
+// import { HomePage } from './Pages/HomePage/HomePage';
+// import {CandidateDashboard} from './Pages/CandidateDashboard/CandidateDashboard'
+// import {Jh_CandidateLayout} from './components/Jh_layout/Jh_CandidateLayout/Jh_CandidateLayout'
+import {Jh_EmployerLayout} from './components/Jh_layout/Jh_EmployerLayout/Jh_EmployerLayout'
+// import { EmployerManageJobs } from './Pages/EmployerManageJobs/EmployerManageJobs';
+// import { EmployerSingle } from './Pages/EmployerSingle/EmployerSingle';
+import {EmployerList} from './Pages/EmployerList/EmployerList'
+  // <Jh_MainLayout children={<HomePage/>}/> 
+  // <Jh_CandidateLayout children={<CandidateDashboard/>}/>
+  ReactDOM.render(
+    <Jh_EmployerLayout children={<EmployerList/>}/>
+  ,document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
