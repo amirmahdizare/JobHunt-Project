@@ -6,15 +6,15 @@ import { RecentPosts } from './components/RecentPosts.js/RecentPosts'
 import { SearchKeywordBlog } from './components/SearchKeywordBlog'
 import { OurPhoto } from './components/OurPhoto'
 import { Tags } from './components/Tags'
-export const Jh_BlogFrame = () => {
+export const Jh_BlogFrame = (props) => {
     return (
 
         <Box>
             <Jh_ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Blog" />
             <Container maxWidth="lg">
-                <Grid container>
+                <Grid container spacing={2}>
                     <Grid item xs={12} sm={9}>
-
+                    {props.children}
 
                     </Grid>
                     <Grid item xs={12} sm={3}>
