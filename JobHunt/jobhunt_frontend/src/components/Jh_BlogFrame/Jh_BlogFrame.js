@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from '@material-ui/core'
+import { Box, Container, Grid,makeStyles } from '@material-ui/core'
 import React from 'react'
 import { Jh_ContentHeader } from '../Jh_ContentHeader'
 import { Jh_SideBarMenu } from '../Jh_SideBarMenu'
@@ -6,12 +6,23 @@ import { RecentPosts } from './components/RecentPosts.js/RecentPosts'
 import { SearchKeywordBlog } from './components/SearchKeywordBlog'
 import { OurPhoto } from './components/OurPhoto'
 import { Tags } from './components/Tags'
+const useStyles=makeStyles(theme=>({
+    root:{
+        '& .MuiButton-root':{
+            textTransform:'none'
+        }
+    },
+    container:{
+        marginTop:theme.spacing(4)
+    }
+}))
 export const Jh_BlogFrame = (props) => {
+    const classes=useStyles()
     return (
 
-        <Box>
+        <Box className={classes.root}>
             <Jh_ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Blog" />
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" className={classes.container}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={9}>
                     {props.children}
