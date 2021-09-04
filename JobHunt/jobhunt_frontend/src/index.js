@@ -10,10 +10,13 @@ import {Jh_EmployerLayout} from './components/Jh_layout/Jh_EmployerLayout/Jh_Emp
 // import { EmployerManageJobs } from './Pages/EmployerManageJobs/EmployerManageJobs';
 // import { EmployerSingle } from './Pages/EmployerSingle/EmployerSingle';
 import {EmployerList} from './Pages/EmployerList/EmployerList'
+// import {BlogList} from './Pages/BlogList/BlogList'
+import {BlogSingle} from './Pages/BlogSingle/BlogSingle'
+import { BlogList } from './Pages/BlogList/BlogList';
   // <Jh_MainLayout children={<HomePage/>}/> 
   // <Jh_CandidateLayout children={<CandidateDashboard/>}/>
   ReactDOM.render(
-    <Jh_EmployerLayout children={<EmployerList/>}/>
+    <Jh_EmployerLayout children={<BlogSingle/>}/>
   ,document.getElementById('root')
 );
 
