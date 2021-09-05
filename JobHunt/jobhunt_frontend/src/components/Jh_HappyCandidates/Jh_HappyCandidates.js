@@ -38,8 +38,8 @@ const Jh_HappyCandidates = () => {
         <Box className={classes.root}>
             <Container maxWidth='lg'>
                 <Box mt={6} className={classes.content}>
-                    <Typography variant="h3">Kind Words From Happy Candidates</Typography>
-                    <Typography variant="h6">What other people thought about the service provided by JobHunt</Typography>
+                    <Typography variant="h4">Kind Words From Happy Candidates</Typography>
+                    <Typography >What other people thought about the service provided by JobHunt</Typography>
                 </Box>
                 <CondidatesSlider/>
             </Container>
