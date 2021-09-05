@@ -13,10 +13,11 @@ import {EmployerList} from './Pages/EmployerList/EmployerList'
 // import {BlogList} from './Pages/BlogList/BlogList'
 import {BlogSingle} from './Pages/BlogSingle/BlogSingle'
 import { BlogList } from './Pages/BlogList/BlogList';
+import {AboutUs} from './Pages/AboutUs/AboutUs'
   // <Jh_MainLayout children={<HomePage/>}/> 
   // <Jh_CandidateLayout children={<CandidateDashboard/>}/>
   ReactDOM.render(
-    <Jh_EmployerLayout children={<BlogSingle/>}/>
+    <Jh_EmployerLayout children={<AboutUs/>}/>
   ,document.getElementById('root')
 );
 
