@@ -5,6 +5,7 @@ import { AboutUsHeader } from './components/AboutUsHeader'
 import { Jh_HappyCandidates } from '../../components/Jh_HappyCandidates/Jh_HappyCandidates'
 import { Jh_Statistics } from '../../components/Jh_Statistics'
 import { Jh_QuickCareerTips} from '../../components/Jh_QuickCareerTips/Jh_QuickCareerTips'
+import { Jh_Supporters } from '../../components/Jh_Supporters/Jh_Supporters'
 export const AboutUs = () => {
   
     return (
@@ -14,6 +15,7 @@ export const AboutUs = () => {
             <Jh_HappyCandidates/>
             <Jh_Statistics/>
             <Jh_QuickCareerTips/>
+            <Jh_Supporters/>
             
         </Box>
     )
