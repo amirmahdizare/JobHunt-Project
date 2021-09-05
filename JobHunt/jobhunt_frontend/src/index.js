@@ -14,10 +14,12 @@ import {EmployerList} from './Pages/EmployerList/EmployerList'
 import {BlogSingle} from './Pages/BlogSingle/BlogSingle'
 import { BlogList } from './Pages/BlogList/BlogList';
 import {AboutUs} from './Pages/AboutUs/AboutUs'
+import { HomePage } from './Pages/HomePage/HomePage';
+import { ContactUs } from './Pages/ContactUs/ContactUs';
   // <Jh_MainLayout children={<HomePage/>}/> 
   // <Jh_CandidateLayout children={<CandidateDashboard/>}/>
   ReactDOM.render(
-    <Jh_EmployerLayout children={<AboutUs/>}/>
+    <Jh_EmployerLayout children={<ContactUs/>}/>
   ,document.getElementById('root')
 );
 
