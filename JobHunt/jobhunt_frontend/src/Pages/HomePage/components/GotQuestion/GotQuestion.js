@@ -17,8 +17,8 @@ const GotQuestion = () => {
     return (
         <Box className={classes.root}>
             <Container maxWidth="lg">
-                <Typography variant="h3">Gat a question?</Typography>
-                <Typography variant="h6">We're here to help. Check out our FAQs, send us an email or call us at 1 (800) 555-5555</Typography>
+                <Typography variant="h4">Gat a question?</Typography>
+                <Typography >We're here to help. Check out our FAQs, send us an email or call us at 1 (800) 555-5555</Typography>
             </Container>
 
         </Box>

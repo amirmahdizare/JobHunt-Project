@@ -39,8 +39,8 @@ const FeaturedJobs = () => {
         <Box width="100%" className={classes.root}>
             <Container maxWidth="lg" className={classes.container}>
                 <Box marginTop={6}>
-                    <Typography variant="h3">Featured Jobs</Typography>
-                    <Typography variant="h6">Leading Employers already using job and talent.</Typography>
+                    <Typography variant="h4">Featured Jobs</Typography>
+                    <Typography >Leading Employers already using job and talent.</Typography>
                 </Box>
                 <JobsContainer />
                 <Button  className={classes.button} color="secondary" variant="outlined"><Typography variant="h6" style={{fontSize:'16px'}} >Load more listings</Typography></Button>

@@ -7,6 +7,9 @@ import { HappyCandidates } from './components/HappyCandidates/HappyCandidates'
 import { Supporters } from './components/Supporters/Supporters'
 import { QuickCareerTips } from './components/QuickCareerTips/QuickCareerTips'
 import {GotQuestion} from './components/GotQuestion/GotQuestion'
+import { Jh_HappyCandidates } from '../../components/Jh_HappyCandidates/Jh_HappyCandidates'
+import { Jh_Supporters } from '../../components/Jh_Supporters/Jh_Supporters'
+import { Jh_QuickCareerTips } from '../../components/Jh_QuickCareerTips/Jh_QuickCareerTips'
 const HomePage = () => {
     return (
         <div>
@@ -14,9 +17,12 @@ const HomePage = () => {
                 <PopularCategories />
                 <JobHuntResume />
                 <FeaturedJobs/>
-                <HappyCandidates/>
-                <Supporters/>
-                <QuickCareerTips/>
+                {/* <HappyCandidates/> */}
+                <Jh_HappyCandidates/>
+                {/* <Supporters/> */}
+                <Jh_Supporters/>
+                {/* <QuickCareerTips/> */}
+                <Jh_QuickCareerTips/>
                 <GotQuestion/>
         </div>
     )

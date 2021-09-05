@@ -1,6 +1,7 @@
 import { Box, makeStyles } from '@material-ui/core'
 import React from 'react'
 import JobCard from './JobCard'
+import Jh_JobCard from '../../../../../components/Jh_JobCard.js'
 const useClasses = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(5),
@@ -17,7 +18,7 @@ const JobsContainer = () => {
     return (
         <Box className={classes.root}>
             {/* Worktime Must be one of these items  "FULL TIME" "PART TIME" "FREELANCE" "TEMPORARY" */}
-            <JobCard
+            <Jh_JobCard
                 jobTitle="Web Designer / Developer"
                 companyName="Massimo Artemisis"
                 companyLocation="Sacramento, California"
@@ -25,7 +26,7 @@ const JobsContainer = () => {
                 companyLogo="https://creativelayers.net/themes/jobhunt-html/images/resource/l1.png"
             />
 
-            <JobCard
+            <Jh_JobCard
                 jobTitle="Marketing Director"
                 companyName="Tix Dog"
                 companyLocation="Rennes, France"
@@ -34,7 +35,7 @@ const JobsContainer = () => {
             />
 
 
-            <JobCard
+            <Jh_JobCard
                 jobTitle="C Developer (Senior) C .Net"
                 companyName="StarHealth"
                 companyLocation="London, United Kingdom"
@@ -43,14 +44,14 @@ const JobsContainer = () => {
             />
 
 
-            <JobCard
+            <Jh_JobCard
                 jobTitle="Application Developer For Android"
                 companyName="Altes Bank"
                 companyLocation="Istanbul, Turkey"
                 workTime="FREELANCE"
                 companyLogo="https://creativelayers.net/themes/jobhunt-html/images/resource/l4.png"
             />
-            <JobCard
+            <Jh_JobCard
                 jobTitle="Regional Sales Manager South east Asia"
                 companyName="Vincent"
                 companyLocation="Ajax, Ontario"
@@ -58,7 +59,7 @@ const JobsContainer = () => {
                 companyLogo="https://creativelayers.net/themes/jobhunt-html/images/resource/l1.png"
             />
 
-            <JobCard
+            <Jh_JobCard
                 jobTitle="Social Media and Public Relation Executive"
                 companyName="MediaLab"
                 companyLocation="Ankara / Turkey"
