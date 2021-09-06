@@ -17,10 +17,11 @@ import {AboutUs} from './Pages/AboutUs/AboutUs'
 import { HomePage } from './Pages/HomePage/HomePage';
 import { ContactUs } from './Pages/ContactUs/ContactUs';
 import {FAQ} from './Pages/FAQ/FAQ';
+import { Pricing } from './Pages/Pricing/Pricing';
   // <Jh_MainLayout children={<HomePage/>}/> 
   // <Jh_CandidateLayout children={<CandidateDashboard/>}/>
   ReactDOM.render(
-    <Jh_EmployerLayout children={<FAQ/>}/>
+    <Jh_EmployerLayout children={<Pricing/>}/>
   ,document.getElementById('root')
 );
 
