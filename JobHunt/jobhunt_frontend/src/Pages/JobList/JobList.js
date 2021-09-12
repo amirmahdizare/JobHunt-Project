@@ -87,6 +87,14 @@ export const JobList = () => {
                             {name:'Speicalize Jobs'},
                             {name:'Business Jobs'},
                         ]}/>
+                        <Jh_AccordionFilterBox 
+                        title="Qualification"
+                        items={[
+                            {name:'Matriculation'},
+                            {name:'Intermidiate'},
+                            {name:'Gradute'},
+
+                        ]}/>
                     </Grid>
                     <Grid item xs={12} md={8}>
                     </Grid>
