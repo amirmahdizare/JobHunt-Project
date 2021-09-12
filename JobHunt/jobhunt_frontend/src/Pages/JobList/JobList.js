@@ -80,6 +80,13 @@ export const JobList = () => {
                             {name:'Female'},
                             {name:'Others'},
                         ]}/>
+                        <Jh_AccordionFilterBox
+                        title="Industry"
+                        items={[
+                            {name:'Meezan Job'},
+                            {name:'Speicalize Jobs'},
+                            {name:'Business Jobs'},
+                        ]}/>
                     </Grid>
                     <Grid item xs={12} md={8}>
                     </Grid>
