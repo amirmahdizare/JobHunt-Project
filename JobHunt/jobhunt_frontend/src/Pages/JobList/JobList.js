@@ -49,6 +49,14 @@ export const JobList = () => {
                            { name:'IT Contractor', number:7},
 
                         ]}/>
+                        <Jh_AccordionFilterBox
+                        title="Offerd Salary"
+                        items={[
+                            {name:'10K-20K'},
+                            {name:'20K-30K'},
+                            {name:'30K-40K'},
+                            {name:'40K-50K'},
+                        ]}/>
                     </Grid>
                     <Grid item xs={12} md={8}>
                     </Grid>
