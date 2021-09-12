@@ -19,10 +19,11 @@ import { ContactUs } from './Pages/ContactUs/ContactUs';
 import {FAQ} from './Pages/FAQ/FAQ';
 import { Pricing } from './Pages/Pricing/Pricing';
 import { Terms } from './Pages/Terms/Terms';
+import { HowItWorks } from './Pages/HowItWorks/HowItWorks';
   // <Jh_MainLayout children={<HomePage/>}/> 
   // <Jh_CandidateLayout children={<CandidateDashboard/>}/>
   ReactDOM.render(
-    <Jh_EmployerLayout children={<Terms/>}/>
+    <Jh_EmployerLayout children={<HowItWorks/>}/>
   ,document.getElementById('root')
 );
 
