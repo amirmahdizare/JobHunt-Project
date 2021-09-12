@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import {Jh_EmployerLayout} from './components/Jh_layout/Jh_EmployerLayout/Jh_EmployerLayout'
-import { HowItWorks } from './Pages/index';
+import { HowItWorks, JobList } from './Pages/index';
   ReactDOM.render(
-    <Jh_EmployerLayout children={<HowItWorks/>}/>
+    <Jh_EmployerLayout children={<JobList/>}/>
   ,document.getElementById('root')
 );
 
