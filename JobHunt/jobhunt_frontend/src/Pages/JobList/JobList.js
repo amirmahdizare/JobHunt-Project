@@ -4,6 +4,7 @@ import { Jh_AccordionFilterBox } from '../../components/Jh_AccordionFilterBox'
 import { Jh_ContentHeader } from '../../components/Jh_ContentHeader'
 import { Jh_SearchKeyword } from '../../components/Jh_SearchKeyword'
 import { Jh_SelectLocation } from '../../components/Jh_SelectLocation'
+import { SearchTags } from './components/SearchTags'
 import { StillNeedHelp } from './components/StillNeedHelp'
 
 export const JobList = () => {
@@ -11,7 +12,7 @@ export const JobList = () => {
         <Box>
             <Jh_ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Job List" />
             <Container maxWidth="lg">
-                <Grid container>
+                <Grid container spacing={1}>
                     <Grid item xs={12} md={3}>
                         <Jh_SearchKeyword />
                         <Jh_SelectLocation />
@@ -99,6 +100,7 @@ export const JobList = () => {
                         <StillNeedHelp/>
                     </Grid>
                     <Grid item xs={12} md={8}>
+                        <SearchTags/>
                     </Grid>
 
                 </Grid>
