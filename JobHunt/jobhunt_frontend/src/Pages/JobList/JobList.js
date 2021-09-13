@@ -4,6 +4,7 @@ import { Jh_AccordionFilterBox } from '../../components/Jh_AccordionFilterBox'
 import { Jh_ContentHeader } from '../../components/Jh_ContentHeader'
 import { Jh_SearchKeyword } from '../../components/Jh_SearchKeyword'
 import { Jh_SelectLocation } from '../../components/Jh_SelectLocation'
+import { StillNeedHelp } from './components/StillNeedHelp'
 
 export const JobList = () => {
     return (
@@ -95,6 +96,7 @@ export const JobList = () => {
                             {name:'Gradute'},
 
                         ]}/>
+                        <StillNeedHelp/>
                     </Grid>
                     <Grid item xs={12} md={8}>
                     </Grid>
