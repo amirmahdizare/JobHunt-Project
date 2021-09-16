@@ -1,10 +1,11 @@
-import { Box, Container, Grid } from '@material-ui/core'
+import { Box, Container, Divider, Grid } from '@material-ui/core'
 import React from 'react'
 import { Jh_AccordionFilterBox } from '../../components/Jh_AccordionFilterBox'
 import { Jh_ContentHeader } from '../../components/Jh_ContentHeader'
 import { Jh_SearchKeyword } from '../../components/Jh_SearchKeyword'
 import { Jh_SelectLocation } from '../../components/Jh_SelectLocation'
 import { Email_Sort } from './components/Email_Sort'
+import { Jobs } from './components/Jobs'
 import { SearchTags } from './components/SearchTags'
 import { StillNeedHelp } from './components/StillNeedHelp'
 
@@ -12,9 +13,9 @@ export const JobList = () => {
     return (
         <Box>
             <Jh_ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Job List" />
-            <Container maxWidth="lg">
-                <Grid container spacing={2}>
-                    <Grid item xs={12} md={3}>
+            <Container maxWidth="lg" style={{overflow:'hidden'}} >
+                <Grid container spacing={4} >
+                    <Grid item xs={12} md={3} style={{borderRight:'1px solid #edeff7'}}>
                         <Jh_SearchKeyword />
                         <Jh_SelectLocation />
                         <Jh_AccordionFilterBox 
@@ -100,9 +101,11 @@ export const JobList = () => {
                         ]}/>
                         <StillNeedHelp/>
                     </Grid>
-                    <Grid item xs={12} md={9}>
+                    {/* <Divider orientation="vertical" flexItem light /> */}
+                    <Grid item xs={12} md={9} >
                         <SearchTags/>
                         <Email_Sort/>
+                        <Jobs/>
                     </Grid>
 
                 </Grid>
