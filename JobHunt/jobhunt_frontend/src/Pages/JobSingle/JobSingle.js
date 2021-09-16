@@ -5,8 +5,8 @@ import { Jh_Share } from '../../components/Jh_Share'
 import { ApplyBox } from './components/ApplyBox'
 import { JobDetailContainer } from './components/JobDetailContainer'
 import { JobInfo } from './components/JobInfo'
+import { JobOverview } from './components/JobOverview'
 import { RecentJobs } from './components/RecentJobs'
-
 export const JobSingle = () => {
     return (
         <Box>
@@ -17,7 +17,7 @@ export const JobSingle = () => {
                 location="Ajax, Ontario"
                 datePosted="Posted 4 years ago" />
             <Container maxWidth="lg">
-                <Grid container>
+                <Grid container spacing={2}>
                     <Grid item xs={12} md={8}>
                         <JobInfo
                         companyName="Tix Dog"
@@ -64,12 +64,10 @@ export const JobSingle = () => {
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <ApplyBox/>
+                        <JobOverview/>
                     </Grid>
                 </Grid>
             </Container>
-
-
-
         </Box>
     )
 }
