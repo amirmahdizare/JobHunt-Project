@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core'
+import { Box, Button } from '@material-ui/core'
 import React from 'react'
 
 export const Jh_WorkTime = (props) => {
@@ -17,8 +17,8 @@ export const Jh_WorkTime = (props) => {
         }
     }
     return (
-        <>
-            <Button  style={makeWorkTimestatus()}  variant="outlined">{props.workTime} </Button>
-        </>
+        <Box>
+            <Button  style={makeWorkTimestatus()} color={props.color}  variant="outlined" {...props}>{props.workTime}  </Button>
+        </Box>
     )
 }
