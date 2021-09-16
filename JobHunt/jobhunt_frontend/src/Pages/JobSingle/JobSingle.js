@@ -1,6 +1,7 @@
 import { Box, Container, Divider, Grid } from '@material-ui/core'
 import React from 'react'
 import { Jh_JobSingleHeader } from '../../components/Jh_JobSingleHeader'
+import { Jh_Share } from '../../components/Jh_Share'
 import { JobDetailContainer } from './components/JobDetailContainer'
 import { JobInfo } from './components/JobInfo'
 
@@ -52,6 +53,11 @@ export const JobSingle = () => {
                             'Must be able to work under pressure and meet deadlines while maintaining a positive attitude and providing exemplary customer service',
                             'Ability to work independently and to carry out assignments to completion within parameters of instructions given, prescribed routines, and standard accepted practices'
                         ]}/>
+                        <Divider light/>
+                        <Box width={1/4} my={2}>
+                        <Jh_Share/>
+                        </Box>
+                        <Divider light/>
                     </Grid>
                     <Grid item xs={12} md={4}>
                     </Grid>
