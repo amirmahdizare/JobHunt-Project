@@ -5,6 +5,7 @@ import { Jh_Share } from '../../components/Jh_Share'
 import { ApplyBox } from './components/ApplyBox'
 import { JobDetailContainer } from './components/JobDetailContainer'
 import { JobInfo } from './components/JobInfo'
+import { JobLocation } from './components/JobLocation'
 import { JobOverview } from './components/JobOverview'
 import { RecentJobs } from './components/RecentJobs'
 export const JobSingle = () => {
@@ -65,6 +66,7 @@ export const JobSingle = () => {
                     <Grid item xs={12} md={4}>
                         <ApplyBox/>
                         <JobOverview/>
+                        <JobLocation/>
                     </Grid>
                 </Grid>
             </Container>
