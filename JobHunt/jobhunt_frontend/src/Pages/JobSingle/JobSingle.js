@@ -4,6 +4,7 @@ import { Jh_JobSingleHeader } from '../../components/Jh_JobSingleHeader'
 import { Jh_Share } from '../../components/Jh_Share'
 import { JobDetailContainer } from './components/JobDetailContainer'
 import { JobInfo } from './components/JobInfo'
+import { RecentJobs } from './components/RecentJobs'
 
 export const JobSingle = () => {
     return (
@@ -58,6 +59,7 @@ export const JobSingle = () => {
                         <Jh_Share/>
                         </Box>
                         <Divider light/>
+                        <RecentJobs/>
                     </Grid>
                     <Grid item xs={12} md={4}>
                     </Grid>
