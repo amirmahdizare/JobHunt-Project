@@ -2,6 +2,7 @@ import { Box, Container, Divider, Grid } from '@material-ui/core'
 import React from 'react'
 import { Jh_JobSingleHeader } from '../../components/Jh_JobSingleHeader'
 import { Jh_Share } from '../../components/Jh_Share'
+import { ApplyBox } from './components/ApplyBox'
 import { JobDetailContainer } from './components/JobDetailContainer'
 import { JobInfo } from './components/JobInfo'
 import { RecentJobs } from './components/RecentJobs'
@@ -62,6 +63,7 @@ export const JobSingle = () => {
                         <RecentJobs/>
                     </Grid>
                     <Grid item xs={12} md={4}>
+                        <ApplyBox/>
                     </Grid>
                 </Grid>
             </Container>
