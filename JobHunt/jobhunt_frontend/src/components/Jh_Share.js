@@ -6,7 +6,8 @@ import { Jh_Button } from '../components/Jh_Button'
 export const Jh_Share = (props) => {
     return (
         <Box display="flex" alignItems="center">
-        <Box display={{xs:'none',sm:'block'}}><Typography >Share&nbsp;&nbsp;&nbsp;</Typography></Box>
+            {props.hideShare ? null :<Box display={{xs:'none',sm:'block'}}><Typography >Share&nbsp;&nbsp;&nbsp;</Typography></Box>}
+        
         <Jh_Button
             href={props.googleLink}
             color="secondary"
