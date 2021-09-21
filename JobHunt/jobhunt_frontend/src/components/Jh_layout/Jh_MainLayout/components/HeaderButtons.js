@@ -1,12 +1,13 @@
 import React from 'react'
 import { useState } from 'react';
-import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import VpnKeyOutlinedIcon from '@material-ui/icons/VpnKeyOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
+import { LoginPopUp } from './LoginPopUp';
 const useStyles = makeStyles((theme) => ({
     button: {
         color: 'inherit',
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const HeaderButtons = (props) => {
     const classes = useStyles();
     const [headerStatus, setheaderStatus] = useState("normal")
+    const [LoginPopupIsOpen,toggleLoginPopup]=useState(false)
     window.addEventListener('scroll', function () {
         if (window.pageYOffset == 0) {
             setheaderStatus("normal")
@@ -62,9 +64,11 @@ const HeaderButtons = (props) => {
                 size="large"
                 className={classes.button}
                 startIcon={<ExitToAppIcon />}
+                onClick={() =>toggleLoginPopup(true)}
             >
                 <Typography variant="body1">Login</Typography>
             </Button>
+            { LoginPopupIsOpen ?  <LoginPopUp onClose={()=>toggleLoginPopup(!toggleLoginPopup)} /> : null}
         </Box>
     )
 }
