@@ -41,7 +41,6 @@ const useClasses = makeStyles((item) => ({
 
 const ListMenu = (props) => {
     const classes = useClasses()
-    console.log(props)
     return (
         <MenuList className={classes.root}>
             {props.menuItems.map((item) => (

@@ -90,7 +90,6 @@ const Jh_DesktopBaseHeader = (props) => {
             setheaderStatus("sticky")
         }
     })
-    console.log(stickyHeaderTheme)
     return (
         <Box display={{ 'xs': 'none', 'lg': 'block' }} position={headerStatus == "normal" ? "absolute" : "sticky"} zIndex={100}>
             <ThemeProvider theme={headerStatus == "normal" ? normalHeaderTheme : stickyHeaderTheme} >
