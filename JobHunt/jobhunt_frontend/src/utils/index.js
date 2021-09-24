@@ -1,4 +1,7 @@
 const getServiceId =() =>{
     return localStorage.getItem('serviceId')
 }
-export { getServiceId}
+const getLanguage = () =>{
+    return localStorage.getItem('Lang')
+}
+export { getServiceId,getLanguage}
