@@ -1,7 +1,7 @@
 FROM node:16-alpine as builder
 
 WORKDIR /app
-COPY JobHunt ./
+COPY JobHunt/* ./
 
 # Build project
 RUN yarn --pure-lockfile
