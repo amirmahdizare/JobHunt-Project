@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import {HomePage } from './Pages/index';
-import {Jh_MainLayout} from './components/Jh_layout/index'
-import {storeServiceIdAndDefineLanguage} from './api/initilizeApp'
+import { storeServiceIdAndDefineLanguage } from './api/initilizeApp'
+import { ProvideAuth } from './api/authentication';
+import Jh_Router from './routes/Jh_Router';
 export const JobHunt = () => {
-     const [language, setLanguage] = useState('en')
-     useEffect(async() =>  {
+
+    const [language, setLanguage] = useState('en')
+    useEffect(async () => {
         await storeServiceIdAndDefineLanguage(language)
-     }, [language])
+    }, [language])
+
     return (
-        <>
-            <Jh_MainLayout children={<HomePage/>}/>
-        </>
+         <ProvideAuth>
+            <Jh_Router />
+         </ProvideAuth>
     )
 }
