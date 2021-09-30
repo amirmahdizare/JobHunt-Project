@@ -14,14 +14,11 @@ const HomePage = () => {
                 <PopularCategories />
                 <JobHuntResume />
                 <FeaturedJobs/>
-                {/* <HappyCandidates/> */}
                 <Jh_HappyCandidates/>
-                {/* <Supporters/> */}
                 <Jh_Supporters/>
-                {/* <QuickCareerTips/> */}
                 <Jh_QuickCareerTips/>
                 <GotQuestion/>
         </div>
     )
 }
-export { HomePage }
+export default HomePage

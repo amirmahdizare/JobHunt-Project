@@ -4,7 +4,7 @@ import { Jh_HomePagesHeader } from '../../components/Jh_HomePagesHeader'
 import { JobHuntOffice } from './components/JobHuntOffice'
 import { KeepInTouch } from './components/KeepInTouch'
 
-export const ContactUs = () => {
+const ContactUs = () => {
     return (
         <Box>
             <Jh_HomePagesHeader page="Contact" description="Keep up to date with the latest news"/>
@@ -17,3 +17,4 @@ export const ContactUs = () => {
         </Box>
     )
 }
+export default ContactUs

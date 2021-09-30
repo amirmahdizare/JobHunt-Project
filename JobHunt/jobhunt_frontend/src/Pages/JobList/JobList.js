@@ -9,7 +9,7 @@ import { Jobs } from './components/Jobs'
 import { SearchTags } from './components/SearchTags'
 import { StillNeedHelp } from './components/StillNeedHelp'
 
-export const JobList = () => {
+const JobList = () => {
     return (
         <Box>
             <Jh_ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Job List" />
@@ -113,3 +113,4 @@ export const JobList = () => {
         </Box>
     )
 }
+export default JobList

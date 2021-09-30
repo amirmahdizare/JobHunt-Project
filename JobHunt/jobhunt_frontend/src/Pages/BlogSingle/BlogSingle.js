@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2)
     }
 }))
-export const BlogSingle = () => {
+ const BlogSingle = () => {
     const classes = useStyles()
     return (
         <Jh_BlogFrame>
@@ -57,3 +57,4 @@ export const BlogSingle = () => {
         </Jh_BlogFrame>
     )
 }
+export default BlogSingle
