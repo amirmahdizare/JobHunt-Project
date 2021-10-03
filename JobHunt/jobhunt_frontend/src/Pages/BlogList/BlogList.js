@@ -40,7 +40,7 @@ const posts = [
 ]
 
 
-export const BlogList = () => {
+ const BlogList = () => {
     return (
         <Jh_BlogFrame>
       {posts.map((post,index,posts)=>(
@@ -59,3 +59,4 @@ export const BlogList = () => {
         </Jh_BlogFrame>
     )
 }
+export default BlogList

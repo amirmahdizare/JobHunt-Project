@@ -6,8 +6,8 @@ const useStyles = makeStyles(theme => ({
         alignItems:'center',
         display:'flex',
         justifyContent:'space-between',
-        paddingTop:theme.spacing(15),
-        paddingBottom:theme.spacing(8),
+        paddingTop:theme.spacing(14),
+        paddingBottom:theme.spacing(5),
         [theme.breakpoints.down('sm')]:{
             alignItems:'center',
             justifyContent:'space-around',

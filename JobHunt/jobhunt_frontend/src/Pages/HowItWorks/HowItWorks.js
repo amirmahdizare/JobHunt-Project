@@ -3,7 +3,7 @@ import { Box, Container } from '@material-ui/core'
 import { Jh_HomePagesHeader } from '../../components/Jh_HomePagesHeader'
 import { Step } from './components/Step'
 import { LineAwesome, SvgFile, SvgPenAltSolid, SvgUser } from 'react-line-awesome-svg'
-export const HowItWorks = () => {
+const HowItWorks = () => {
     return (
         <Box>
             <Jh_HomePagesHeader page="How It Works" description="Get a digital tour of how Jobhunt works for you." />
@@ -37,3 +37,4 @@ export const HowItWorks = () => {
         </Box>
     )
 }
+export default HowItWorks

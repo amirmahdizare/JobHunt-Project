@@ -6,7 +6,7 @@ import { Jh_EmployerMenu } from '../../components/Jh_EmployerMenu'
 import { Jh_SectionHeader } from '../../components/Jh_SectionHeader'
 import { ManageJobsSection } from './components/ManageJobsSection'
 
-export const EmployerManageJobs = () => {
+const EmployerManageJobs = () => {
     return (
         <Box>
             <Jh_ContentHeader image={CandidatesDashboardBackground} text="Welcome Tara Planer" />
@@ -28,3 +28,4 @@ export const EmployerManageJobs = () => {
         </Box>
     )
 }
+export default EmployerManageJobs

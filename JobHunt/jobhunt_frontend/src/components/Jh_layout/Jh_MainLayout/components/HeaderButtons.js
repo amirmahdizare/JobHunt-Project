@@ -34,6 +34,7 @@ const HeaderButtons = (props) => {
     const classes = useStyles();
     const [headerStatus, setheaderStatus] = useState("normal")
     const [LoginPopupIsOpen,toggleLoginPopup]=useState(false)
+
     window.addEventListener('scroll', function () {
         if (window.pageYOffset == 0) {
             setheaderStatus("normal")
@@ -64,11 +65,12 @@ const HeaderButtons = (props) => {
                 size="large"
                 className={classes.button}
                 startIcon={<ExitToAppIcon />}
-                onClick={() =>toggleLoginPopup(true)}
+                href="/login"
+                // onClick={() =>toggleLoginPopup(true)}
             >
                 <Typography variant="body1">Login</Typography>
             </Button>
-            { LoginPopupIsOpen ?  <LoginPopUp onClose={()=>toggleLoginPopup(!toggleLoginPopup)} /> : null}
+            {/* { LoginPopupIsOpen ?  <LoginPopUp onClose={()=>toggleLoginPopup(!toggleLoginPopup)} /> : null} */}
         </Box>
     )
 }

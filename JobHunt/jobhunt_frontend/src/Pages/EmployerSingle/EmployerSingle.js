@@ -7,7 +7,7 @@ import { AboutBusiness } from './components/AboutBusiness'
 import { CompanyInformation } from './components/CompanyInformation/CompanyInformation'
 import { JobsFromBusiness } from './components/JobsFromBusiness'
 import { ContactBusiness } from './components/ContactBusiness'
-export const EmployerSingle = () => {
+ const EmployerSingle = () => {
     return (
         <Box >
             <Jh_ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Single Employer" />
@@ -39,3 +39,4 @@ export const EmployerSingle = () => {
         </Box>
     )
 }
+export default EmployerSingle

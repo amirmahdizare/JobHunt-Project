@@ -6,7 +6,8 @@ import { Jh_Statistics } from '../../components/Jh_Statistics'
 import { Jh_QuickCareerTips} from '../../components/Jh_QuickCareerTips/Jh_QuickCareerTips'
 import { Jh_Supporters } from '../../components/Jh_Supporters/Jh_Supporters'
 import { Jh_HomePagesHeader } from '../../components/Jh_HomePagesHeader'
-export const AboutUs = () => {
+import { Loading } from '../../routes/components/Loadable/Loading'
+ const AboutUs = () => {
   
     return (
         <Box>
@@ -16,7 +17,8 @@ export const AboutUs = () => {
             <Jh_Statistics/>
             <Jh_QuickCareerTips/>
             <Jh_Supporters/>
-            
+            {/* <Loading/> */}
         </Box>
     )
 }
+export default AboutUs

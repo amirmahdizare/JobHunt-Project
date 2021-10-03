@@ -20,7 +20,7 @@ const items=[
     },
     
 ]
-export const Terms = () => {
+const Terms = () => {
     return (
         <Box>
             <Jh_HomePagesHeader page="Terms and Conditions" description="Keep up to date with the latest news"/>
@@ -36,3 +36,4 @@ export const Terms = () => {
         </Box>
     )
 }
+export default Terms
