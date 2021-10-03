@@ -9,7 +9,8 @@ const storeServiceIdAndDefineLanguage = async (language) =>{
     }
     const response= await axios(config)
     const serviceId = response.data.data.filter(item => item.name=='jobHunt')[0].id;
-    localStorage.setItem('serviceId',serviceId)
-    localStorage.setItem('Lang',language)
+    window.sessionStorage.setItem('serviceId',serviceId)
+    window.sessionStorage.setItem('Lang',language)
+    // if()
 }
 export { storeServiceIdAndDefineLanguage}
