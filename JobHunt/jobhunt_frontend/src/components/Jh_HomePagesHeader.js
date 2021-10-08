@@ -20,8 +20,8 @@ const useStyles = makeStyles(theme => ({
         backgroundColor:'#f4f5fa',
     }
 }))
-export const Jh_HomePagesHeader = (props) => {
-    const {page ,description} = props
+ const Jh_HomePagesHeaderComponent = ( {page ,description}) => {
+    // const {page ,description} = props
     useEffect(()=>{
             window.pageYOffset=1
             window.scrollTo(0,1)
@@ -47,3 +47,4 @@ export const Jh_HomePagesHeader = (props) => {
         </Box>
     )
 }
+export const Jh_HomePagesHeader=React.memo(Jh_HomePagesHeaderComponent)
