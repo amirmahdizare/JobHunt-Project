@@ -31,4 +31,7 @@ const centralApiHeaderObj = () => {
         'Lang':getLanguage()
     }
 }
-export { getServiceId, getLanguage,storeToken,getToken ,centralApiHeaderObj ,storeUsertoken,getUserToken}
+const capitalizeFirstLetter = (word) =>{
+    return word[0].toUpperCase()+word.substr(1)
+}
+export { getServiceId, getLanguage,storeToken,getToken ,centralApiHeaderObj ,storeUsertoken,getUserToken,capitalizeFirstLetter}
