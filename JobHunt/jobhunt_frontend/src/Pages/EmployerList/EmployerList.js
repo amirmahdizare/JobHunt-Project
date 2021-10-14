@@ -8,7 +8,7 @@ import { SearchKeyword } from './components/SearchKeyword'
 import { SelectLocation } from './components/SelectLocation'
 import { Since } from './components/Since'
 
-export const EmployerList = () => {
+const EmployerList = () => {
     return (
         <Box >
             <Jh_ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Employer" />
@@ -55,3 +55,4 @@ export const EmployerList = () => {
         </Box>
     )
 }
+export default EmployerList 

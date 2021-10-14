@@ -10,7 +10,7 @@ import { JobInfo } from './components/JobInfo'
 import { JobLocation } from './components/JobLocation'
 import { JobOverview } from './components/JobOverview'
 import { RecentJobs } from './components/RecentJobs'
-export const JobSingle = () => {
+const JobSingle = () => {
     return (
         <Box>
             <Jh_JobSingleHeader
@@ -91,3 +91,4 @@ export const JobSingle = () => {
         </Box>
     )
 }
+export default JobSingle

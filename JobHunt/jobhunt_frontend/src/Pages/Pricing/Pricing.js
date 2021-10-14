@@ -2,7 +2,7 @@ import { Box, Container, Grid } from '@material-ui/core'
 import React from 'react'
 import { Jh_HomePagesHeader } from '../../components/Jh_HomePagesHeader'
 import { Plan } from './components/Plan'
-export const Pricing = () => {
+const Pricing = () => {
     return (
         <Box>
             <Jh_HomePagesHeader page="Pricing" description="Keep up to date with the latest news" />
@@ -40,3 +40,4 @@ export const Pricing = () => {
         </Box>
     )
 }
+export default Pricing
