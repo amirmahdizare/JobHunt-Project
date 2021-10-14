@@ -3,6 +3,21 @@ FROM node:16-alpine as builder
 WORKDIR /app
 COPY JobHunt/* ./
 
+ARG APP_ENV=stage
+ENV APP_ENV ${APP_ENV}
+
+RUN if [ ${APP_ENV} = "stage" ]; then \
+    mv .env.staging .env
+;fi
+
+RUN if [ ${APP_ENV} = "production" ]; then \
+    mv .env.production .env
+;fi
+
+RUN rm -f .env.staging .env.production
+
+RUN cat .env
+
 # Build project
 RUN yarn --pure-lockfile
 RUN yarn run build
