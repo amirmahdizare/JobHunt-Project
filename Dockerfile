@@ -21,7 +21,7 @@ RUN rm -f .env.staging .env.production
 RUN cat .env
 
 # Build project
-RUN yarn --pure-lockfile
+RUN yarn --pure-lockfile --network-timeout 100000
 RUN yarn run build
 
 
