@@ -10,3 +10,7 @@
 .gitignore
 .editorconfig
 .playbooks
+.idea
+.gitignore
+.git
+README.md
