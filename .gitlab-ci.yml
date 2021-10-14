@@ -24,7 +24,7 @@ build-stage:
   script:
     - docker login -u ci -p $PRIVATE_REGISTRY_PASSWD $REGISTRY_URL
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    - docker build --build-args APP_ENV=production -t ${STAGE_IMAGE_URL} .
+    - docker build --build-arg APP_ENV=production -t ${STAGE_IMAGE_URL} .
     - docker push ${STAGE_IMAGE_URL}
   only:
     - develop
