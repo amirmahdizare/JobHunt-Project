@@ -2,6 +2,7 @@ FROM node:16-alpine as builder
 
 WORKDIR /app
 COPY JobHunt/* ./
+COPY . ./
 
 ARG APP_ENV=stage
 ENV APP_ENV ${APP_ENV}
