@@ -7,11 +7,11 @@ ARG APP_ENV=stage
 ENV APP_ENV ${APP_ENV}
 
 RUN if [ ${APP_ENV} = "stage" ]; then \
-    mv .env.staging .env
+    mv .env.staging .env \
 ;fi
 
 RUN if [ ${APP_ENV} = "production" ]; then \
-    mv .env.production .env
+    mv .env.production .env \
 ;fi
 
 RUN rm -f .env.staging .env.production
