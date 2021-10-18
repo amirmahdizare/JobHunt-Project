@@ -9,6 +9,7 @@ const ExclusiveCandiadateRoutes=[
     { path: "/employer/:id", pageName: 'EmployerSingle' },
     { path: "/jobs", pageName: 'JobList' },
     { path: "/job/:id", pageName: 'JobSingle' },
+    { path: "/login", redirectTo: '/dashboard' },
     { pageName: 'CandidateNotFoundPage' }
 ]
 export const CandidateRoute = () => {

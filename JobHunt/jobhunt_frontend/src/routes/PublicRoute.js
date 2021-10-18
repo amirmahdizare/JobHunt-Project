@@ -6,6 +6,7 @@ import { RouteMaker } from './components/RouteMaker'
 const ExclusivePublicRoutes = [
     { path: "/forgotpassword", pageName: 'ForgotPassword' },
     { path: "/login", pageName: 'LoginPage' },
+
     { pageName: 'PublicNotFoundPage' }
 ]
 const PublicRoute = () => {
