@@ -21,10 +21,17 @@ const useStyles = makeStyles(theme => ({
     }
 }))
  const Jh_HomePagesHeaderComponent = ( {page ,description}) => {
-    // const {page ,description} = props
+    window.addEventListener('scroll', function () {
+        if (window.pageYOffset == 0) {
+            document.getElementsByTagName('header')[0].style.background='linear-gradient(45deg, rgba(139,145,2211) 0%,rgba(16,25,93,1) 71%,rgba(16,25,93,1) 100%)'
+
+        } else {
+            document.getElementsByTagName('header')[0].style.background='white'
+        }
+    })
     useEffect(()=>{
-            window.pageYOffset=1
-            window.scrollTo(0,1)
+        document.getElementsByTagName('header')[0].style.background='linear-gradient(45deg, rgba(139,145,2211) 0%,rgba(16,25,93,1) 71%,rgba(16,25,93,1) 100%)'
+
     }) 
     const classes = useStyles()
     return (
