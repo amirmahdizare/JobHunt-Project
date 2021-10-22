@@ -1,5 +1,5 @@
 import { centralApi } from "../../../../config/apiConfig"
-import { centralApiHeaderObj, storeToken } from "../../../../utils";
+import { centralApiHeaderObj, storeToken, storeUser } from "../../../../utils";
 import { _getRoll } from "./getRoll";
 const _signin = async function (setUser, { identifier, password, user }) {
   var data = new FormData();
@@ -9,7 +9,7 @@ const _signin = async function (setUser, { identifier, password, user }) {
     headers: centralApiHeaderObj()
   })
   if (response.status == 200) {
-    storeToken(await response.data)
+    storeToken(await response.data.data.token)
     const role = await _getRoll()
     if (!role)
       return Promise.reject(new Error('unAuthorized'))
@@ -17,6 +17,7 @@ const _signin = async function (setUser, { identifier, password, user }) {
       return Promise.reject(new Error('userNotFound'))
     else {
       {
+        storeUser(role)
         setUser(role)
         return Promise.resolve()
       }

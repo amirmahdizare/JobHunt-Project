@@ -1,7 +1,5 @@
 import { api, centralApi } from "../../config/apiConfig"
-import { centralApiHeaderObj, getLanguage } from "../../utils"
-import { countriesToSignUpConfig } from "../../config/countriesToSignUpConfig"
-import { generateImageURL } from "../OSS/minioAPI"
+import { centralApiHeaderObj, getLanguage, getUserToken } from "../../utils"
 const getPopularCategories = async (customParams) => {
     const reqParams = customParams && customParams.page && customParams.pagination_size ? customParams : { page: 1, pagination_size: 6 }
     const response = await api.get('/categories/guests', {
@@ -11,39 +9,45 @@ const getPopularCategories = async (customParams) => {
     return await Object.values(response.data.data)
 }
 
-const getSingleCountryInfoToSignup = async (countryName) => {
+const getCountryInfoToSignup = async (countryName) => {
     const response = await centralApi.get('/countries', {
         params: {
             page: 1,
-            pagination_size: 3,
+            pagination_size: 250,
             name: countryName
         },
         headers: centralApiHeaderObj()
     })
-
-    return response.data.data.entities[0]
+    return response.data.data.entities
 }
 
 const getValidCountriesToSignupDetail = async () => {
-    const pureCountryDetail = await Promise.all(countriesToSignUpConfig.map(async(country) => {
+    let countries= []
         try {
-            const countryDetail = await getSingleCountryInfoToSignup(country)
-            return countryDetail
+            countries  = await getCountryInfoToSignup()
 
         } catch (error) {
             // break
         }
-    }))
-    const FullCountryDetail = await Promise.all(pureCountryDetail.map(async(country) => {
-        try {
-            const flagIcon = await generateImageURL(country['flag'][country.id]['path'])
-            return { ...country, 'flagIcon': flagIcon }
-        } catch (error) {
-            //break
-        }
-    }
-    ))
-    console.log(FullCountryDetail)
-    return FullCountryDetail
+    return countries
 }
-export { getPopularCategories, getValidCountriesToSignupDetail }
+const getSingleCountryInfo = async (name) =>{
+    const response  = await  centralApi.get('/countries',{
+        params:{
+            name:name,
+            page:1
+        },
+        headers:centralApiHeaderObj()
+    })
+ return response.data.data.entities[0]
+}
+const getUserIdentifier =async () =>{
+    const response = await api.get('/users/profile',{
+        headers:{
+            Authorization:'Bearer '+getUserToken(),
+            Lang:getLanguage()
+        }
+    })
+    return response.data.data.email || response.data.data.country_code + ' ' + response.data.data.mobile
+}
+export { getPopularCategories, getValidCountriesToSignupDetail,getUserIdentifier,getSingleCountryInfo }
