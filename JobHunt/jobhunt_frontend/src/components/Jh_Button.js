@@ -61,7 +61,6 @@ const useClasses = makeStyles((theme) => ({
 }))
 export const Jh_Button= (props) => {
     const classes = useClasses(props,createTheme())
-    console.log(createTheme())
     return (
         <Button href={props.href} classes={{ root:  props.variant == 'contained' ? classes.contained : classes.outlined }} {...props}>
             {props.icon} 

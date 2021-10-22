@@ -58,6 +58,7 @@ const HeaderButtons = (props) => {
                 size="large"
                 className={classes.button}
                 startIcon={<VpnKeyOutlinedIcon />}
+                href="/signup"
             >
                 <Typography variant="body1">Sign Up</Typography>
             </Button>
@@ -66,11 +67,9 @@ const HeaderButtons = (props) => {
                 className={classes.button}
                 startIcon={<ExitToAppIcon />}
                 href="/login"
-                // onClick={() =>toggleLoginPopup(true)}
             >
                 <Typography variant="body1">Login</Typography>
             </Button>
-            {/* { LoginPopupIsOpen ?  <LoginPopUp onClose={()=>toggleLoginPopup(!toggleLoginPopup)} /> : null} */}
         </Box>
     )
 }

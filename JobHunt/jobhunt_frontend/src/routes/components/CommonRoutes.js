@@ -8,5 +8,6 @@ const CommonRoutes = [
     {path:'/faq',pageName:'FAQ'},
     {path:'/terms',pageName:'Terms'},
     {path:'/howitworks',pageName:'HowItWorks'},
+    { path: "/signup", pageName: 'SignupPage' },
 ]
 export {CommonRoutes}

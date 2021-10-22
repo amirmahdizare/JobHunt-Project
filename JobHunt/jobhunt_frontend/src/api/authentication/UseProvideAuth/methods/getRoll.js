@@ -7,7 +7,6 @@ const _getRoll = async function (){
             Authorization:getToken()
         }
     })
-    // console.log(response.data.role)
     return  response.data.role || null
 }
 export {_getRoll}

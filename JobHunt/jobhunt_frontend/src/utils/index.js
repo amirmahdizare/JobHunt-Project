@@ -1,29 +1,26 @@
 const getServiceId = () => {
-    // return localStorage.getItem('serviceId')
     return window.sessionStorage.getItem('serviceId')
 
 }
 const getLanguage = () => {
     return window.sessionStorage.getItem('Lang')
-    // return localStorage.getItem('Lang')
 }
-const storeToken = (data) => {
-    window.sessionStorage.setItem('token', data.data.token)
-    // localStorage.setItem('token', data.data.token)
+const storeToken = (token) => {
+    window.sessionStorage.setItem('token', token)
 }
 const getToken =() =>{
-    // return 'Bearer '+localStorage.getItem('token')
     return 'Bearer '+window.sessionStorage.getItem('token')
 }
-// const deleteTokenfromLocalStorage = () =>{
-//     localStorage.removeItem('')
-// }
 const storeUsertoken = () =>{
-    localStorage.setItem('userToken', getToken())
+    localStorage.setItem('userToken', window.sessionStorage.getItem('token'))
 }
 
 const getUserToken= () =>{
-    localStorage.getItem('userToken')
+   return  localStorage.getItem('userToken')
+}
+const removeTokens = () =>{
+    localStorage.removeItem('userToken')
+    window.sessionStorage.removeItem('token')
 }
 const centralApiHeaderObj = () => {
     return {
@@ -31,4 +28,15 @@ const centralApiHeaderObj = () => {
         'Lang':getLanguage()
     }
 }
-export { getServiceId, getLanguage,storeToken,getToken ,centralApiHeaderObj ,storeUsertoken,getUserToken}
+const capitalizeFirstLetter = (word) =>{
+    return word[0].toUpperCase()+word.substr(1)
+}
+
+const storeUser = (user) =>{
+return window.sessionStorage.setItem('user',user)
+}
+
+const getUser = () =>{
+    return window.sessionStorage.getItem('user') || null
+}
+export { getServiceId, getLanguage,storeToken,getToken ,centralApiHeaderObj ,storeUsertoken,getUserToken,capitalizeFirstLetter,storeUser,getUser,removeTokens}
