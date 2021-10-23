@@ -51,6 +51,7 @@ const HeaderButtons = (props) => {
                     className={classes.button}
                     startIcon={<VpnKeyOutlinedIcon />}
                     onClick={props.onButtonClick}
+                    href="/signup"
                     >
                     <Typography variant="body1">Sign Up</Typography>
                 </Button>
@@ -58,6 +59,7 @@ const HeaderButtons = (props) => {
                     className={classes.button}
                     startIcon={<ExitToAppIcon />}
                     onClick={props.onButtonClick}
+                    href="/login"
                     >
                     <Typography variant="body1">Login</Typography>
                 </Button>

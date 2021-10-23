@@ -99,9 +99,9 @@ const Jh_DesktopBaseHeaderComponent = (props) => {
                             <Box>
                                 {headerStatus == "normal" ? <Jh_Logo1 /> : <Jh_Logo2/>}
                             </Box>
-                            <Box display="flex">
+                            <Box display="flex" justifyContent="space-around" flex="1">
                                 <DesktopViewHeaderMenus headerStatus={headerStatus} />
-                                {props.extension}
+                               <Box>{props.extension}</Box>
                             </Box >
                         </Toolbar>
                     </Container>

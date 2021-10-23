@@ -1,106 +1,67 @@
 import React from 'react'
 import Box from '@material-ui/core/Box';
 import CustomMenu from './CustomMenu'
-const DesktopViewHeaderMenus = (props) => {
+import { Button, Typography } from '@material-ui/core';
+import { useAuth } from '../../../../../api/authentication';
+const DesktopViewHeaderMenus = () => {
+    const auth=useAuth()
     return (
         <Box display="flex" alignItems="center">
             <CustomMenu
-                menuTitle="Home"
+                menuTitle="Employer"
                 menuItems={[
-                    { name: 'Home Layout 1', href: '#' },
-                    { name: 'Home Layout 2', href: '#' }
+                    { name: 'Manage Jobs', href: auth.user=='employer' ? '/managejobs' : '/login' },
                 ]}
+                // innerMenus={[{
+                //     title: 'Employers Dashboard',
+                //     href: "#"
+                //     , menuItems: [
+                //         { name: 'Employer Job Manager', href: '#' },
+                //         { name: 'Employer Packages', href: '#' },
+                //         { name: 'Employer Post New', href: '#' },
+                //         { name: 'Employer Profile', href: '#' },
+                //         { name: 'Employer Resume', href: '#' },
+                //         { name: 'Employer Transaction', href: '#' },
+                //         { name: 'Employers Job Alert', href: '#' },
+                //         { name: 'Employer Change Password', href: '#' },
+                //     ]
+
+                // }]}
             />
             <CustomMenu
-                menuTitle="Employers"
+                menuTitle="Candidate"
                 menuItems={[
-                    { name: 'Employer List 1', href: '#' },
-                    { name: 'Employer List 2', href: '#' },
-                    { name: 'Employer List 3', href: '#' },
-                    { name: 'Employer Single 1', href: '#' },
-                    { name: 'Employer Single 2', href: '#' },
+                    { name: 'Dashboard', href:auth.user=='candidate' ?  '/dashboard' : '/login' },
                 ]}
-                innerMenus={[{
-                    title: 'Employers Dashboard',
-                    href:"#"
-                    , menuItems:[
-                        { name: 'Employer Job Manager', href: '#' },
-                        { name: 'Employer Packages', href: '#' },
-                        { name: 'Employer Post New', href: '#' },
-                        { name: 'Employer Profile', href: '#' },
-                        { name: 'Employer Resume', href: '#' },
-                        { name: 'Employer Transaction', href: '#' },
-                        { name: 'Employers Job Alert', href: '#' },
-                        { name: 'Employer Change Password', href: '#' },
-                    ]
-
-                }]}
             />
+            <Button
+                style={{ textTransform: 'none' }}
+                color="inherit"
+                href="/bloglist">
+                <Typography color="inherit">Blog</Typography>
+            </Button>
+            <Button
+                style={{ textTransform: 'none' }}
+                color="inherit"
+                href="/jobs">
+                <Typography color="inherit">Jobs</Typography>
+            </Button>
             <CustomMenu
-                menuTitle="Candidates"
+                menuTitle="About&nbsp;Us"
                 menuItems={[
-                    { name: 'Candidates List 1', href: '#' },
-                    { name: 'Candidates List 2', href: '#' },
-                    { name: 'Candidates List 3', href: '#' },
-                    { name: 'Candidates Single 1', href: '#' },
-                    { name: 'Candidates Single 2', href: '#' },
-
+                    { name: 'FAQ', href: '/faq' },
+                    { name: 'How it works', href: '/howitworks' },
+                    { name: 'Pricing Plans', href: '/pricing' },
+                    { name: 'Terms & Condition', href: '/terms' },
                 ]}
-                innerMenus={[{
-                    title: 'Candidates Dashboard',
-                    href:"#"
-                    , menuItems:[
-                        { name: 'Candidates Resume', href: '#' },
-                        { name: 'Candidates Resume new', href: '#' },
-                        { name: 'Candidates Profile', href: '#' },
-                        { name: 'Candidates Shortlist', href: '#' },
-                        { name: 'Candidates Job Alert', href: '#' },
-                        { name: 'Candidates Dashboard', href: '#' },
-                        { name: 'CV Cover Letter', href: '#' },
-                        { name: 'Change Password', href: '#' },
-                        { name: 'Candidates Applied Jobs', href: '#' },
-                    ]
 
-                }]}
             />
-            <CustomMenu
-                menuTitle="Blog"
-                menuItems={[
-                    { name: 'Blog List 1', href: '#' },
-                    { name: 'Blog List 2', href: '#' },
-                    { name: 'Blog List 3', href: '#' },
-                    { name: 'Blog Single', href: '#' },
-
-                ]}
-            />
-            <CustomMenu
-                menuTitle="Job"
-                menuItems={[
-                    { name: 'Job List Classic', href: '#' },
-                    { name: 'Job List Grid', href: '#' },
-                    { name: 'Job List Modern', href: '#' },
-                    { name: 'Job Single 1', href: '#' },
-                    { name: 'Job Single 2', href: '#' },
-                    { name: 'Job Single 3', href: '#' },
-
-                ]}
-            />
-            <CustomMenu
-                menuTitle="Pages"
-                menuItems={[
-                    { name: 'About Us', href: '#' },
-                    { name: '404 Error', href: '#' },
-                    { name: 'Contact Us 1', href: '#' },
-                    { name: 'Contact Us 2', href: '#' },
-                    { name: 'FAQs', href: '#' },
-                    { name: 'How it works', href: '#' },
-                    { name: 'Login', href: '#' },
-                    { name: 'Pricing Plans', href: '#' },
-                    { name: 'Register', href: '#' },
-                    { name: 'Terms & Condition', href: '#' },
-                ]}
-                
-            />
+            <Button
+                style={{ textTransform: 'none' }}
+                color="inherit"
+                href="ContactUs">
+                <Typography color="inherit">Contact&nbsp;Us</Typography>
+            </Button>
         </Box>
     )
 }

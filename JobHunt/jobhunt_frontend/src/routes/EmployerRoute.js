@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, useHistory, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import { Jh_EmployerLayout } from '../components/Jh_layout/Jh_EmployerLayout/Jh_EmployerLayout'
 import { userLandingPage } from '../config/usersLandingPage'
 import { CommonRoutes } from './components/CommonRoutes'
@@ -8,9 +8,6 @@ const ExclusiveEmployerRoutes = [
     { path: "/managejobs", pageName: 'EmployerManageJobs' },
     { path: "/employers", pageName: 'EmployerList' },
     { path: "/employer/:id", pageName: 'EmployerSingle' },
-    { path: "/jobs", pageName: 'JobList' },
-    { path: "/job/:id", pageName: 'JobSingle' },
-    { path: "/pricing", pageName: 'Pricing' },
     { path: "/login", redirectTo: userLandingPage.employer },
     { pageName: 'EmployerNotFoundPage' },
 ]

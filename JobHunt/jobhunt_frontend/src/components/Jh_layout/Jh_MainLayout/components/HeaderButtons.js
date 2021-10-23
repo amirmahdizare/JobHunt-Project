@@ -43,13 +43,14 @@ const HeaderButtons = (props) => {
         }
     })
     return (
-        <Box>
+        <Box >
             <Button
                 size="large"
                 className={classes.postJobButton}
                 variant={headerStatus == "normal" ? "contained" : "outlined"}
                 color="secondary"
                 startIcon={<AddOutlinedIcon />}
+                href="/signup"
             >
                 <Typography variant="body1"> Post Jobs</Typography>
 
