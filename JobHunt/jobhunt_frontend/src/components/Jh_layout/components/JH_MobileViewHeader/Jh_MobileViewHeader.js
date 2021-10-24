@@ -14,6 +14,7 @@ import SearchBox from './components/SearchBox'
 import Typography from '@material-ui/core/Typography';
 import { createTheme, makeStyles, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
+import { useAuth } from '../../../../api/authentication';
 
 var mobileHeaderTheme = createTheme({
     typography: {
@@ -73,7 +74,7 @@ const Jh_MobileViewHeader = () => {
     const classes = useStyles();
     const [expand, setExpand] = useState(false)
     const anchorRef = useRef(null);
-
+    const auth = useAuth()
     const toggleExpand = () => {
         setExpand(!expand)
     }
@@ -98,8 +99,8 @@ const Jh_MobileViewHeader = () => {
                         >
                             <Paper className={classes.wrapper} >
                                 <Container >
-                                    <Divider className={classes.divider} />
-                                    <HeaderButtons onButtonClick={toggleExpand} />
+                                    {!auth.user && <> <Divider className={classes.divider} />
+                                        <HeaderButtons onButtonClick={toggleExpand} /></>}
                                     <Divider className={classes.divider} />
                                     <SearchBox />
                                     <Divider className={classes.divider} />

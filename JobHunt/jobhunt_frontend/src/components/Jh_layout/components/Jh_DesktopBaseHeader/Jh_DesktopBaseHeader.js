@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import  React, {useState } from 'react'
 import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
@@ -80,7 +80,7 @@ const normalHeaderTheme = createTheme({
         fontFamily: 'Quicksand'
     }
 });
-const Jh_DesktopBaseHeader = (props) => {
+const Jh_DesktopBaseHeaderComponent = (props) => {
     const classes = useStyles();
     const [headerStatus, setheaderStatus] = useState("normal")
     window.addEventListener('scroll', function () {
@@ -99,9 +99,9 @@ const Jh_DesktopBaseHeader = (props) => {
                             <Box>
                                 {headerStatus == "normal" ? <Jh_Logo1 /> : <Jh_Logo2/>}
                             </Box>
-                            <Box display="flex">
+                            <Box display="flex" justifyContent="space-around" flex="1">
                                 <DesktopViewHeaderMenus headerStatus={headerStatus} />
-                                {props.extension}
+                               <Box>{props.extension}</Box>
                             </Box >
                         </Toolbar>
                     </Container>
@@ -110,4 +110,4 @@ const Jh_DesktopBaseHeader = (props) => {
         </Box>
     )
 }
-export { Jh_DesktopBaseHeader }
+export const Jh_DesktopBaseHeader = React.memo(Jh_DesktopBaseHeaderComponent)
