@@ -10,7 +10,7 @@ const useStyles=makeStyles(theme=>({
         color:theme.palette.success.main
     }
 }))
-export const Jh_Statistics = () => {
+export const Statistics = () => {
     const classes=useStyles()
     return (
         <Box my={6}>

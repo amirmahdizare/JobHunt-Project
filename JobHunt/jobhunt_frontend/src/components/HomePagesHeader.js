@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor:'#f4f5fa',
     }
 }))
- const Jh_HomePagesHeaderComponent = ( {page ,description}) => {
+ const HomePagesHeaderComponent = ( {page ,description}) => {
     window.addEventListener('scroll', function () {
         if (window.pageYOffset == 0) {
             document.getElementsByTagName('header')[0].style.background='linear-gradient(45deg, rgba(139,145,2211) 0%,rgba(16,25,93,1) 71%,rgba(16,25,93,1) 100%)'
@@ -54,4 +54,4 @@ const useStyles = makeStyles(theme => ({
         </Box>
     )
 }
-export const Jh_HomePagesHeader=React.memo(Jh_HomePagesHeaderComponent)
+export const HomePagesHeader=React.memo(HomePagesHeaderComponent)

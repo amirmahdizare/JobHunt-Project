@@ -18,7 +18,7 @@ export const SelectCountry = ({ handleChange, country_code }) => {
             getSingleCountryInfo(countryinfo.name)
                 .then(async (data) => {
                     if (data['flag'].length != 0)
-                        setFlag(await generateImageURL(data['flag'][countryinfo.id]['path']))
+                        setFlag(await generateImageURL('central',data['flag'][countryinfo.id]['path']))
                         else 
                         setFlag(countryinfo.name[0])
                 }

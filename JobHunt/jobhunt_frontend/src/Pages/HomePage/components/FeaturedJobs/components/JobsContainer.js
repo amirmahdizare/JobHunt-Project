@@ -1,6 +1,5 @@
 import { Box, makeStyles } from '@material-ui/core'
 import React from 'react'
-import JobCard from './JobCard'
 import Jh_JobCard from '../../../../../components/Jh_JobCard.js'
 const useClasses = makeStyles((theme) => ({
     root: {

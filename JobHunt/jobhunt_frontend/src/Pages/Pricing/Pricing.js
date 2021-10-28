@@ -1,11 +1,11 @@
 import { Box, Container, Grid } from '@material-ui/core'
 import React from 'react'
-import { Jh_HomePagesHeader } from '../../components/Jh_HomePagesHeader'
+import { HomePagesHeader } from '../../components/HomePagesHeader'
 import { Plan } from './components/Plan'
 const Pricing = () => {
     return (
         <Box>
-            <Jh_HomePagesHeader page="Pricing" description="Keep up to date with the latest news" />
+            <HomePagesHeader page="Pricing" description="Keep up to date with the latest news" />
             <Container maxWidth="lg">
                 <Box my={5}>
                     <Grid container spacing={2}>

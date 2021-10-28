@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Container, Typography } from '@material-ui/core'
-import { Jh_HomePagesHeader } from '../../components/Jh_HomePagesHeader'
+import { HomePagesHeader } from '../../components/HomePagesHeader'
 const items=[
     {
         title:'Terms',
@@ -23,7 +23,7 @@ const items=[
 const Terms = () => {
     return (
         <Box>
-            <Jh_HomePagesHeader page="Terms and Conditions" description="Keep up to date with the latest news"/>
+            <HomePagesHeader page="Terms and Conditions" description="Keep up to date with the latest news"/>
             <Container maxWidth="lg">
             {items.map((item,index)=>(
                 <Box my={4}>

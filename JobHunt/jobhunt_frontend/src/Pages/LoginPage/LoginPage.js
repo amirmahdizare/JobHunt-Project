@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { Jh_HomePagesHeader } from '../../components/Jh_HomePagesHeader'
+import { HomePagesHeader } from '../../components/HomePagesHeader'
 import { Container, Typography, Button, Box, FormControlLabel, Checkbox, ButtonGroup } from '@material-ui/core';
 import { SvgKeySolid, SvgUser } from 'react-line-awesome-svg';
 import { useAuth } from '../../api/authentication/index';
@@ -61,7 +61,7 @@ const LoginPage = () => {
     console.log(loginDetail)
     return (
         <Box>
-            <Jh_HomePagesHeader page="Login" />
+            <HomePagesHeader page="Login" />
             <Container maxWidth="xs">
                 <Box my={2}>
                     {loginDetail.type == 'normal' ? <>

@@ -42,7 +42,7 @@ const useClasses = makeStyles(theme => ({
 const CandidateComment = (props) => {
     const classes = useClasses()
     return (
-        <Paper className={classes.content}>
+        <Paper key={props.key} className={classes.content}>
             <img src={props.candidateAvatar} className={classes.profile} />
             <Box mb={2}  display="flex" justifyContent="space-between" alignItems="center">
             </Box>

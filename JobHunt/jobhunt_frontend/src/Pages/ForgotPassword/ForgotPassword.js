@@ -6,7 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Box, CircularProgress, Container, Divider } from '@material-ui/core';
-import { Jh_HomePagesHeader } from '../../components/Jh_HomePagesHeader';
+import { HomePagesHeader } from '../../components/HomePagesHeader';
 import { EnterUsername } from './components/EnterUsername';
 import { VerifyAccount } from '../SignupPage/components/VerifyAccount';
 import { ChangePassword } from './components/ChangePassword';
@@ -134,7 +134,7 @@ export default function ForgotPassword() {
 
     return (
         <Box>
-            <Jh_HomePagesHeader page="Forgot Password" />
+            <HomePagesHeader page="Forgot Password" />
             <Container maxWidth="md">
                 <Box className={classes.root}>
                     <Box width={'100%'} display={{ xs: 'none', md: 'flex' }}>

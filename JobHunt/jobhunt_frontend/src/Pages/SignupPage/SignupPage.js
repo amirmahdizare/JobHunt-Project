@@ -6,7 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { SelectAccount } from './components/SelectAccount';
-import { Jh_HomePagesHeader } from '../../components/Jh_HomePagesHeader';
+import { HomePagesHeader } from '../../components/HomePagesHeader';
 import { Box, CircularProgress, Container, Divider } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { EnterInformation } from './components/EnterInformation';
@@ -118,7 +118,7 @@ export default function SignupPage() {
   }
   return (
     <Box>
-      <Jh_HomePagesHeader page="Sign Up" />
+      <HomePagesHeader page="Sign Up" />
       <Container maxWidth="md">
         <Box className={classes.root} mb={2}>
           {/* <div > */}

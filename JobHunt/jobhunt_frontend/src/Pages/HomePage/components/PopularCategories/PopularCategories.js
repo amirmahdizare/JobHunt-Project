@@ -40,7 +40,7 @@ const PopularCategories = () => {
             <Box mb={3} mt={10}><Typography variant="h4">Popular Categories</Typography></Box>
             <Box ><Typography >37 jobs live - 0 added today.</Typography></Box>
             <CategoriesContainer />
-            <Button  className={classes.button} color="secondary" variant="outlined"><Typography variant="h6" style={{fontSize:'16px'}} >Browse All Categories</Typography></Button>
+            <Button href="/jobs"  className={classes.button} color="secondary" variant="outlined"><Typography variant="h6" style={{fontSize:'16px'}} >Browse All Categories</Typography></Button>
         </Container>
     )
 }
