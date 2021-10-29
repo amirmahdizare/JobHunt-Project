@@ -3,8 +3,8 @@ import { useState } from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import CancelIcon from '@material-ui/icons/Cancel';
 import {  Box,Button,Divider,Drawer ,IconButton  ,makeStyles  } from '@material-ui/core';
-import { Jh_CandidateDetail } from './Jh_CandidateDetail';
-import { Jh_CandidateMenu } from '../../../../../Jh_CandidateMenu';
+import { CandidateDetail } from './CandidateDetail';
+import { CandidateMenu } from '../../../../../CandidateMenu';
 const useStyles = makeStyles({
   content: {
     width: 300,
@@ -33,14 +33,14 @@ export default function Jh_CandidateDrawer() {
       <IconButton onClick={() => toggleDrawer(false)}>
         <CancelIcon color="secondary" />
       </IconButton>
-      <Jh_CandidateDetail
+      <CandidateDetail
         name="David CARLOS"
         jobTitle="UX / UI Designer"
         company="Atract Solutions"
         email="creativelayers088@gmail.com"
         location="Istanbul / Turkey" />
       <Divider light variant="middle" />
-      <Jh_CandidateMenu />
+      <CandidateMenu />
     </Box>
   );
   return (

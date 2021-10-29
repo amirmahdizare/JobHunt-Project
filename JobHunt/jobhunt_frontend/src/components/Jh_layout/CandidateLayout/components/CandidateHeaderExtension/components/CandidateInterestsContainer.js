@@ -1,4 +1,4 @@
-import { Box, Card, ClickAwayListener } from '@material-ui/core'
+import { Box, Card } from '@material-ui/core'
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import Jh_JobCard from '../../../../../Jh_JobCard'
@@ -25,7 +25,7 @@ const useClasses = makeStyles(theme => ({
 
     }
 }))
-export const Jh_CandidateInterestsContainer = () => {
+export const CandidateInterestsContainer = () => {
     const classes = useClasses()
     return (
         <Box position="relative" display={{xs:'none',lg:'block'}}  >

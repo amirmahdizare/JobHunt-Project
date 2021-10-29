@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch } from "react-router-dom";
-import { Jh_CandidateLayout } from "../components/Jh_layout/Jh_CandidateLayout/Jh_CandidateLayout";
+import { CandidateLayout } from "../components/Jh_layout/CandidateLayout/CandidateLayout";
 import { userLandingPage } from '../config/usersLandingPage';
 import { CommonRoutes } from "./components/CommonRoutes"
 import { RouteMaker } from './components/RouteMaker';
@@ -13,12 +13,12 @@ const ExclusiveCandiadateRoutes=[
 ]
 export const CandidateRoute = () => {
     return (
-        <Jh_CandidateLayout>
+        <CandidateLayout>
             <Router>
                 <Switch>
                     {[...CommonRoutes,...ExclusiveCandiadateRoutes].map((routeItem,index)=> RouteMaker(routeItem,index))}
                 </Switch>
             </Router>
-        </Jh_CandidateLayout>
+        </CandidateLayout>
     )
 }

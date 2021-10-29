@@ -39,7 +39,7 @@ const useClasses = makeStyles(theme => ({
         }
     }
 }))
-const Jh_Footer = () => {
+const Footer = () => {
     const classes = useClasses()
     return (
         <Box className={classes.root} display="flex" flexWrap="wrap" justifyContent="space-around">
@@ -59,4 +59,4 @@ const Jh_Footer = () => {
     )
 }
 
-export default Jh_Footer
+export default Footer

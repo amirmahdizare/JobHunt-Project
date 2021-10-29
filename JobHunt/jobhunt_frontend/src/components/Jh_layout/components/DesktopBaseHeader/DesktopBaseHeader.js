@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     toolbar: {
-        // padding: '0.5em',
         display: 'flex',
         justifyContent: 'space-between',
         [theme.breakpoints.up('md')]:
@@ -80,7 +79,7 @@ const normalHeaderTheme = createTheme({
         fontFamily: 'Quicksand'
     }
 });
-const Jh_DesktopBaseHeaderComponent = (props) => {
+const DesktopBaseHeaderComponent = (props) => {
     const classes = useStyles();
     const [headerStatus, setheaderStatus] = useState("normal")
     window.addEventListener('scroll', function () {
@@ -96,10 +95,8 @@ const Jh_DesktopBaseHeaderComponent = (props) => {
                 <AppBar className={classes.appBar} style={headerStatus == "normal" ? { boxShadow: 'none' } : {}} >
                     <Container maxWidth="lg">
                         <Toolbar className={classes.toolbar}>
-                            <Box>
+                            <Box display="flex" justifyContent="space-around" alignItems="center" flex="1">
                                 {headerStatus == "normal" ? <Jh_Logo1 /> : <Jh_Logo2/>}
-                            </Box>
-                            <Box display="flex" justifyContent="space-around" flex="1">
                                 <DesktopViewHeaderMenus headerStatus={headerStatus} />
                                <Box>{props.extension}</Box>
                             </Box >
@@ -110,4 +107,4 @@ const Jh_DesktopBaseHeaderComponent = (props) => {
         </Box>
     )
 }
-export const Jh_DesktopBaseHeader = React.memo(Jh_DesktopBaseHeaderComponent)
+export const DesktopBaseHeader = React.memo(DesktopBaseHeaderComponent)

@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-const Jh_MobileViewHeader = () => {
+const MobileViewHeader = () => {
     const classes = useStyles();
     const [expand, setExpand] = useState(false)
     const anchorRef = useRef(null);
@@ -115,4 +115,4 @@ const Jh_MobileViewHeader = () => {
 
     )
 }
-export { Jh_MobileViewHeader }
+export { MobileViewHeader }

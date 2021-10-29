@@ -6,9 +6,7 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import VpnKeyOutlinedIcon from '@material-ui/icons/VpnKeyOutlined';
-import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
-import { LoginPopUp } from './LoginPopUp';
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     button: {
         color: 'inherit',
         textTransform: 'none',
@@ -30,31 +28,10 @@ const useStyles = makeStyles((theme) => ({
         },
     }
 }));
-const HeaderButtons = (props) => {
+const HeaderButtons = () => {
     const classes = useStyles();
-    const [headerStatus, setheaderStatus] = useState("normal")
-    const [LoginPopupIsOpen,toggleLoginPopup]=useState(false)
-
-    window.addEventListener('scroll', function () {
-        if (window.pageYOffset == 0) {
-            setheaderStatus("normal")
-        } else {
-            setheaderStatus("sticky")
-        }
-    })
     return (
         <Box >
-            <Button
-                size="large"
-                className={classes.postJobButton}
-                variant={headerStatus == "normal" ? "contained" : "outlined"}
-                color="secondary"
-                startIcon={<AddOutlinedIcon />}
-                href="/signup"
-            >
-                <Typography variant="body1"> Post Jobs</Typography>
-
-            </Button>
             <Button
                 size="large"
                 className={classes.button}

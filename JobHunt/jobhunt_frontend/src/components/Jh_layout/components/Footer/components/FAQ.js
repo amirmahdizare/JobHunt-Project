@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from '@material-ui/core'
 import React from 'react'
 import { ListMenu } from './ListMenu'
-const FAQ = (props) => {
+const FAQ = () => {
     return (
         <Grid item xs={12} md={3}>
             <Box p={2} >

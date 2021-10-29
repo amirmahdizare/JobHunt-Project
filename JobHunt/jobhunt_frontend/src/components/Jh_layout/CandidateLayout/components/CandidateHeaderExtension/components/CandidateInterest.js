@@ -6,7 +6,7 @@ import {
     ClickAwayListener, Grow, makeStyles,
     Popper
 } from '@material-ui/core';
-import { Jh_CandidateInterestsContainer } from './Jh_CandidateInterestsContainer';
+import { CandidateInterestsContainer } from './CandidateInterestsContainer';
 const useClasses = makeStyles(theme => ({
     icon: {
         borderWidth: '2px',
@@ -28,7 +28,7 @@ const useClasses = makeStyles(theme => ({
         backgroundColor: theme.palette.background.paper,
     },
 }))
-export const Jh_CandidateInterest = () => {
+export const CandidateInterest = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const ButtonRef = useRef()
     const handleClick = (event) => {
@@ -55,7 +55,7 @@ export const Jh_CandidateInterest = () => {
                         {...TransitionProps}
                         style={{ transformOrigin: placement === 'bottom-end' ? 'center top' : 'center bottom' }}
                     >
-                        <Jh_CandidateInterestsContainer />
+                        <CandidateInterestsContainer />
                     </Grow>
                 )}
             </Popper>

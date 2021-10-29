@@ -29,7 +29,7 @@ const useClasses = makeStyles((theme) => ({
     },
     startIcon: {}
 }))
-export const Jh_CandidateMenu = () => {
+export const CandidateMenu = () => {
     const classes = useClasses()
     const buttonClasses = { root: classes.root, label: classes.label, startIcon: classes.startIcon }
     return (

@@ -26,7 +26,7 @@ const useClasses = makeStyles(props => ({
         }
     }
 }))
-export const Jh_Avatar = (props) => {
+export const UserAvatar = (props) => {
     const classes = useClasses(props)
     return (
         <>
