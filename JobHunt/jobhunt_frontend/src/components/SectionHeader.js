@@ -2,7 +2,7 @@ import { Box, Button, Divider, Typography } from '@material-ui/core'
 import { AddCircle } from '@material-ui/icons'
 import React from 'react'
 
-export const Jh_SectionHeader = (props) => {
+export const SectionHeader = (props) => {
     return (
         <>
             <Box p={2} width="100" alignItems="center" justifyContent="space-between" display="flex" flexDirection="row">

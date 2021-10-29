@@ -1,7 +1,7 @@
 import React from 'react'
 import {Jh_Avatar} from '../../../../Jh_Avatar'
 import { Jh_PopperMenu } from './components/Jh_PopperMenu'
-import { Jh_EmployerMenu } from '../../../../Jh_EmployerMenu'
+import { EmployerMenu } from '../../../../EmployerMenu'
 import { Box, ThemeProvider ,createTheme } from '@material-ui/core'
 export const Jh_EmployerHeaderExtension = () => {
     return (

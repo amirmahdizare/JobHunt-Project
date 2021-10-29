@@ -5,7 +5,7 @@ import { userLandingPage } from '../config/usersLandingPage'
 import { CommonRoutes } from './components/CommonRoutes'
 import { RouteMaker } from './components/RouteMaker'
 const ExclusiveEmployerRoutes = [
-    { path: "/managejobs", pageName: 'EmployerManageJobs' },
+    { path: "/dashboard/:section?", pageName: 'EmployerDashboard' },
     { path: "/employers", pageName: 'EmployerList' },
     { path: "/employer/:id", pageName: 'EmployerSingle' },
     { path: "/login", redirectTo: userLandingPage.employer },

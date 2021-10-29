@@ -1,19 +1,19 @@
 import { Box, Container, Divider, Grid } from '@material-ui/core'
 import React from 'react'
 import CandidatesDashboardBackground from '../../asset/backgrounds/CandidatesDashboardBackground.jpg'
-import { Jh_ContentHeader } from '../../components/Jh_ContentHeader'
-import { Jh_EmployerMenu } from '../../components/Jh_EmployerMenu'
-import { Jh_SectionHeader } from '../../components/Jh_SectionHeader'
+import { ContentHeader } from '../../components/ContentHeader'
+import { EmployerMenu } from '../../components/EmployerMenu'
+import { SectionHeader } from '../../components/SectionHeader'
 import { ManageJobsSection } from './components/ManageJobsSection'
 
 const EmployerManageJobs = () => {
     return (
         <Box>
-            <Jh_ContentHeader image={CandidatesDashboardBackground} text="Welcome Tara Planer" />
+            <ContentHeader image={CandidatesDashboardBackground} text="Welcome Tara Planer" />
             <Container maxWidth="lg">
                 <Grid container >
                     <Grid item xs={12} md={3}>
-                        <Jh_EmployerMenu />
+                        <EmployerMenu />
                     </Grid>
                     <Divider light orientation="vertical" flexItem />
                     <Grid item xs={12} md={8}>

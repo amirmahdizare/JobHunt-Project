@@ -7,7 +7,7 @@ import {
     ClickAwayListener, Grow, makeStyles,
     Popper
 } from '@material-ui/core';
-import { Jh_EmployerMenu } from '../../../../../Jh_EmployerMenu';
+import { EmployerMenu } from '../../../../../EmployerMenu';
 const useClasses = makeStyles(theme => ({
     card: {
         transition: 'all 0.4s ease'
@@ -49,7 +49,7 @@ export const Jh_PopperMenu = (props) => {
                     >
                         {/* <div>slama</div> */}
                         <Card style={{ width: '250px', overflow: 'auto', marginTop: '1em' }}>
-                            <Jh_EmployerMenu />
+                            <EmployerMenu />
                         </Card>
                     </Grow>
                 )}

@@ -10,7 +10,7 @@ const CandidateNotFoundPage = () => {
     return (
         <Box my={13} display="flex" justifyContent="center" alignItems="center" flexDirection="column">
             <h1>Page Not Found</h1>
-            <Button size="large" href="/managejobs"  color="primary" variant="contained">Back To Manage Jobs Panel</Button>
+            <Button size="large" href="dashboard/managejobs"  color="primary" variant="contained">Back To Dashboard</Button>
         </Box>
     )
 }

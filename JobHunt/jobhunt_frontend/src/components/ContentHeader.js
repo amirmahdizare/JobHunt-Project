@@ -41,7 +41,7 @@ const useClasses = makeStyles((theme) => ({
         }
     }
 }))
-export const Jh_ContentHeader = (props) => {
+export const ContentHeader = (props) => {
     const classes = useClasses(props)
     return (
         <Box className={classes.root} >
