@@ -4,6 +4,7 @@ import { Switch,Route ,useRouteMatch} from 'react-router-dom'
 import CandidatesDashboardBackground from '../../asset/backgrounds/CandidatesDashboardBackground.jpg'
 import { ContentHeader } from '../../components/ContentHeader'
 import { EmployerMenu } from '../../components/EmployerMenu'
+import { CompanyName } from './components/CompanyName/CompanyName'
 import { ManageJobs } from './components/ManageJobs/ManageJobs'
 
 const EmployerDashboard = () => {
@@ -20,7 +21,7 @@ const EmployerDashboard = () => {
                     <Grid item xs={12} md={8}>
                         <Switch>
                             <Route  path={`${path}/managejobs`} component={ManageJobs}/>
-                            <Route exact path={`${path}/companyname`} children={<h1>Company Name</h1>}/>
+                            <Route exact path={`${path}/companyname`} component={CompanyName}/>
                             <Route exact path={`${path}/transactions`} children={<h1>Transactions</h1>}/>
                             <Route exact path={`${path}/resumes`} children={<h1>Resumes</h1>}/>
                             <Route exact path={`${path}/packages`} children={<h1>Packages</h1>}/>
