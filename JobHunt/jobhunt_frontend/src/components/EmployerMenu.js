@@ -58,7 +58,7 @@ export const EmployerMenu = () => {
     const auth=useAuth()
     return (
         <Box  >
-            <Button href="/dashboard/companyname" classes={location=="/dashboard/companyname" ? activePageButton  : buttonClasses} size="large"   color="primary" startIcon={<LineAwesome icon={SvgFile} />}><Typography>Company Name</Typography></Button>
+            <Button href="/dashboard/companyprofile" classes={location=="/dashboard/companyprofile" ? activePageButton  : buttonClasses} size="large"   color="primary" startIcon={<LineAwesome icon={SvgFile} />}><Typography>Company Profile</Typography></Button>
             <Button href="/dashboard/managejobs" classes={location=="/dashboard/managejobs" ? activePageButton  : buttonClasses} size="large"  startIcon={<LineAwesome icon={SvgBriefcaseSolid} />}><Typography>Manage Jobs</Typography></Button>
             <Button href="/dashboard/transactions" classes={location=="/dashboard/transactions" ? activePageButton  : buttonClasses} size="large"  startIcon={<LineAwesome icon={SvgMoneyBillSolid} />}><Typography>Transactions</Typography></Button>
             <Button href="/dashboard/resumes" classes={location=="/dashboard/resumes" ? activePageButton  : buttonClasses} size="large"  startIcon={<LineAwesome icon={SvgPaperPlane} />}><Typography>Resumes</Typography></Button>

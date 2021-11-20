@@ -9,7 +9,12 @@ const getPopularCategories = async (customParams) => {
     })
     return await Object.values(response.data.data)
 }
-
+const getAllCategories = async ()=>{
+    const response = await api.get('/categories/guests',{
+        headers: { Lang: getLanguage() },
+    })
+    return Object.values(response.data.data)
+}
 const getCountryInfoToSignup = async (countryName) => {
     const response = await centralApi.get('/countries', {
         params: {
@@ -108,13 +113,23 @@ const getBlogs = async (params) =>{
     const fullDetailData = Promise.all( entities.map(async(blog)=>({...blog,image:await generateImageURL('jobhunt',Object.values(blog.medias)[0] )})))
     return fullDetailData
 }
+const getCategoryDetailById = async (id) =>{
+    const response = await api.get(`/categories/guests/${id}`,{
+        headers:{
+            Lang:getLanguage()
+        }
+    })
+    return response.data.data.title
+}
 export {
     getPopularCategories,
+    getAllCategories,
     getValidCountriesToSignupDetail,
     getUserIdentifier,
     getSingleCountryInfo,
     getFeaturedJobs,
     getExperiences,
     getPartners,
-    getBlogs
+    getBlogs,
+    getCategoryDetailById
 }
