@@ -116,7 +116,14 @@ const getFAQs = async (customParams) => {
     })
     return await Object.values(response.data.data)
 }
-
+const getTerms = async (customParams) => {
+    const reqParams = customParams && customParams.page && customParams.pagination_size ? customParams : { page: 1, pagination_size: 6 }
+    const response = await api.get('/terms/guests', {
+        headers: { Lang: getLanguage() },
+        params: reqParams
+    })
+    return await Object.values(response.data.data)
+}
 export {
     getPopularCategories,
     getValidCountriesToSignupDetail,
@@ -127,4 +134,5 @@ export {
     getPartners,
     getBlogs,
     getFAQs,
+    getTerms
 }
