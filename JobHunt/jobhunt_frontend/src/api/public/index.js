@@ -53,8 +53,8 @@ const getUserIdentifier = async () => {
 }
 const getFeaturedJobs = async () => {
     const response = await api.get('/jobs/offers/guests', {
-        headers:{
-            Lang:getLanguage()
+        headers: {
+            Lang: getLanguage()
         },
         params: {
             page: 1,
@@ -67,21 +67,21 @@ const getFeaturedJobs = async () => {
 }
 const getExperiences = async () => {
     const response = await api.get('/experiences/guests', {
-        headers:{
-            Lang:getLanguage()
+        headers: {
+            Lang: getLanguage()
         },
         params: {
             page: 1,
             pagination_size: 6
         }
     })
-    const { data: { data:{entities} } } = response
+    const { data: { data: { entities } } } = response
     return entities
 }
-const getPartners = async () =>{
+const getPartners = async () => {
     const response = await api.get('/partners/guests', {
-        headers:{
-            Lang:getLanguage()
+        headers: {
+            Lang: getLanguage()
         },
         params: {
             page: 1,
@@ -89,25 +89,34 @@ const getPartners = async () =>{
         },
 
     })
-    const { data: { data :{entities} } } = response
-    const fullDetailData = Promise.all( entities.map(async(partner)=>({...partner,logo:await generateImageURL('jobhunt',Object.values(partner.logo)[0] )})))
-    
+    const { data: { data: { entities } } } = response
+    const fullDetailData = Promise.all(entities.map(async (partner) => ({ ...partner, logo: await generateImageURL('jobhunt', Object.values(partner.logo)[0]) })))
+
     return fullDetailData
 }
-const getBlogs = async (params) =>{
-    const response = await api.get('blogs/guests',{
-        headers:{
-            Lang:getLanguage()
+const getBlogs = async (params) => {
+    const response = await api.get('blogs/guests', {
+        headers: {
+            Lang: getLanguage()
         },
         params: params || {
             page: 1,
             pagination_size: 3
         },
     })
-    const { data: { data :{entities} } } = response
-    const fullDetailData = Promise.all( entities.map(async(blog)=>({...blog,image:await generateImageURL('jobhunt',Object.values(blog.medias)[0] )})))
+    const { data: { data: { entities } } } = response
+    const fullDetailData = Promise.all(entities.map(async (blog) => ({ ...blog, image: await generateImageURL('jobhunt', Object.values(blog.medias)[0]) })))
     return fullDetailData
 }
+const getFAQs = async (customParams) => {
+    const reqParams = customParams && customParams.page && customParams.pagination_size ? customParams : { page: 1, pagination_size: 6 }
+    const response = await api.get('/faqs/guests', {
+        headers: { Lang: getLanguage() },
+        params: reqParams
+    })
+    return await Object.values(response.data.data)
+}
+
 export {
     getPopularCategories,
     getValidCountriesToSignupDetail,
@@ -116,5 +125,6 @@ export {
     getFeaturedJobs,
     getExperiences,
     getPartners,
-    getBlogs
+    getBlogs,
+    getFAQs,
 }
