@@ -26,7 +26,7 @@ const EmployerDashboard = () => {
                             <Route exact path={`${path}/transactions`} children={<h1>Transactions</h1>} />
                             <Route exact path={`${path}/resumes`} children={<h1>Resumes</h1>} />
                             <Route exact path={`${path}/packages`} children={<h1>Packages</h1>} />
-                            <Route exact path={`${path}/postjob`} children={<PostJob/>} />
+                            <Route exact path={`${path}/postjob`} component={PostJob} />
                             <Route exact path={`${path}/jobalert`} children={<h1>Job Alert</h1>} />
                             <Route exact path={`${path}/changepassword`} children={<h1>Change Password</h1>} />
                             <Route children={<Redirect to={`${path}/managejobs`}/>}  />
