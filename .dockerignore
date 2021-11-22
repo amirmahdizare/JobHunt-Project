@@ -1,0 +1,16 @@
+*/node_modules/
+*/build/
+*/.git/
+.next
+.docker
+.gitlab-ci.yml
+.npmrc
+*.log
+*Dockerfile*
+.gitignore
+.editorconfig
+.playbooks
+.idea
+.gitignore
+.git
+README.md

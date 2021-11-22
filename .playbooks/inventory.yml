@@ -1,0 +1,11 @@
+---
+all:
+  hosts:
+    stg.blytd.com:
+      ansible_host: 185.235.41.22
+      ansible_port: 22
+
+  children:
+    stage:
+      hosts:
+        stg.blytd.com:
