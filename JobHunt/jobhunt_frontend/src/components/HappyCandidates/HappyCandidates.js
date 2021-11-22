@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Container,makeStyles, Typography } from '@material-ui/core'
 import happyCandidatesBackground from '../../asset/backgrounds/happyCandidatesBackground.jpg'
 import CondidatesSlider from './components/CondidatesSlider'
-const useClasses = makeStyles(theme => ({
+const useClasses = makeStyles({
     root: {
         alignItems: 'center',
         display: 'flex',
@@ -31,8 +31,8 @@ const useClasses = makeStyles(theme => ({
         position:'relative',
         color:'white'
     }
- } ))
-const Jh_HappyCandidates = () => {
+ })
+const HappyCandidates = () => {
     const classes=useClasses()
     return (
         <Box className={classes.root}>
@@ -46,4 +46,4 @@ const Jh_HappyCandidates = () => {
         </Box>
     )
 }
-export {Jh_HappyCandidates}
+export {HappyCandidates}

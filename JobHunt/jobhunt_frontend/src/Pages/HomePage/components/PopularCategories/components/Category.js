@@ -1,5 +1,5 @@
-import { Avatar, Card, Grid, Link, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
+import { Avatar, Card, Grid, Link, makeStyles, Typography } from '@material-ui/core'
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 const useClasses = makeStyles((theme) => ({
@@ -20,20 +20,24 @@ const useClasses = makeStyles((theme) => ({
             fontSize: "70px",
             fill: theme.palette.primary.light
         },
+        '& i':{
+            color:theme.palette.primary.main,
+            fontSize:'60px'
+        },
         '&:hover': {
             backgroundColor: 'white !important',
             boxShadow: '0px 0px 25px rgba(0,0,0 , 0.15)',
             borderRadius: '8px',
             zIndex: 10,
-            '& .icon': {
-                fill: theme.palette.secondary.main,
+            '& i': {
+                color: theme.palette.secondary.main,
                 transition: 'all 0.4s ease',
 
             },
             '& $defaultIcon': {
                 backgroundColor: theme.palette.secondary.main,
                 transition: 'all 0.4s ease',
-            }
+            },
         }
     },
     content: {
@@ -62,18 +66,20 @@ const useClasses = makeStyles((theme) => ({
         fontSize: "50px",
 
 
-    }
+    },
+
 }))
 const Category = (props) => {
     const classes = useClasses(props);
-    const { title, openPositions, id } = props
-    const icon = !props.icon && title ? <Avatar className={classes.defaultIcon} >{title[0]}</Avatar> : props.icon
+    const  { title, openPositions, id,icon } = props
+    //let icon = !props.icon || !Icon && title ? <Avatar className={classes.defaultIcon} >{title[0]}</Avatar> : props.icon
     return (
         <Grid item xs={12} sm={6} md={4} lg={3} p={2} >
-            <Card className={classes.root} component={Link} href={`/categories/${id}`} color="inherit" underline="none">
+            <Card className={classes.root} component={Link} href={`/jobs?categoryId=${id}`} color="inherit" underline="none">
                 <CardActionArea>
                     <CardContent className={classes.content}>
-                        {icon}
+                        {icon && <i  className={classes.icon} class={icon}></i>}
+                        {!icon && title && <Avatar className={classes.defaultIcon} >{title[0]}</Avatar>}
                         <Typography variant="h5" component="b" className={classes.categoryName} >{title}</Typography>
                         {openPositions ? <Typography variant="h6" className={classes.categoryStatus} >({openPositions}&nbsp;Open Positions</Typography> : null}
                     </CardContent>

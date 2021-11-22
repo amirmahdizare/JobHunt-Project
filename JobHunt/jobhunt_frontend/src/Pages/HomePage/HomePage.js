@@ -4,9 +4,9 @@ import PopularCategories from './components/PopularCategories/PopularCategories'
 import JobHuntResume from './components/JobHuntResume/JobHuntResume'
 import FeaturedJobs from './components/FeaturedJobs/FeaturedJobs'
 import {GotQuestion} from './components/GotQuestion/GotQuestion'
-import { Jh_HappyCandidates } from '../../components/Jh_HappyCandidates/Jh_HappyCandidates'
-import { Jh_Supporters } from '../../components/Jh_Supporters/Jh_Supporters'
-import { Jh_QuickCareerTips } from '../../components/Jh_QuickCareerTips/Jh_QuickCareerTips'
+import { HappyCandidates } from '../../components/HappyCandidates/HappyCandidates'
+import { Partners } from '../../components/Partners/Partners'
+import { QuickCareerTips } from '../../components/QuickCareerTips/QuickCareerTips'
 const HomePage = () => {
     return (
         <div>
@@ -14,9 +14,9 @@ const HomePage = () => {
                 <PopularCategories />
                 <JobHuntResume />
                 <FeaturedJobs/>
-                <Jh_HappyCandidates/>
-                <Jh_Supporters/>
-                <Jh_QuickCareerTips/>
+                <HappyCandidates/>
+                <Partners/>
+                <QuickCareerTips/>
                 <GotQuestion/>
         </div>
     )

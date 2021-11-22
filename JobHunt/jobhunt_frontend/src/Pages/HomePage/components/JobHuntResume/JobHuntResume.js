@@ -55,7 +55,7 @@ const JobHuntResume = () => {
             <Container maxWidth="lg" className={classes.container} >
                 <Box m={1}><Typography variant="h4">Make a Difference with Your Online Resume!</Typography></Box>
                 <Box m={1} mb={2}><Typography >Your resume in minutes with JobHunt resume assistant is ready!</Typography></Box>
-                <Button className={classes.button} variant="outlined"><Typography >Create an Account</Typography></Button>
+                <Button  href="/signup" className={classes.button} variant="outlined"><Typography >Create an Account</Typography></Button>
             </Container>
         </Box>
     )
