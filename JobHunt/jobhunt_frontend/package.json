@@ -23,6 +23,7 @@
     "slick-carousel": "^1.8.1",
     "web-vitals": "^1.1.2"
   },
+  
   "scripts": {
     "start": "env-cmd -f .env.staging react-scripts start",
     "build": "env-cmd -f .env.staging react-scripts build",
