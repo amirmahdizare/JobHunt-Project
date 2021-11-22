@@ -11,7 +11,6 @@ const Terms = () => {
     useEffect(() => {
         loading.toggleLoading()
         getTerms()
-
             .then((data) => {
                 setData(data[0])
                 console.log(data)
@@ -27,7 +26,7 @@ const Terms = () => {
                 }
                 {data.map((item, index) => (
                     <Box my={4} key={item.id}>
-                        <Typography variant="h6" gutterBottom>{index + 1}.&nbsp;{item.title}</Typography>
+                        <Typography variant="h6" gutterBottom>{item.title}</Typography>
                         <Typography color="textSecondary" variant="body2" gutterBottom>{item.description}</Typography>
                     </Box>
                 ))}
