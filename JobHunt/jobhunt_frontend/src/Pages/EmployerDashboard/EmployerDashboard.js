@@ -4,6 +4,7 @@ import { Switch, Route, useRouteMatch, Redirect } from 'react-router-dom'
 import CandidatesDashboardBackground from '../../asset/backgrounds/CandidatesDashboardBackground.jpg'
 import { ContentHeader } from '../../components/ContentHeader'
 import { EmployerMenu } from '../../components/EmployerMenu'
+import { ChangePassword } from './components/ChangePassword/ChangePassword'
 import { CompanyProfile } from './components/CompanyProfile/CompanyProfile'
 import { ManageJobs } from './components/ManageJobs/ManageJobs'
 import { PostJob } from './components/PostJob/PostJob'
@@ -28,7 +29,7 @@ const EmployerDashboard = () => {
                             <Route exact path={`${path}/packages`} children={<h1>Packages</h1>} />
                             <Route exact path={`${path}/postjob`} component={PostJob} />
                             <Route exact path={`${path}/jobalert`} children={<h1>Job Alert</h1>} />
-                            <Route exact path={`${path}/changepassword`} children={<h1>Change Password</h1>} />
+                            <Route exact path={`${path}/changepassword`} component={ChangePassword} />
                             <Route children={<Redirect to={`${path}/managejobs`}/>}  />
                         </Switch>
                     </Grid>
