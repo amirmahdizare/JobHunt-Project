@@ -1,4 +1,4 @@
 export const userLandingPage = {
-    employer:'/managejobs',
+    employer:'/dashboard/managejobs',
     candidate:'/dashboard'
 }

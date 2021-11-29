@@ -1,8 +1,7 @@
-import { Button, Paper, makeStyles, Typography, Box } from '@material-ui/core'
+import { Button, makeStyles, Typography, Box } from '@material-ui/core'
 import React from 'react'
-import ScheduleIcon from '@material-ui/icons/Schedule';
-import { LineAwesome, SvgClock, SvgFile, SvgUser, SvgUsersSolid } from 'react-line-awesome-svg'
-import { Jh_SectionHeader } from '../../../components/Jh_SectionHeader'
+import { LineAwesome, SvgClock, SvgFile, SvgUsersSolid } from 'react-line-awesome-svg'
+import { SectionHeader } from '../../../components/SectionHeader'
 import { JobsTable } from './JobsTable'
 const useStyles = makeStyles(theme => ({
     buttonContainer: {
@@ -32,12 +31,12 @@ export const ManageJobsSection = (props) => {
     const classes = useStyles()
     return (
         <Box >
-            <Jh_SectionHeader title="Manage Jobs" />
+            <SectionHeader title="Manage Jobs" />
             <Box pl={2}>
                 <Box className={classes.buttonContainer}>
-                    <Button><LineAwesome className={classes.icon} icon={SvgClock} /><Typography>&nbsp; {props.jobPosted} </Typography><Typography color="textSecondary">&nbsp;Job Posted</Typography> </Button>
-                    <Button><LineAwesome className={classes.icon} icon={SvgFile} /><Typography>&nbsp; {props.application} </Typography><Typography color="textSecondary">&nbsp;Job Application</Typography></Button>
-                    <Button><LineAwesome className={classes.icon} icon={SvgUsersSolid} /><Typography>&nbsp; {props.activeJobs}</Typography><Typography color="textSecondary">&nbsp;Active Jobs</Typography></Button>
+                    <Button><LineAwesome className={classes.icon} icon={SvgClock} /><Typography>&nbsp;  </Typography><Typography color="textSecondary">&nbsp;Job Posted</Typography> </Button>
+                    <Button><LineAwesome className={classes.icon} icon={SvgFile} /><Typography>&nbsp; </Typography><Typography color="textSecondary">&nbsp;Job Application</Typography></Button>
+                    <Button><LineAwesome className={classes.icon} icon={SvgUsersSolid} /><Typography>&nbsp; </Typography><Typography color="textSecondary">&nbsp;Active Jobs</Typography></Button>
                 </Box>
                 <JobsTable />
             </Box>
