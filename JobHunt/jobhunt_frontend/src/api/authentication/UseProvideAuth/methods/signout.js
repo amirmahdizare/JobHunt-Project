@@ -1,7 +1,8 @@
 const _signout = (setUser,rememberMe) =>{
+    window.sessionStorage.removeItem('user')
+    window.sessionStorage.removeItem('token')
     setUser(null)
     // if(!rememberMe)
-    localStorage.removeItem('token')
     return Promise.resolve()
 
 }

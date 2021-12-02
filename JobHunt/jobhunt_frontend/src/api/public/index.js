@@ -1,6 +1,7 @@
 import { api, centralApi } from "../../config/apiConfig"
 import { centralApiHeaderObj, getLanguage, getUserToken } from "../../utils"
 import { generateImageURL } from "../OSS/minioAPI"
+
 const getPopularCategories = async (customParams) => {
     const reqParams = customParams && customParams.page && customParams.pagination_size ? customParams : { page: 1, pagination_size: 6 }
     const response = await api.get('/categories/guests', {
@@ -8,6 +9,13 @@ const getPopularCategories = async (customParams) => {
         params: reqParams
     })
     return await Object.values(response.data.data)
+}
+
+const getAllCategories = async () => {
+    const response = await api.get('/categories/guests', {
+        headers: { Lang: getLanguage() },
+    })
+    return Object.values(response.data.data)
 }
 
 const getCountryInfoToSignup = async (countryName) => {
@@ -22,6 +30,7 @@ const getCountryInfoToSignup = async (countryName) => {
     return response.data.data.entities
 }
 
+
 const getValidCountriesToSignupDetail = async () => {
     let countries = []
     try {
@@ -32,6 +41,7 @@ const getValidCountriesToSignupDetail = async () => {
     }
     return countries
 }
+
 const getSingleCountryInfo = async (name) => {
     const response = await centralApi.get('/countries', {
         params: {
@@ -42,6 +52,7 @@ const getSingleCountryInfo = async (name) => {
     })
     return response.data.data.entities[0]
 }
+
 const getUserIdentifier = async () => {
     const response = await api.get('/users/profile', {
         headers: {
@@ -51,6 +62,7 @@ const getUserIdentifier = async () => {
     })
     return response.data.data.email || response.data.data.country_code + ' ' + response.data.data.mobile
 }
+
 const getFeaturedJobs = async () => {
     const response = await api.get('/jobs/offers/guests', {
         headers: {
@@ -65,6 +77,7 @@ const getFeaturedJobs = async () => {
     return data
 
 }
+
 const getExperiences = async () => {
     const response = await api.get('/experiences/guests', {
         headers: {
@@ -78,6 +91,7 @@ const getExperiences = async () => {
     const { data: { data: { entities } } } = response
     return entities
 }
+
 const getPartners = async () => {
     const response = await api.get('/partners/guests', {
         headers: {
@@ -94,6 +108,7 @@ const getPartners = async () => {
 
     return fullDetailData
 }
+
 const getBlogs = async (params) => {
     const response = await api.get('blogs/guests', {
         headers: {
@@ -124,8 +139,36 @@ const getTerms = async (customParams) => {
     })
     return await Object.values(response.data.data)
 }
+
+const getCategoryDetailById = async (id) => {
+    const response = await api.get(`/categories/guests/${id}`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+    return response.data.data.title
+}
+
+const getJobWorktimes = async (id) => {
+    const response = await api.get(`/cooperation-kinds/guests?page=1`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+    var result =[]
+    let times =response.data.data
+    for (let item in times) {
+        result.push({
+            cooperation_kind_id: item,
+            title:times[item]
+        })
+    }
+    return result
+}
+
 export {
     getPopularCategories,
+    getAllCategories,
     getValidCountriesToSignupDetail,
     getUserIdentifier,
     getSingleCountryInfo,
@@ -134,5 +177,7 @@ export {
     getPartners,
     getBlogs,
     getFAQs,
-    getTerms
+    getTerms,
+    getCategoryDetailById,
+    getJobWorktimes
 }

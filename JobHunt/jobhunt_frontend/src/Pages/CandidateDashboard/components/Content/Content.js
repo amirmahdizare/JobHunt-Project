@@ -6,13 +6,13 @@ import { WorkExperience } from './components/WorkExperience/WorkExperience'
 import { Portfolio } from './components/Portfolio/Portfolio'
 import { ProfessionalSkills } from './components/ProfessionalSkills/ProfessionalSkills'
 import { CertificatesSection } from './components/CertificatesSection/CertificatesSection'
-import { Jh_CandidateMenu } from '../../../../components/Jh_CandidateMenu'
+import { CandidateMenu } from '../../../../components/CandidateMenu'
 export const Content = () => {
     return (
         <Container>
                 <Grid container direction="row">
                     <Grid item xs={12} lg={3}>
-                        <Jh_CandidateMenu/>
+                        <CandidateMenu/>
                         <Divider light/>
                         <SkillsPercentage/>
                     </Grid>

@@ -4,4 +4,9 @@ import loader from './logo/loader.gif'
 import appstore from './downloadfromImages/appstore.png'
 import googleplay from './downloadfromImages/googleplay.png'
 import TipsBg from './backgrounds/TipsBg.jpg'
-export { logo, logo2, appstore, loader, googleplay, TipsBg }
+import noImage from './backgrounds/noImage.png'
+export {
+    logo, logo2, appstore,
+    loader, googleplay, TipsBg,
+    noImage
+}
