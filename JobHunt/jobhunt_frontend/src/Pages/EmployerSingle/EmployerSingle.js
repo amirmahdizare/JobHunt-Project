@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Container, Divider, Grid } from '@material-ui/core'
-import { Jh_ContentHeader } from '../../components/Jh_ContentHeader'
+import { ContentHeader } from '../../components/ContentHeader'
 import { EmployerInfo } from './components/EmployerInfo'
 import { ShareBox } from './components/ShareBox'
 import { AboutBusiness } from './components/AboutBusiness'
@@ -10,7 +10,7 @@ import { ContactBusiness } from './components/ContactBusiness'
  const EmployerSingle = () => {
     return (
         <Box >
-            <Jh_ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Single Employer" />
+            <ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Single Employer" />
             <Container maxWidth="lg">
                 <Grid container style={{ marginTop: '16px' }} alignItems="center" >
                     <EmployerInfo

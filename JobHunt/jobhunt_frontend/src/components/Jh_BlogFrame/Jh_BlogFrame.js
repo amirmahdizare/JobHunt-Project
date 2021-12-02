@@ -1,6 +1,6 @@
 import { Box, Container, Grid,makeStyles } from '@material-ui/core'
 import React from 'react'
-import { Jh_ContentHeader } from '../Jh_ContentHeader'
+import { ContentHeader } from '../ContentHeader'
 import { Jh_SideBarMenu } from '../Jh_SideBarMenu'
 import { RecentPosts } from './components/RecentPosts.js/RecentPosts'
 import { SearchKeywordBlog } from './components/SearchKeywordBlog'
@@ -21,7 +21,7 @@ export const Jh_BlogFrame = (props) => {
     return (
 
         <Box className={classes.root}>
-            <Jh_ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Blog" />
+            <ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Blog" />
             <Container maxWidth="lg" className={classes.container}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={9}>

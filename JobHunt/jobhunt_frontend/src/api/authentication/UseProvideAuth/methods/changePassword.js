@@ -1,9 +1,7 @@
 import { centralApi } from "../../../../config/apiConfig"
 import { centralApiHeaderObj, getToken } from "../../../../utils"
-const _changePassword = async function (password, password_confirmation) {
-    if (password_confirmation != password)
-         return Promise.reject({'message':{'password_confirmation':['Password Confirmation is not Equal to password ']}})
-    var data = new FormData()
+const _changePassword = async function ({password, password_confirmation}) {
+ var data = new FormData()
     data.append('password', password)
     data.append('password_confirmation', password_confirmation)
     try {
@@ -17,7 +15,7 @@ const _changePassword = async function (password, password_confirmation) {
             return true
         }
     } catch (error) {
-        return Promise.reject(error.response.data)
+        return Promise.reject(error.response.data.message)
     }
 
 

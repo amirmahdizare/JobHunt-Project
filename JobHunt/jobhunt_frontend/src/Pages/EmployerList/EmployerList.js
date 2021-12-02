@@ -1,6 +1,6 @@
 import { Box, Container, Divider, Grid } from '@material-ui/core'
 import React from 'react'
-import { Jh_ContentHeader } from '../../components/Jh_ContentHeader'
+import { ContentHeader } from '../../components/ContentHeader'
 import { AccordionFilterBox } from './components/AccordionFilterBox'
 import { List } from './components/List'
 import { ListPagination } from './components/ListPagination'
@@ -11,7 +11,7 @@ import { Since } from './components/Since'
 const EmployerList = () => {
     return (
         <Box >
-            <Jh_ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Employer" />
+            <ContentHeader image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg" text="Employer" />
             <Container maxWidth="lg">
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={3} spacing={2} >

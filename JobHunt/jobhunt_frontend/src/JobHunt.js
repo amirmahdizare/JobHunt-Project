@@ -3,7 +3,6 @@ import { storeServiceIdAndDefineLanguage } from './api/initilizeApp'
 import { ProvideAuth } from './api/authentication';
 import Jh_Router from './routes/Jh_Router';
 export const JobHunt = () => {
-
     const [language, setLanguage] = useState('en')
     useEffect(async () => {
         await storeServiceIdAndDefineLanguage(language)

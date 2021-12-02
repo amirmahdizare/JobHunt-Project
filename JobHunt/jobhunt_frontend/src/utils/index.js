@@ -39,4 +39,5 @@ return window.sessionStorage.setItem('user',user)
 const getUser = () =>{
     return window.sessionStorage.getItem('user') || null
 }
+
 export { getServiceId, getLanguage,storeToken,getToken ,centralApiHeaderObj ,storeUsertoken,getUserToken,capitalizeFirstLetter,storeUser,getUser,removeTokens}

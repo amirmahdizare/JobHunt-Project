@@ -9,5 +9,9 @@ const CommonRoutes = [
     {path:'/terms',pageName:'Terms'},
     {path:'/howitworks',pageName:'HowItWorks'},
     { path: "/signup", pageName: 'SignupPage' },
+    { path: "/pricing", pageName: 'Pricing' },
+    { path: "/jobs", pageName: 'JobList' },
+    { path: "/job/:id", pageName: 'JobSingle' },
+
 ]
 export {CommonRoutes}
