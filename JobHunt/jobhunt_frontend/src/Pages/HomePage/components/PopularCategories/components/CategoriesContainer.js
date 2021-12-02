@@ -19,9 +19,9 @@ const CategoriesContainer = () => {
     }, [])
     return (
         <Grid container className={classes.root} spacing={1}  >
-            {categoriesData ? categoriesData.map(category =>
+            {categoriesData ? categoriesData.filter((item,index)=>index<8).map(category =>
             (
-                <Category title={category.title} id={category.id} />
+                <Category title={category.title} id={category.id} icon={category.icon} />
             )) : <Typography>No Popular Category Found</Typography>}
             {/* Sample Category */}
             {/* <Category title="Education Training" status="(6 Open Positions)" 
