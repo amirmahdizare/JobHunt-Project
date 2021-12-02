@@ -10,11 +10,11 @@ ENV APP_ENV ${APP_ENV}
 RUN ls -la
 
 RUN if [ ${APP_ENV} = "stage" ]; then \
-    mv .env.staging .env \
+    cp .env.staging .env \
 ;fi
 
 RUN if [ ${APP_ENV} = "production" ]; then \
-    mv .env.production .env \
+    cp .env.production .env \
 ;fi
 
 RUN rm -f .env.staging .env.production
