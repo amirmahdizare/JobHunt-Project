@@ -3,7 +3,7 @@ const getServiceId = () => {
 
 }
 const getLanguage = () => {
-    return window.sessionStorage.getItem('Lang')
+    return window.sessionStorage.getItem('Lang') || 'en'
 }
 const storeToken = (token) => {
     window.sessionStorage.setItem('token', token)
