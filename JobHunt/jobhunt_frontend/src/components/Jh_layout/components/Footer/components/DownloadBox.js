@@ -4,7 +4,7 @@ import {Jh_GetFromGooglePlay  ,Jh_GetFromAppStore} from '../../../../Jh_getTheAp
 const DownloadBox = () => {
     return (
         <Grid item xs={12} md={3}>
-        <Box display="flex" p={2} flexDirection='column' justifyContent="center" alignItems="center" >
+        <Box display="flex" p={2} flexDirection='column' justifyContent="center" alignItems="center"  >
             <Jh_GetFromAppStore/>
             <Jh_GetFromGooglePlay/>
         </Box>

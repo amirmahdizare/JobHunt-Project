@@ -17,18 +17,18 @@ const useClasses = makeStyles((theme) => ({
 
   }
 }))
-const ContactUs = (props) => {
+const ContactUs = () => {
   const classes = useClasses()
   return (
-    <Grid item xs={6} md={3}>
+    <Grid item xs={12} md={3}>
       <Box className={classes.root} height="100%">
         <Jh_Logo1 />
         {/* Address */}
-        <Typography className={classes.text} variant="h6">Collin Street West, Victor 8007, Australia.</Typography>
+        <Typography className={classes.text} >ًRoom 605, Unit 5 Building 1,Kaide Jinxiu, Balizhuang, Chaoyang District, Beijing </Typography>
         {/* Phone Number */}
-        <Typography className={classes.text} variant="h6">+1 246-345-0695</Typography>
+        <Typography className={classes.text} >+86 5629-1029</Typography>
         {/* Email */}
-        <Typography className={classes.text} variant="h6">info@jobhunt.com</Typography>
+        <Typography className={classes.text} >info@jobhunt.com</Typography>
         <SocialMedias />
 
       </Box>

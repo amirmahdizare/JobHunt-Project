@@ -72,7 +72,7 @@ const useClasses = makeStyles((theme) => ({
 const Category = (props) => {
     const classes = useClasses(props);
     const  { title, openPositions, id,icon } = props
-    //let icon = !props.icon || !Icon && title ? <Avatar className={classes.defaultIcon} >{title[0]}</Avatar> : props.icon
+
     return (
         <Grid item xs={12} sm={6} md={4} lg={3} p={2} >
             <Card className={classes.root} component={Link} href={`/jobs?categoryId=${id}`} color="inherit" underline="none">
