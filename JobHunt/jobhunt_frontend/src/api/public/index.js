@@ -155,15 +155,21 @@ const getJobWorktimes = async (id) => {
             Lang: getLanguage()
         }
     })
-    var result =[]
-    let times =response.data.data
+    var result = []
+    let times = response.data.data
     for (let item in times) {
         result.push({
             cooperation_kind_id: item,
-            title:times[item]
+            title: times[item]
         })
     }
     return result
+}
+const postContactUs = async (data) => {
+    const response = await api.post('/contact-us/guests', data, {
+        headers: { Lang: getLanguage() },
+    })
+    return await Object.values(response)
 }
 
 export {
@@ -179,5 +185,6 @@ export {
     getFAQs,
     getTerms,
     getCategoryDetailById,
-    getJobWorktimes
+    getJobWorktimes,
+    postContactUs
 }
