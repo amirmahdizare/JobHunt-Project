@@ -179,5 +179,6 @@ export {
     getFAQs,
     getTerms,
     getCategoryDetailById,
-    getJobWorktimes
+    getJobWorktimes,
+    getCountryInfoToSignup
 }
