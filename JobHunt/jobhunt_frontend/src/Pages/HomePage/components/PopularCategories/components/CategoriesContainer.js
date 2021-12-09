@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, CircularProgress, Grid, makeStyles, Typography } from '@material-ui/core'
 import Category from './Category'
 import { getPopularCategories } from '../../../../../api/public'
-import { useRequest } from '../../../../../hooks/useRequest'
+import { useGetData } from '../../../../../hooks/useGetData'
 const useClasses = makeStyles(theme => ({
     root: {
         alignItems: 'center',
@@ -13,7 +13,7 @@ const useClasses = makeStyles(theme => ({
 }))
 const CategoriesContainer = () => {
     const classes = useClasses()
-    const [categoriesData, error, loading] = useRequest(getPopularCategories)
+    const [categoriesData, error, loading] = useGetData(getPopularCategories)
     return (
         <Grid container className={classes.root} spacing={1}  >
             {categoriesData && categoriesData.filter((item, index) => index < 8).map(category =>

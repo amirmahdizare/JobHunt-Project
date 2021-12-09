@@ -1,8 +1,9 @@
-import { Box, CardMedia, Container, Grid, Typography, makeStyles } from '@material-ui/core'
+import { Box, CardMedia, Container, Grid, Typography, makeStyles, CircularProgress } from '@material-ui/core'
 import React from 'react'
-import { SvgClock, SvgCodepen, SvgSearchSolid, SvgTvSolid, SvgUser } from 'react-line-awesome-svg'
 import { Jh_Share } from '../../../components/Jh_Share'
 import { ServiceCard } from './ServiceCard'
+import { getAboutUsDescription, getOverServices } from '../../../api/public'
+import { useGetData } from '../../../hooks/useGetData'
 const useStyles = makeStyles(theme => ({
     container: {
         marginTop: theme.spacing(3),
@@ -10,25 +11,28 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 export const AboutUsDescription = () => {
+    const [AboutDescription, errorAboutUsDescription, loadingAboutUsDescription] = useGetData(getAboutUsDescription)
+    const [servicesData, errorServices, loadingServices] = useGetData(getOverServices)
     const classes = useStyles()
     return (
         <Box>
-            <Container maxWidth="lg">
+        <Container maxWidth="lg">
+            {AboutDescription &&
                 <Grid container className={classes.container} spacing={2}>
                     <Grid item xs={12} md={7}>
                         <Typography variant="h5" gutterBottom>
-                            About Job Hunt
+                            {AboutDescription.title}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
-                            Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy penguin insect additionally wow absolutely crud meretriciously hastily dalmatian a glowered inset one echidna cassowary some parrot and much as goodness some froze the sullen much connected bat wonderfully on instantaneously eel valiantly petted this along across highhandedly much.Repeatedly dreamed alas opossum but dramatically despite expeditiously that jeepers loosely yikes that as or eel underneath kept and slept compactly far purred sure abidingly up above fitting to strident wiped set waywardly far the and pangolin horse approving paid chuckled cassowary oh above a much opposite far much hypnotically more therefore wasp less that hey apart well like while superbly orca and far hence one.Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy.
+                            {AboutDescription.description}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} md={5}>
-                        <CardMedia component="img" image="https://creativelayers.net/themes/jobhunt-html/images/resource/bsd1.jpg" />
+                        <CardMedia component="img" image={AboutDescription.image} />
                     </Grid>
                     <Grid item xs={12} >
                         <Typography variant="body2" color="textSecondary">
-                            Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy penguin insect additionally wow absolutely crud meretriciously hastily dalmatian a glowered inset one echidna cassowary some parrot and much as goodness some froze the sullen much connected bat wonderfully on instantaneously eel valiantly petted this along across highhandedly much.Repeatedly dreamed alas opossum but dramatically despite expeditiously that jeepers loosely yikes that as or eel underneath kept and slept compactly far purred sure abidingly up above fitting to strident wiped set waywardly far the and pangolin horse approving paid chuckled cassowary oh above a much opposite far much hypnotically more therefore wasp less that hey apart well like while superbly orca and far hence one.Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy.
+                            {AboutDescription.note}
                         </Typography>
                     </Grid>
                     <Grid item xs={4} md={2} >
@@ -39,40 +43,27 @@ export const AboutUsDescription = () => {
                             facebookLink="facebookLink" />
                     </Grid>
                 </Grid>
-                <Typography variant="h5" gutterBottom>
-                    Our Services
-                </Typography>
-                <Grid container spacing={2}>
+            }
+            <Box width={1} display="flex" alignItems="center" justifyContent="center">
+                {AboutDescription?.length == 0 && <Typography>Not Found Data</Typography>}
+                {!AboutDescription && loadingAboutUsDescription && <CircularProgress />}
+            </Box>
+            <Typography variant="h5" gutterBottom>
+                Our Services
+            </Typography>
+            <Grid container spacing={2}>
+                {servicesData && servicesData.map((services, index) =>
                     <ServiceCard
-                        iconName={SvgClock}
-                        title="Advertise A Job"
-                        description="Duis a tristique lacus. Donec vehicula ante id lorem venenatis posuere. Morbi in lectus." />
-                    <ServiceCard
-                        iconName={SvgSearchSolid}
-                        title="	CV Search"
-                        description="Duis a tristique lacus. Donec vehicula ante id lorem venenatis posuere. Morbi in lectus." />
-                    <ServiceCard
-                        iconName={SvgUser}
-                        title="Recruiter Profiles"
-                        description="Duis a tristique lacus. Donec vehicula ante id lorem venenatis posuere. Morbi in lectus." />
-                    <ServiceCard
-                        iconName={SvgCodepen}
-                        title="Temp Search"
-                        description="Duis a tristique lacus. Donec vehicula ante id lorem venenatis posuere. Morbi in lectus." />
-                    <ServiceCard
-                        iconName={SvgTvSolid}
-                        title="Display Jobs"
-                        description="Duis a tristique lacus. Donec vehicula ante id lorem venenatis posuere. Morbi in lectus." />
-                    <ServiceCard
-                        iconName={SvgUser}
-                        title="For Agencies"
-                        description="Duis a tristique lacus. Donec vehicula ante id lorem venenatis posuere. Morbi in lectus." />
+                        key={services.id}
+                        iconName={services.icon}
+                        title={services.title}
+                        description={services.description} />
+                )}
+                {servicesData?.length == 0 && <Typography > Not ServicesData Found</Typography>}
+                {!servicesData && loadingServices && <CircularProgress />}
+            </Grid>
 
+        </Container>
 
-
-                </Grid>
-            </Container>
-
-        </Box>
-    )
+    </Box> )
 }

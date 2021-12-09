@@ -8,9 +8,31 @@ const storeServiceIdAndDefineLanguage = async (language) =>{
         }
     }
     const response= await axios(config)
+    console.log(response)
     const serviceId = response.data.data.filter(item => item.name=='jobHunt')[0].id;
-    window.sessionStorage.setItem('serviceId',serviceId)
     window.sessionStorage.setItem('Lang',language)
+    window.sessionStorage.setItem('serviceId',serviceId)
     // if()
 }
-export { storeServiceIdAndDefineLanguage}
+const shareStorage = () =>{
+    window.addEventListener('storage', function (event) {
+        if (event.key == 'getSessionStorage') {
+            // Some tab asked for the sessionStorage -> send it
+            localStorage.setItem('sessionStorage', JSON.stringify(window.sessionStorage));
+            localStorage.removeItem('sessionStorage');
+        } else if (event.key == 'sessionStorage' && !window.sessionStorage.length) {
+            // sessionStorage is empty -> fill it
+            var data = JSON.parse(event.newValue)
+            // value;
+            for (const key in data) {
+                window.sessionStorage.setItem(key, data[key]);
+            }
+
+        }
+    });
+    if (window.sessionStorage.length < 3) {
+        // Ask other tabs for session storage
+        localStorage.setItem('getSessionStorage', Date.now());
+    };
+}
+export { storeServiceIdAndDefineLanguage,shareStorage}

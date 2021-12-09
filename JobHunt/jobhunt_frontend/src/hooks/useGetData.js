@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const useRequest = (request) => {
+const useGetData = (request) => {
 
     const [data, setData] = useState()
     const [error, setError] = useState()
@@ -16,4 +16,4 @@ const useRequest = (request) => {
     return [data, error, loading]
 
 }
-export { useRequest }
+export { useGetData }
