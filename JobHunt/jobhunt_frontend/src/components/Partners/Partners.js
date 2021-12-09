@@ -32,7 +32,7 @@ const Partners = () => {
                 <Grid container className={classes.container} spacing={2}>
                     {data
                      ? data.map((partner)=>
-                     (<Company logo={partner.logo} title={partner.name} />))
+                     (<Company logo={partner.logo} link={partner?.link} title={partner.name} />))
                     :<CircularProgress/>}
                 </Grid>
 
