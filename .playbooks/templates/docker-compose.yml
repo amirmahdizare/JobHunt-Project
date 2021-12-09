@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  jobhunt.front.service:
+    image: registry.gitlab.blytd.com/frontend/jobhunt:stage-latest
+    container_name: jobhunt.front.service
+    hostname: jobhunt.front.service
+    restart: always
+    networks:
+      - blytd
+
+networks:
+  blytd:
+    external: true
