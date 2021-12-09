@@ -165,6 +165,28 @@ const getJobWorktimes = async (id) => {
     }
     return result
 }
+const getAboutUsDescription = async () => {
+    const response = await api.get(`/preambles/guests`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+
+    const { data: { data } } = response
+    const fullDetailData = { ...data, image: await generateImageURL('jobhunt', Object.values(data.media)[0]) }
+    return fullDetailData
+}
+
+const getOverServices = async () => {
+    const response = await api.get(`/services/guests?page=1`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+
+    return response.data.data.entities
+}
+
 
 export {
     getPopularCategories,
@@ -180,5 +202,7 @@ export {
     getTerms,
     getCategoryDetailById,
     getJobWorktimes,
-    getCountryInfoToSignup
+    getCountryInfoToSignup,
+    getAboutUsDescription,
+    getOverServices
 }
