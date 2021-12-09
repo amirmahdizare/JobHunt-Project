@@ -1,11 +1,10 @@
 import { Box, CircularProgress, Divider, Typography } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { getBlogs } from '../../api/public'
 import { Jh_BlogFrame } from '../../components/Jh_BlogFrame/Jh_BlogFrame'
 import { Jh_Pagination } from '../../components/Jh_Pagination'
 import { LargePostCard } from './components/LargePostCard'
 import { useRequest } from '../../hooks/useRequest'
-
 
 const BlogList = () => {
     const [data, loading, error] = useRequest(getBlogs)
@@ -15,6 +14,7 @@ const BlogList = () => {
                 data.map((post, index) => (
                     <>
                         <LargePostCard
+                            id={post.id}
                             date={post.date}
                             description={post.description}
                             image={post.image}

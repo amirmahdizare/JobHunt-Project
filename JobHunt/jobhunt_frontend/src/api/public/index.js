@@ -1,3 +1,4 @@
+import moment from "moment"
 import { api, centralApi } from "../../config/apiConfig"
 import { centralApiHeaderObj, getLanguage, getUserToken } from "../../utils"
 import { generateImageURL } from "../OSS/minioAPI"
@@ -120,7 +121,7 @@ const getBlogs = async (params) => {
         },
     })
     const { data: { data: { entities } } } = response
-    const fullDetailData = Promise.all(entities.map(async (blog) => ({ ...blog, image: await generateImageURL('jobhunt', Object.values(blog.medias)[0]) })))
+    const fullDetailData = Promise.all(entities.map(async (blog) => ({ ...blog, image: await generateImageURL('jobhunt', Object.values(blog.medias)[0]), date: moment(blog.created_at).format('DD MMM, YYYY') })))
     return fullDetailData
 }
 const getFAQs = async (customParams) => {
@@ -155,17 +156,27 @@ const getJobWorktimes = async (id) => {
             Lang: getLanguage()
         }
     })
-    var result =[]
-    let times =response.data.data
+    var result = []
+    let times = response.data.data
     for (let item in times) {
         result.push({
             cooperation_kind_id: item,
-            title:times[item]
+            title: times[item]
         })
     }
     return result
 }
+const getBlogSingle = async (params) => {
+    const response = await api.get(`blogs/guests/${params}`, {
+        headers: {
+            Lang: getLanguage()
+        },
 
+    })
+    const { data: { data } } = response
+    const fullDetailData = { ...data, image: await generateImageURL('jobhunt', Object.values(data.medias)[0]), date: moment(data.created_at).format('DD MMM, YYYY') }
+    return fullDetailData
+}
 export {
     getPopularCategories,
     getAllCategories,
@@ -176,6 +187,7 @@ export {
     getExperiences,
     getPartners,
     getBlogs,
+    getBlogSingle,
     getFAQs,
     getTerms,
     getCategoryDetailById,
