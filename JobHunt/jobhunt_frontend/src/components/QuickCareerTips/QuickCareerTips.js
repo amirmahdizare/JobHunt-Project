@@ -34,20 +34,13 @@ const QuickCareerTips = () => {
                         <Tip
                             key={tip.id}
                             id={tip.id}
-                            // date="March 29, 2017"
+                            date={tip.created_at}
                             description={tip.caption}
                             image={tip.image}
                             // numberOfComments={0}
                             title={tip.title}
                         />
                     ))}
-                    {/* <Tip
-                        date="March 29, 2017"
-                        description="A job is a regular activity performed in exchange becoming an employee, volunteering" 
-                        image="https://creativelayers.net/themes/jobhunt-html/images/resource/b1.jpg"
-                        numberOfComments={0}
-                        title="Attract More Attention Sales And Profits"
-                    />*/}
                 </Grid>
             </Container>
         </Box>

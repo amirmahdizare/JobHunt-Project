@@ -9,6 +9,7 @@ import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
 const useClasses = makeStyles(theme => ({
     root: {
         backgroundColor: '#24324a',
+        paddingTop:theme.spacing(3)
     },
     rights: {
         backgroundColor: '#1d293e',

@@ -165,6 +165,49 @@ const getJobWorktimes = async (id) => {
     }
     return result
 }
+const getAboutUsDescription = async () => {
+    const response = await api.get(`/preambles/guests`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+
+    const { data: { data } } = response
+    const fullDetailData = { ...data, image: await generateImageURL('jobhunt', Object.values(data.media)[0]) }
+    return fullDetailData
+}
+
+const getOverServices = async () => {
+    const response = await api.get(`/services/guests?page=1`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+
+    return response.data.data.entities
+}
+
+const getStatistics =async () =>{
+
+    const getCount =async (endpoint) =>{
+        const response = await api.get(endpoint, {
+            headers: {
+                Lang: getLanguage()
+            }
+        })
+        return response.data.data.number_of_entities
+    }
+    
+    try { 
+        var jobsCount =await getCount('/jobs/offers/guests?page=1')
+        var companiesCount =await getCount('/companies/guest?page=1')
+        var usersCount = await getCount('/users/guests/counts?page=1')
+    } catch (error) {
+        return {}
+    }
+
+    return {jobsCount,companiesCount,usersCount }
+}
 
 export {
     getPopularCategories,
@@ -179,5 +222,9 @@ export {
     getFAQs,
     getTerms,
     getCategoryDetailById,
-    getJobWorktimes
-}
+    getJobWorktimes,
+    getCountryInfoToSignup,
+    getAboutUsDescription,
+    getOverServices,
+    getStatistics
+ }

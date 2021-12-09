@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, MenuItem, MenuList, makeStyles } from '@material-ui/core'
-const useClasses = makeStyles((item) => ({
+const useClasses = makeStyles(() => ({
     root: {
         '& .MuiLink-underlineHover:hover': {
             textDecoration: 'none',

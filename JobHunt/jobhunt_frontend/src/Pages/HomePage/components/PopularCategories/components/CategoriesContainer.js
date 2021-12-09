@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { Grid, makeStyles, Typography } from '@material-ui/core'
+import React from 'react'
+import { Box, CircularProgress, Grid, makeStyles, Typography } from '@material-ui/core'
 import Category from './Category'
 import { getPopularCategories } from '../../../../../api/public'
+import { useGetData } from '../../../../../hooks/useGetData'
 const useClasses = makeStyles(theme => ({
     root: {
         alignItems: 'center',
@@ -12,23 +13,17 @@ const useClasses = makeStyles(theme => ({
 }))
 const CategoriesContainer = () => {
     const classes = useClasses()
-    const [categoriesData, setcategoriesData] = useState([])
-    useEffect(() => {
-        getPopularCategories()
-            .then(data => { setcategoriesData(data); console.log(data) })
-    }, [])
+    const [categoriesData, error, loading] = useGetData(getPopularCategories)
     return (
         <Grid container className={classes.root} spacing={1}  >
-            {categoriesData ? categoriesData.map(category =>
+            {categoriesData && categoriesData.filter((item, index) => index < 8).map(category =>
             (
-                <Category title={category.title} id={category.id} />
-            )) : <Typography>No Popular Category Found</Typography>}
-            {/* Sample Category */}
-            {/* <Category title="Education Training" status="(6 Open Positions)" 
-            icon={<LineAwesome
-                icon={SvgGraduationCapSolid}
-                className="icon" />} 
-            /> */}
+                <Category title={category.title} id={category.id} icon={category.icon} />
+            ))}
+            <Box width={1} display="flex" alignItems="center" justifyContent="center">
+                {categoriesData?.length==0 && <Typography>No Popular Category Found</Typography>}
+                {!categoriesData && loading && <CircularProgress />}
+            </Box>
         </Grid>
     )
 }
