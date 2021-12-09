@@ -156,7 +156,7 @@ export const KeepInTouch = () => {
                         className={classes.alert}
                         variant="filled"
                         margin="normal"
-                        severity={alert.severity}>{alert.massage} </Alert>
+                        severity={alert.severity}>Your Message Successfully Sent , Thanks For Your Feedback! </Alert>
                 }
             </Box>
         </Grid >

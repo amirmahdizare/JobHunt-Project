@@ -15,8 +15,8 @@ export const JobHuntOffice = () => {
                 <ContactItem iconName={SvgFaxSolid} detail="Fax : 0934 343 343" />
                 <ContactItem iconName={SvgEnvelope} detail="Email : info@jobhunt.com" />
                 <Grid container spacing={2}>
-                <Grid item xs={6} ><Button startIcon={<Map/>} size="large" fullWidth   variant="contained" color="primary">See On Map</Button></Grid>
-                <Grid item xs={6}><Button startIcon ={<DirectionsIcon/>} size="large" fullWidth variant="outlined" color="primary">Direction</Button></Grid>
+                <Grid item xs={6} ><Button disabled startIcon={<Map/>} size="large" fullWidth   variant="contained" color="primary">See On Map</Button></Grid>
+                <Grid item xs={6}><Button disabled startIcon ={<DirectionsIcon/>} size="large" fullWidth variant="outlined" color="primary">Direction</Button></Grid>
             </Grid>
             </Box>
         </Grid>
