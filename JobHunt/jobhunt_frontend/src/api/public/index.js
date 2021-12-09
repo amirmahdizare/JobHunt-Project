@@ -187,6 +187,27 @@ const getOverServices = async () => {
     return response.data.data.entities
 }
 
+const getStatistics =async () =>{
+
+    const getCount =async (endpoint) =>{
+        const response = await api.get(endpoint, {
+            headers: {
+                Lang: getLanguage()
+            }
+        })
+        return response.data.data.number_of_entities
+    }
+    
+    try { 
+        var jobsCount =await getCount('/jobs/offers/guests?page=1')
+        var companiesCount =await getCount('/companies/guest?page=1')
+        var usersCount = await getCount('/users/guests/counts?page=1')
+    } catch (error) {
+        return {}
+    }
+
+    return {jobsCount,companiesCount,usersCount }
+}
 
 export {
     getPopularCategories,
@@ -204,5 +225,6 @@ export {
     getJobWorktimes,
     getCountryInfoToSignup,
     getAboutUsDescription,
-    getOverServices
-}
+    getOverServices,
+    getStatistics
+ }
