@@ -2,8 +2,6 @@ import React from 'react'
 import Box from '@material-ui/core/Box';
 import CustomMenu from './CustomMenu'
 import { Button, Typography } from '@material-ui/core';
-import { useAuth } from '../../../../../api/authentication';
-import { useLanguage } from '../../../../../LanguageProvider/Dev/useLanguage';
 import { SelectLanguage } from './SelectLanguage';
 const DesktopViewHeaderMenus = () => {
 
@@ -25,6 +23,7 @@ const DesktopViewHeaderMenus = () => {
             <CustomMenu
                 menuTitle="About&nbsp;Us"
                 menuItems={[
+                    { name: 'Aboutus', href: '/aboutus' },
                     { name: 'FAQ', href: '/faq' },
                     { name: 'How it works', href: '/howitworks' },
                     { name: 'Pricing Plans', href: '/pricing' },

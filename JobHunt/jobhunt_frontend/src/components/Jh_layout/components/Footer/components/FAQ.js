@@ -1,6 +1,7 @@
 import { Box, Grid, Typography } from '@material-ui/core'
 import React from 'react'
 import { ListMenu } from './ListMenu'
+
 const FAQ = () => {
     return (
         <Grid item xs={12} md={3}>
@@ -9,16 +10,16 @@ const FAQ = () => {
                 <ListMenu
                     menuItems={[
                         { name: 'Privacy & Security', href: '#' },
-                        { name: 'Term Of Service', href: '#' },
+                        { name: 'Term Of Service', href: '/terms' },
                         { name: 'Commuication', href: '#' },
                         { name: 'Referral Terms', href: '#' },
                         { name: 'Lending Licence', href: '#' },
                         { name: 'Disclaimers', href: '#' },
-                        { name: 'Support', href: '#' },
-                        { name: 'How It Works', href: '#' },
+                        { name: 'Support', href: '/contactus' },
+                        { name: 'How It Works', href: '/howitworks' },
                         { name: 'For Employers', href: '#' },
                         { name: 'Underwriting', href: '#' },
-                        { name: 'Contact Us', href: '#' },
+                        { name: 'Contact Us', href: '/contactus' },
                     ]}
                 />
             </Box>

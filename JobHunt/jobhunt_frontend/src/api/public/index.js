@@ -214,7 +214,18 @@ const postContactUs = async (data) => {
     })
     return await Object.values(response)
 }
-
+const getContactInfo =async () =>{
+    try {
+        const response = await api.get('/contact-infos/guests', {
+            headers: { Lang: getLanguage() },
+        })
+        console.log(response.data)
+        return response.data.data
+        
+    } catch (error) {
+        return Promise.reject(new Error('No Info Found'))
+    }
+}
 export {
     getPopularCategories,
     getAllCategories,
@@ -233,6 +244,7 @@ export {
     getAboutUsDescription,
     getOverServices,
     getStatistics,
-    postContactUs
+    postContactUs,
+    getContactInfo
  
 }
