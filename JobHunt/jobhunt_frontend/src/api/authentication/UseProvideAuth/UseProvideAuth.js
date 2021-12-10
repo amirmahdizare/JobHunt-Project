@@ -9,6 +9,9 @@ import { _signin } from "./methods/signin";
 import { _signout } from "./methods/signout";
 import { _signup } from "./methods/signup";
 import { _verifyCode } from "./methods/verifyCode";
+import {_requestVerifyCode} from './methods/requestVerifyCode'
+import { _loginwithVerifyCode } from "./methods/loginwithVerifyCode";
+
 function useProvideAuth() {
     const [user, setUser] = useState(getUser());
     const [rememberMe, setRememberMe] = useState(false)
@@ -21,6 +24,8 @@ function useProvideAuth() {
     const forgotPassword = _forgotPassword
     const rememberSignin= () => _rememberSignin(setUser)
     const verifyCode = (verifyCode) => _verifyCode(setUser, verifyCode)
+    const requestVerifyCode =  _requestVerifyCode
+    const loginwithVerifyCode = (dataObj) => _loginwithVerifyCode(setUser,dataObj)
     return {
         user,
         rememberMe,
@@ -34,6 +39,8 @@ function useProvideAuth() {
         changePassword,
         forgotPassword,
         verifyCode,
+        requestVerifyCode,
+        loginwithVerifyCode
     };
 }
 export { useProvideAuth }

@@ -13,6 +13,7 @@ import { EnterInformation } from './components/EnterInformation';
 import { capitalizeFirstLetter } from '../../utils';
 import { useAuth } from '../../api/authentication';
 import { VerifyAccount } from './components/VerifyAccount';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -163,7 +164,7 @@ export default function SignupPage() {
               </div>
             ) : (
               <div>
-                <Typography className={classes.instructions}> {getStepContent(activeStep)}</Typography>
+                <Typography component={'div'} className={classes.instructions}> {getStepContent(activeStep)}</Typography>
                 <div>
                   <Button disabled={activeStep == 0} onClick={handleBack} className={classes.button}>
                     Back

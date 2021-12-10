@@ -1,26 +1,20 @@
-import { Box, Button, ButtonGroup, Grid, Grow, TextField, Typography } from '@material-ui/core'
+import { Box, Grid, Grow, TextField } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import React, { useEffect } from 'react'
 import { SvgKeySolid, SvgUser } from 'react-line-awesome-svg'
 import { capitalizeFirstLetter } from '../../../utils'
 import { InputField } from '../../LoginPage/components/InputField'
 import { SelectCountry } from './SelectCountry'
+
 const EnterInformation = ({ handleChange, values, setNextButtonState, errorMessages }) => {
     useEffect(() => {
-        setNextButtonState(values.country_code && values[values.ident_kind] && values.password && errorMessages == null)
+        setNextButtonState(values.country_code && values[values.ident_kind]  && errorMessages == null)
     })
     return (
         <Box my={2}>
-            <Box width={1} my={2} display="flex" justifyContent="center" flexWrap='wrap' alignItems="center" >
-                <Typography variant="h6" color="textSecondary" align="center" >Sign Up With&nbsp;&nbsp;</Typography>
-                <ButtonGroup>
-                    <Button color="secondary" onClick={() => handleChange({ ident_kind: 'email' })} variant={values.ident_kind == 'email' ? 'contained' : 'outlined'} disabled >Email</Button>
-                    <Button color="secondary" onClick={() => handleChange({ ident_kind: 'mobile' })} variant={values.ident_kind == 'mobile' ? 'contained' : 'outlined'}>Mobile</Button>
-                </ButtonGroup>
-            </Box>
             {values.ident_kind == 'mobile'
                 ? <Grid container spacing={1} alignItems="center">
-                    <Grid item xs={12} md={3} alignItems='center'>
+                    <Grid item xs={12} md={3} >
                         <SelectCountry country_code={values.country_code} handleChange={handleChange} />
                     </Grid>
                     <Grid item xs={3} md={2}>
@@ -32,6 +26,7 @@ const EnterInformation = ({ handleChange, values, setNextButtonState, errorMessa
                             value={values.country_code}
                             margin="normal"
                             fullWidth
+                            
                         />
                     </Grid>
                     <Grid item xs={9} md={7}>
@@ -61,7 +56,7 @@ const EnterInformation = ({ handleChange, values, setNextButtonState, errorMessa
             }
 
             <InputField
-                title="Password"
+                title="Password (Optional) "
                 value={values.password}
                 valueTitle='password'
                 error={errorMessages?.['password']}
@@ -78,9 +73,6 @@ const EnterInformation = ({ handleChange, values, setNextButtonState, errorMessa
             >
                 <div>
                     {errorMessages && typeof errorMessages == 'string' ? <Alert severity="warning" variant="filled">{capitalizeFirstLetter(errorMessages)}</Alert> : null}
-                    {!(values.country_code && values[values.ident_kind] && values.password)
-                        ? <Alert severity="warning" variant="filled"> Fill All Fields to Go to the next step</Alert>
-                        : null}
                 </div></Grow>
         </Box>
     )
