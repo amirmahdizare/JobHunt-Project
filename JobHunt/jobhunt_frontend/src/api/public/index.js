@@ -1,3 +1,4 @@
+import { tr } from "date-fns/locale"
 import { api, centralApi } from "../../config/apiConfig"
 import { centralApiHeaderObj, getLanguage, getUserToken } from "../../utils"
 import { generateImageURL } from "../OSS/minioAPI"
@@ -187,9 +188,9 @@ const getOverServices = async () => {
     return response.data.data.entities
 }
 
-const getStatistics =async () =>{
+const getStatistics = async () => {
 
-    const getCount =async (endpoint) =>{
+    const getCount = async (endpoint) => {
         const response = await api.get(endpoint, {
             headers: {
                 Lang: getLanguage()
@@ -197,16 +198,16 @@ const getStatistics =async () =>{
         })
         return response.data.data.number_of_entities
     }
-    
-    try { 
-        var jobsCount =await getCount('/jobs/offers/guests?page=1')
-        var companiesCount =await getCount('/companies/guest?page=1')
+
+    try {
+        var jobsCount = await getCount('/jobs/offers/guests?page=1')
+        var companiesCount = await getCount('/companies/guest?page=1')
         var usersCount = await getCount('/users/guests/counts?page=1')
     } catch (error) {
         return {}
     }
 
-    return {jobsCount,companiesCount,usersCount }
+    return { jobsCount, companiesCount, usersCount }
 }
 const postContactUs = async (data) => {
     const response = await api.post('/contact-us/guests', data, {
@@ -214,18 +215,69 @@ const postContactUs = async (data) => {
     })
     return await Object.values(response)
 }
-const getContactInfo =async () =>{
+const getContactInfo = async () => {
     try {
         const response = await api.get('/contact-infos/guests', {
             headers: { Lang: getLanguage() },
         })
         console.log(response.data)
         return response.data.data
-        
+
     } catch (error) {
         return Promise.reject(new Error('No Info Found'))
     }
 }
+
+const getTopJobs = async () => {
+    const response = await api.get('/jobs/offers/guests', {
+        headers: { Lang: getLanguage() },
+        params: { page: 1, pagination_size: 6 }
+    })
+    const plainJobs = response.data.data.entities
+    return await Promise.all(plainJobs.map(async(job) => await jobDetailGenerator(job) ))
+}
+const jobDetailGenerator =async (job) => {
+       try {
+           var { logo, name } =await getCompanyDetailById(job.company_id)
+          var logourl = await generateImageURL('jobhunt',Object.values(logo)[0])
+           var { title, color } = await getCooperationKindById('61757f08c632ff190d1d6134')
+        } catch (error) {
+           //catch error
+        }
+        return {
+            ...job,
+            company_name: name,
+           company_logo: logourl,
+            cooperation_kind_title: title,
+            cooperation_kind_color: color
+        }
+    
+}
+const getCompanyDetailById = async (id) => {
+    try {
+        const response = await api.get('/companies/guest/' + id, {
+            headers: { Lang: getLanguage() },
+        })
+       // alert(response.data.data.title)
+       //console.log(response.data.data)
+        return response.data.data
+
+    } catch (error) {
+        return Promise.reject(new Error('No Info Found'))
+    }
+}
+const getCooperationKindById = async (id) => {
+    try {
+        const response = await api.get('/cooperation-kinds/guests/' + id, {
+            headers: { Lang: getLanguage() },
+        })
+        return response.data.data
+
+    } catch (error) {
+        return Promise.reject(new Error('No Info Found'))
+    }
+}
+
 export {
     getPopularCategories,
     getAllCategories,
@@ -245,6 +297,8 @@ export {
     getOverServices,
     getStatistics,
     postContactUs,
-    getContactInfo
- 
+    getContactInfo,
+    getTopJobs,
+    getCompanyDetailById
+
 }
