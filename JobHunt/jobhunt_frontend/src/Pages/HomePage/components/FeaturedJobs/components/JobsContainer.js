@@ -1,6 +1,8 @@
-import { Box, makeStyles } from '@material-ui/core'
+import { Box, CircularProgress, makeStyles } from '@material-ui/core'
 import React from 'react'
+import { getTopJobs } from '../../../../../api/public/index.js'
 import Jh_JobCard from '../../../../../components/Jh_JobCard.js'
+import { useGetData } from '../../../../../hooks/useGetData.js'
 const useClasses = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(5),
@@ -14,57 +16,26 @@ const useClasses = makeStyles((theme) => ({
 }))
 const JobsContainer = () => {
     const classes = useClasses()
+    const [data, error, loading] = useGetData(getTopJobs)
+    console.log(data)
     return (
         <Box className={classes.root}>
-            {/* Worktime Must be one of these items  "FULL TIME" "PART TIME" "FREELANCE" "TEMPORARY" */}
-            <Jh_JobCard
-                jobTitle="Web Designer / Developer"
-                companyName="Massimo Artemisis"
-                companyLocation="Sacramento, California"
-                workTime="FULL TIME"
-                companyLogo="https://creativelayers.net/themes/jobhunt-html/images/resource/l1.png"
-            />
+            {loading && <CircularProgress/>}
+            {data ? data.map((job) =>
 
-            <Jh_JobCard
-                jobTitle="Marketing Director"
-                companyName="Tix Dog"
-                companyLocation="Rennes, France"
-                workTime="PART TIME"
-                companyLogo="https://creativelayers.net/themes/jobhunt-html/images/resource/l2.png"
-            />
+                <Jh_JobCard
+                    key={job.id}
+                    jobTitle={job.title}
+                    companyName={job.company_name}
+                    companyLocation={job.city_id}
+                    workTime={job.cooperation_kind_title}
+                    workTimeColor={job.cooperation_kind_color}
+                    companyLogo={job.company_logo}
+                />
 
 
-            <Jh_JobCard
-                jobTitle="C Developer (Senior) C .Net"
-                companyName="StarHealth"
-                companyLocation="London, United Kingdom"
-                workTime="FULL TIME"
-                companyLogo="https://creativelayers.net/themes/jobhunt-html/images/resource/l3.png"
-            />
+            ): null}
 
-
-            <Jh_JobCard
-                jobTitle="Application Developer For Android"
-                companyName="Altes Bank"
-                companyLocation="Istanbul, Turkey"
-                workTime="FREELANCE"
-                companyLogo="https://creativelayers.net/themes/jobhunt-html/images/resource/l4.png"
-            />
-            <Jh_JobCard
-                jobTitle="Regional Sales Manager South east Asia"
-                companyName="Vincent"
-                companyLocation="Ajax, Ontario"
-                workTime="TEMPORARY"
-                companyLogo="https://creativelayers.net/themes/jobhunt-html/images/resource/l1.png"
-            />
-
-            <Jh_JobCard
-                jobTitle="Social Media and Public Relation Executive"
-                companyName="MediaLab"
-                companyLocation="Ankara / Turkey"
-                workTime="FULL TIME"
-                companyLogo="https://creativelayers.net/themes/jobhunt-html/images/resource/l6.png"
-            />
         </Box>
     )
 }

@@ -75,20 +75,10 @@ const useClasses = makeStyles(theme => ({
 const Jh_JobCard = (props) => {
     const [like, setLike] = useState(false)
     const classes = useClasses()
-    const makeWorkTimestatus = () => {
-        switch (props.workTime) {
-            case 'FULL TIME':
-                return { color: '#8b91dd', borderColor: '#8b91dd' }
-            case 'PART TIME':
-                return { color: '#7dc246', borderColor: '#7dc246' }
-            case 'FREELANCE':
-                return { color: '#fb236a', borderColor: '#fb236a' }
-            case 'TEMPORARY':
-                return { color: '#7dc246', borderColor: '#7dc246' }
-            default:
-                return;
-        }
-    }
+    const { workTimeColor } = props
+    const makeWorkTimestatus = (color) => ({ color: color, borderColor: color })
+
+
     return (
         <Card className={classes.root}>
             <CardActionArea className={classes.content}>
@@ -115,7 +105,7 @@ const Jh_JobCard = (props) => {
                             <Grid item xs={12} sm={3} className={classes.itemContainer}>
                                 <FavoriteBorderIcon className={classes.icon} style={{ color: !like ? 'gray' : 'red' }} onClick={() => setLike(!like)} />
                                 <Box>
-                                    <Button className={classes.workTime} style={makeWorkTimestatus()} variant="outlined">{props.workTime} </Button>
+                                    <Button className={classes.workTime} style={makeWorkTimestatus(workTimeColor)} variant="outlined">{props.workTime} </Button>
                                     <Typography display="block" variant="body2" color="textSecondary">{props.registeredDate}</Typography>
                                 </Box>
                             </Grid>
