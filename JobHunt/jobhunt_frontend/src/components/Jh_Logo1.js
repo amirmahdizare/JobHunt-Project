@@ -5,7 +5,7 @@ import {logo} from '../asset/index'
 const Jh_Logo1 = () => {
     return (
         <>
-          <Button href="/home"><img src= {logo} /> </Button>
+          <Button href="/home"><img height="40px" width="178px" src= {logo} /> </Button>
         </>
     )
 }

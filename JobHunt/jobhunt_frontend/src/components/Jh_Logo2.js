@@ -4,7 +4,7 @@ import logo2 from '../asset/logo/logo2.png'
 const Jh_Logo2 = () => {
     return (
         <>
-          <Button href="/home"><img style ={{height:'100%'}} src= {logo2} /> </Button>
+          <Button href="/home"><img height="40px" width="178px" src= {logo2} /> </Button>
         </>
     )
 }
