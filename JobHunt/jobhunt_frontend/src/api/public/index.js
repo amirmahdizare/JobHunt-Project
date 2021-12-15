@@ -1,4 +1,3 @@
-import { tr } from "date-fns/locale"
 import { api, centralApi } from "../../config/apiConfig"
 import { centralApiHeaderObj, getLanguage, getUserToken } from "../../utils"
 import { generateImageURL } from "../OSS/minioAPI"
@@ -90,7 +89,8 @@ const getExperiences = async () => {
         }
     })
     const { data: { data: { entities } } } = response
-    return entities
+    const fullDetailData = Promise.all(entities.map(async (experience) => ({ ...experience, image: experience.user_info.image ? await generateImageURL('central', Object.values(experience.user_info.image)[0].path) : null })))
+    return fullDetailData
 }
 
 const getPartners = async () => {
@@ -220,7 +220,6 @@ const getContactInfo = async () => {
         const response = await api.get('/contact-infos/guests', {
             headers: { Lang: getLanguage() },
         })
-        console.log(response.data)
         return response.data.data
 
     } catch (error) {
@@ -258,8 +257,6 @@ const getCompanyDetailById = async (id) => {
         const response = await api.get('/companies/guest/' + id, {
             headers: { Lang: getLanguage() },
         })
-       // alert(response.data.data.title)
-       //console.log(response.data.data)
         return response.data.data
 
     } catch (error) {
