@@ -297,6 +297,22 @@ const getPolicies = async (page) => {
 
     return response.data.data.entities
 }
+const getPricing = async (page) => {
+    const response = await api.get(`/packages/guests`, {
+        headers: {
+            Lang: getLanguage()
+        },
+        params: {
+            page: page ? page : 1,
+            service_name: "Company",
+        },
+
+
+    })
+    const { data: { data } } = response
+    return data
+}
+
 
 export {
     getPopularCategories,
@@ -321,6 +337,7 @@ export {
     getTopJobs,
     getCompanyDetailById,
     getHowWorks,
-    getPolicies
+    getPolicies,
+    getPricing
 
 }
