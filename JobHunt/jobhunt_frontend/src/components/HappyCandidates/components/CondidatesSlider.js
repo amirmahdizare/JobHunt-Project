@@ -1,11 +1,12 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Box, CircularProgress } from "@material-ui/core";
+import { Box, CircularProgress, Typography } from "@material-ui/core";
 import CandidateComment from "./CandidateComment";
 import { makeStyles } from "@material-ui/core";
 import { getExperiences } from "../../../api/public";
+import { useGetData } from "../../../hooks/useGetData";
 const useClasses = makeStyles({
   root: {
     '& .slick-dots li':
@@ -43,11 +44,11 @@ export default function CondidatesSlider() {
     dots: true,
     infinite: config.infinite,
     onInit: function () {
-      if (document.getElementsByClassName('slick-slide').length>3) {
+      if (document.getElementsByClassName('slick-slide').length > 3) {
         document.getElementsByClassName('slick-dots')[0].onclick = () => setConfig({ ...config, autoplay: false })
       }
       else {
-       setConfig({ ...config, infinite: false })
+        setConfig({ ...config, infinite: false })
       }
     },
     speed: 500,
@@ -81,32 +82,29 @@ export default function CondidatesSlider() {
       },
     ]
   };
-  const [experiences, setExperiences] = useState([])
-  useEffect(() => {
-    getExperiences()
-      .then((data) => { setExperiences(data) })
-    // .catch(()=>setExperiences([]))
-  }, [])
+
+  const [experiences, error, loading] = useGetData(getExperiences)
   return (
     <Box m={2} className={classes.root} >
-      <Slider {...settings} focusOnSelect>
-        {/* <Box> */}
-        {experiences.length != 0
-          ? experiences.map((exp) => (
+      {experiences &&
+
+        < Slider {...settings} focusOnSelect>
+          {experiences.map((exp) =>
             <CandidateComment
               key={exp.id}
-              candidateName={exp.name}
+              candidateName={exp.user_info?.first_name + ' '+ exp.user_info?.last_name }
               candidateComment={exp.description}
-            />)
-          ) : <Box display="flex" alignItems="center" justifyContent="center">  <CircularProgress /> </Box>}
+              candidateAvatar={exp.image}
+            />
 
-          {/* <CandidateComment
-          candidateAvatar="https://creativelayers.net/themes/jobhunt-html/images/resource/r2.jpg"
-          candidateName="Ali Tufan"
-          candidateJobTitle="Web Designer"
-          candidateComment="Without JobHunt i’d be homeless, they found me a job and got me sorted out quickly with everything!  Can’t quite believe the service"
-        /> */}
-      </Slider>
-    </Box>
+          )}
+        </Slider >
+      }
+      < Box display="flex" alignItems="center" justifyContent="center">
+        {experiences?.length == 0 && <Typography>No experiences Found</Typography>}
+        {!experiences && loading && <CircularProgress />}
+
+      </Box>
+    </Box >
   );
 }

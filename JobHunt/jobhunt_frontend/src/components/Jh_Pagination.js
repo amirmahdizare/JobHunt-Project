@@ -1,5 +1,5 @@
 import { Box, makeStyles } from '@material-ui/core'
-import React  from 'react'
+import React from 'react'
 import { useState, useEffect } from 'react';
 import { Pagination } from '@material-ui/lab';
 const useStyles = makeStyles((theme) => ({
@@ -34,12 +34,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Jh_Pagination = (props) => {
-    const {pages} = props
+  const { pages, handleChange, page } = props
   const classes = useStyles();
-  const [page, setPage] = useState(1);
-  const handleChange = (event, value) => {
-    setPage(value);
-  };
+
   useEffect(() => {
     const text = document.createElement('p');
     text.textContent = "Next"
@@ -56,10 +53,10 @@ export const Jh_Pagination = (props) => {
         boundaryCount={1}
         count={pages}
         classes={{ ul: classes.pageButton }}
-        onChange={handleChange} 
+        onChange={handleChange}
         size="large"
         page={page}
-        variant="outlined"/>
+        variant="outlined" />
     </Box>
   );
 }

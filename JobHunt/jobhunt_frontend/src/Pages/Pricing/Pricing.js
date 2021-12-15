@@ -1,40 +1,35 @@
-import { Box, Container, Grid } from '@material-ui/core'
+import { Box, CircularProgress, Container, Grid, Typography } from '@material-ui/core'
 import React from 'react'
+import { getPricing } from '../../api/public'
 import { HomePagesHeader } from '../../components/HomePagesHeader'
+import { useGetData } from '../../hooks/useGetData'
 import { Plan } from './components/Plan'
+
 const Pricing = () => {
+    const [data, error, loading] = useGetData(getPricing)
+
     return (
         <Box>
             <HomePagesHeader page="Pricing" description="Keep up to date with the latest news" />
             <Container maxWidth="lg">
                 <Box my={5}>
                     <Grid container spacing={2}>
-                        <Plan
-                            title="Basic Jobs"
-                            price={10}
-                            duration="15 Days"
-                            jobPosting={1}
-                            featuredJob={0}
-                            JobDisplayLenght={20}
-                            premiumSupport="24/7" />
-                        <Plan
-                            title="Standard Jobs"
-                            price={45}
-                            duration="20 Days"
-                            jobPosting={11}
-                            featuredJob={12}
-                            JobDisplayLenght={30}
-                            premiumSupport="24/7"
-                            standardPlan />
-                        <Plan
-                            title="Golden Jobs"
-                            price={80}
-                            duration="2 Month"
-                            jobPosting={1}
-                            featuredJob={0}
-                            JobDisplayLenght={20}
-                            premiumSupport="24/7" />
+                        {data && data.map((item, index) =>
+                            <Plan
+                                standardPlan={index === 1 ? true : false}
+                                key={item.id}
+                                title={item.type}
+                                price={item.price}
+                                duration="15 Days"
+                                jobPosting={item.rules.job_posting_limit}
+                                featuredJob={0}
+                                JobDisplayLenght={item.rules.expire_rule}
+                                premiumSupport="24/7" />
+                        )}
+
                     </Grid>
+                    {data?.length == 0 && <Typography > Not data  Found</Typography>}
+                    {!data && loading && <CircularProgress />}
                 </Box>
             </Container>
         </Box>

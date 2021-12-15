@@ -9,8 +9,14 @@ const DesktopViewHeaderMenus = () => {
     const auth = useAuth()
     return (
         <Box display="flex" alignItems="center">
-
-            <CustomMenu
+            <Button
+                disableRipple
+                style={{ textTransform: 'none' }}
+                color="inherit"
+                href='/aboutus'>
+                <Typography color="inherit">About&nbsp;Us</Typography>
+            </Button>
+            {/* <CustomMenu
                 menuTitle="About&nbsp;Us"
                 menuItems={[
                     { name: 'Aboutus', href: '/aboutus' },
@@ -20,20 +26,23 @@ const DesktopViewHeaderMenus = () => {
                     { name: 'Terms & Condition', href: '/terms' },
                 ]}
 
-            />
+            /> */}
             <Button
+                disableRipple
                 style={{ textTransform: 'none' }}
                 color="inherit"
                 href="/jobs">
                 <Typography color="inherit">Jobs</Typography>
             </Button>
             <Button
+                disableRipple
                 style={{ textTransform: 'none' }}
                 color="inherit"
                 href="/bloglist">
                 <Typography color="inherit">Blog</Typography>
             </Button>
             <Button
+                disableRipple
                 style={{ textTransform: 'none' }}
                 color="inherit"
                 href="/howitworks">

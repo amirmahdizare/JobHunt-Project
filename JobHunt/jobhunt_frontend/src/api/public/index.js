@@ -1,4 +1,3 @@
-import { tr } from "date-fns/locale"
 import { api, centralApi } from "../../config/apiConfig"
 import { centralApiHeaderObj, getLanguage, getUserToken } from "../../utils"
 import { generateImageURL } from "../OSS/minioAPI"
@@ -90,7 +89,8 @@ const getExperiences = async () => {
         }
     })
     const { data: { data: { entities } } } = response
-    return entities
+    const fullDetailData = Promise.all(entities.map(async (experience) => ({ ...experience, image: experience.user_info.image ? await generateImageURL('central', Object.values(experience.user_info.image)[0].path) : null })))
+    return fullDetailData
 }
 
 const getPartners = async () => {
@@ -138,7 +138,8 @@ const getTerms = async (customParams) => {
         headers: { Lang: getLanguage() },
         params: reqParams
     })
-    return await Object.values(response.data.data)
+    const { data: { data: { entities, number_of_pages } } } = response
+    return { terms: entities, pages: number_of_pages }
 }
 
 const getCategoryDetailById = async (id) => {
@@ -266,7 +267,6 @@ const getContactInfo = async () => {
         const response = await api.get('/contact-infos/guests', {
             headers: { Lang: getLanguage() },
         })
-        console.log(response.data)
         return response.data.data
 
     } catch (error) {
@@ -304,8 +304,6 @@ const getCompanyDetailById = async (id) => {
         const response = await api.get('/companies/guest/' + id, {
             headers: { Lang: getLanguage() },
         })
-       // alert(response.data.data.title)
-       //console.log(response.data.data)
         return response.data.data
 
     } catch (error) {
@@ -323,6 +321,44 @@ const getCooperationKindById = async (id) => {
         return Promise.reject(new Error('No Info Found'))
     }
 }
+const getHowWorks = async (page) => {
+    const response = await api.get(`/workflows/guests`, {
+        headers: {
+            Lang: getLanguage()
+        },
+        params: { page: page ? page : 1 }
+    })
+
+    const { data: { data: { entities } } } = response
+    const fullDetailData = Promise.all(entities.map(async (info) => ({ ...info, image: await generateImageURL('jobhunt', Object.values(info.media)[0]) })))
+    return fullDetailData
+}
+const getPolicies = async (page) => {
+    const response = await api.get(`/policies/guests`, {
+        headers: {
+            Lang: getLanguage()
+        },
+        params: { page: page ? page : 1 }
+    })
+
+    return response.data.data.entities
+}
+const getPricing = async (page) => {
+    const response = await api.get(`/packages/guests`, {
+        headers: {
+            Lang: getLanguage()
+        },
+        params: {
+            page: page ? page : 1,
+            service_name: "Company",
+        },
+
+
+    })
+    const { data: { data } } = response
+    return data
+}
+
 
 export {
     getPopularCategories,
@@ -350,6 +386,9 @@ export {
     getAllCorporations,
     getSpecificCorporation,
     getTopJobs,
-    getCompanyDetailById
+    getCompanyDetailById,
+    getHowWorks,
+    getPolicies,
+    getPricing
 
 }
