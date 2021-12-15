@@ -4,7 +4,7 @@ import Footer from '../components/Footer/Footer'
 import { Box } from '@material-ui/core'
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import {DesktopBaseHeader} from '../components/DesktopBaseHeader/DesktopBaseHeader'
-import {HeaderButtons} from './components/HeaderButtons'
+//import {HeaderButtons} from './components/HeaderButtons'
 let theme = createTheme({
     typography: {
         fontFamily: 'Quicksand',
@@ -15,7 +15,7 @@ const MainLayout = (props) => {
     return (
         <Box >
             <ThemeProvider theme={theme}>
-            <DesktopBaseHeader extension={<HeaderButtons/>}/>
+            <DesktopBaseHeader/>
             <MobileViewHeader/>
             {props.children}
             <Footer />
