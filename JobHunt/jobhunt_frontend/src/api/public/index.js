@@ -1,3 +1,4 @@
+import { tr } from "date-fns/locale"
 import { api, centralApi } from "../../config/apiConfig"
 import { centralApiHeaderObj, getLanguage, getUserToken } from "../../utils"
 import { generateImageURL } from "../OSS/minioAPI"
@@ -272,6 +273,57 @@ const getContactInfo = async () => {
         return Promise.reject(new Error('No Info Found'))
     }
 }
+
+const getTopJobs = async () => {
+    const response = await api.get('/jobs/offers/guests', {
+        headers: { Lang: getLanguage() },
+        params: { page: 1, pagination_size: 6 }
+    })
+    const plainJobs = response.data.data.entities
+    return await Promise.all(plainJobs.map(async(job) => await jobDetailGenerator(job) ))
+}
+const jobDetailGenerator =async (job) => {
+       try {
+           var { logo, name } =await getCompanyDetailById(job.company_id)
+          var logourl = await generateImageURL('jobhunt',Object.values(logo)[0])
+           var { title, color } = await getCooperationKindById('61757f08c632ff190d1d6134')
+        } catch (error) {
+           //catch error
+        }
+        return {
+            ...job,
+            company_name: name,
+           company_logo: logourl,
+            cooperation_kind_title: title,
+            cooperation_kind_color: color
+        }
+    
+}
+const getCompanyDetailById = async (id) => {
+    try {
+        const response = await api.get('/companies/guest/' + id, {
+            headers: { Lang: getLanguage() },
+        })
+       // alert(response.data.data.title)
+       //console.log(response.data.data)
+        return response.data.data
+
+    } catch (error) {
+        return Promise.reject(new Error('No Info Found'))
+    }
+}
+const getCooperationKindById = async (id) => {
+    try {
+        const response = await api.get('/cooperation-kinds/guests/' + id, {
+            headers: { Lang: getLanguage() },
+        })
+        return response.data.data
+
+    } catch (error) {
+        return Promise.reject(new Error('No Info Found'))
+    }
+}
+
 export {
     getPopularCategories,
     getAllCategories,
@@ -296,5 +348,8 @@ export {
     getSpecificCompany,
     getSingleJob,
     getAllCorporations,
-    getSpecificCorporation
+    getSpecificCorporation,
+    getTopJobs,
+    getCompanyDetailById
+
 }

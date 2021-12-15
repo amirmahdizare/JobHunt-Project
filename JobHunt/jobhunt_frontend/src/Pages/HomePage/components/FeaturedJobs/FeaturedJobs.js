@@ -43,7 +43,7 @@ const FeaturedJobs = () => {
                     <Typography >Leading Employers already using job and talent.</Typography>
                 </Box>
                 <JobsContainer />
-                <Button href="/jobs"  className={classes.button} color="secondary" variant="outlined"><Typography variant="h6" style={{fontSize:'16px'}} >Load more listings</Typography></Button>
+                <Button href="/jobs"  className={classes.button} color="secondary" variant="outlined"><Typography variant="h6" style={{fontSize:'16px'}} >Load more Jobs</Typography></Button>
             </Container>
         </Box>
     )
