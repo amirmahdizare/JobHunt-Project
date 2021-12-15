@@ -1,12 +1,14 @@
 import { centralApi } from "../../../../config/apiConfig";
 import { centralApiHeaderObj, storeToken } from "../../../../utils";
 
-const _requestVerifyCode=async ({identifier}) =>{
+const _requestVerifyCode=async ({identifier,country_code}) =>{
     var data = new FormData();
     data.append('identifier', identifier);
+    data.append('country_code', country_code);
     try {
         var response = await centralApi.post('/login', data, {
-          headers: centralApiHeaderObj()
+          headers: centralApiHeaderObj(),
+          params:{ident_kind:'mobile'}
         })
         
     } catch (error) {

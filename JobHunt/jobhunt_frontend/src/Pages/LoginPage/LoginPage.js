@@ -2,8 +2,8 @@ import React from 'react'
 import { useState } from 'react'
 import { Box, Button, ButtonGroup, Container, Typography } from '@material-ui/core'
 import { HomePagesHeader } from '../../components/HomePagesHeader'
-import { LoginWithVerification } from './components/LoginWithVerification'
-import { LoginWithPassword } from './components/LoginWithPassword'
+import { LoginWithVerification } from './types/LoginWithVerification'
+import { LoginWithPassword } from './types/LoginWithPassword'
 
  const LoginPage = () => {
     const [loginMethod, setLoginMethod] = useState('withVerify')
@@ -15,8 +15,8 @@ import { LoginWithPassword } from './components/LoginWithPassword'
             <Typography variant="h5" gutterBottom align="center">Select Login Method</Typography>
                 <Box width={1} mt={2} mb={1} display="flex" justifyContent="space-around" >
                     <ButtonGroup>
-                        <Button style={{textTransform:'none'}} color="primary" onClick={() => setLoginMethod('withVerify')} variant={loginMethod == 'withVerify' ? 'contained' : 'outlined'} >With Verification  </Button>
-                        <Button style={{textTransform:'none'}} color="primary" onClick={() => setLoginMethod('withPassword')} variant={loginMethod == 'withPassword' ? 'contained' : 'outlined'}>With Password</Button>
+                        <Button disableRipple disableTouchRipple style={{textTransform:'none'}} color="primary" onClick={() => setLoginMethod('withVerify')} variant={loginMethod == 'withVerify' ? 'contained' : 'outlined'} >With Verification  </Button>
+                        <Button disableRipple disableTouchRipple  style={{textTransform:'none'}} color="primary" onClick={() => setLoginMethod('withPassword')} variant={loginMethod == 'withPassword' ? 'contained' : 'outlined'}>With Password</Button>
                     </ButtonGroup>
                 </Box>
                     {loginMethod == 'withVerify' && <LoginWithVerification />}

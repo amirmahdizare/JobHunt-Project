@@ -17,7 +17,7 @@ export const InputField = ({ formState, title, valueTitle, inputType, svgIcon, v
         return { fill: '#303f9f' }
     }
     return (
-        <Box>
+        <Box className={classes.root}>
             <FormControl error={error} fullWidth color="primary" margin="normal" variant="outlined" {...props}>
                 <InputLabel htmlFor="outlined-adornment-username">{title}</InputLabel>
                 <OutlinedInput
@@ -28,7 +28,7 @@ export const InputField = ({ formState, title, valueTitle, inputType, svgIcon, v
                     onChange={(e) => handleChange({ [valueTitle]: e.target.value })}
                     onKeyDown={onKeyDown}
                     endAdornment={
-                        <InputAdornment position="end">
+                        svgIcon && <InputAdornment position="end">
                             <LineAwesome className={classes.icon} style={iconStyle(valueTitle)} fontSize="inherit" icon={svgIcon} />
                         </InputAdornment>
                     }
