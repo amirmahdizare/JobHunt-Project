@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import  {Jh_Logo1}  from '../../../Jh_Logo1'
 import  {Jh_Logo2}  from '../../../Jh_Logo2'
 import { Container } from '@material-ui/core';
+import { SelectLanguage } from './components/SelectLanguage';
 const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
@@ -95,10 +96,12 @@ const DesktopBaseHeaderComponent = (props) => {
                 <AppBar className={classes.appBar} style={headerStatus == "normal" ? { boxShadow: 'none' } : {}} >
                     <Container maxWidth="lg">
                         <Toolbar className={classes.toolbar}>
-                            <Box display="flex" justifyContent="space-around" alignItems="center" flex="1">
+                            <Box display="flex" justifyContent="space-between" alignItems="center" flex="1">
                                 {headerStatus == "normal" ? <Jh_Logo1 /> : <Jh_Logo2/>}
                                 <DesktopViewHeaderMenus headerStatus={headerStatus} />
-                               <Box>{props.extension}</Box>
+                               <Box>{props.addItem}</Box>
+                               <Box><SelectLanguage/></Box>
+                               <Box>{props.userExtension}</Box>
                             </Box >
                         </Toolbar>
                     </Container>

@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
 const HeaderButtons = () => {
     const classes = useStyles();
     return (
-        <Box m="8px">
+        <Box >
             <Button
                 size="large"
                 className={classes.button}

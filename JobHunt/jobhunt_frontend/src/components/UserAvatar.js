@@ -7,21 +7,21 @@ const useClasses = makeStyles(props => ({
         width: (props) => {
             switch (props.size) {
                 case 'medium':
-                    return '50px'
+                    return '40px'
                 case 'large':
-                    return '120px'
+                    return '100px'
                 default:
-                    return '30px'
+                    return '20px'
             }
         },
         height: (props) => {
             switch (props.size) {
                 case 'medium':
-                    return '50px'
+                    return '40px'
                 case 'large':
-                    return '120px'
+                    return '100px'
                 default:
-                    return '30px'
+                    return '20px'
             }
         }
     }

@@ -4,9 +4,9 @@ import { _getRoll } from '../api/authentication/UseProvideAuth/methods/getRoll'
 import { CandidateRoute } from './CandidateRoute'
 import { EmployerRoute } from './EmployerRoute'
 import  {PublicRoute}  from './PublicRoute'
-const Jh_Router = () => {
+const AppRouter = () => {
     const auth = useAuth()
-    const chooseRoute = () => {
+    const AppRoute = () => {
         switch (auth.user) {
             case 'candidate':return <CandidateRoute/>
             case 'employer': return <EmployerRoute/>
@@ -15,8 +15,8 @@ const Jh_Router = () => {
     }
     return (
         <>
-           {chooseRoute()} 
+           <AppRoute/>
         </>
     )
 }
-export default Jh_Router
+export default AppRouter

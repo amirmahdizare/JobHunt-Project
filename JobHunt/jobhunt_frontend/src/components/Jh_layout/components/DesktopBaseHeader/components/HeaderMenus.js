@@ -3,23 +3,13 @@ import Box from '@material-ui/core/Box';
 import CustomMenu from './CustomMenu'
 import { Button, Typography } from '@material-ui/core';
 import { SelectLanguage } from './SelectLanguage';
+import { HeaderButtons } from './HeaderButtons'
+import { useAuth } from '../../../../../api/authentication';
 const DesktopViewHeaderMenus = () => {
-
+    const auth = useAuth()
     return (
         <Box display="flex" alignItems="center">
 
-            <Button
-                style={{ textTransform: 'none' }}
-                color="inherit"
-                href="/bloglist">
-                <Typography color="inherit">Blog</Typography>
-            </Button>
-            <Button
-                style={{ textTransform: 'none' }}
-                color="inherit"
-                href="/jobs">
-                <Typography color="inherit">Jobs</Typography>
-            </Button>
             <CustomMenu
                 menuTitle="About&nbsp;Us"
                 menuItems={[
@@ -34,11 +24,23 @@ const DesktopViewHeaderMenus = () => {
             <Button
                 style={{ textTransform: 'none' }}
                 color="inherit"
-                href="ContactUs">
-                <Typography color="inherit">Contact&nbsp;Us</Typography>
+                href="/jobs">
+                <Typography color="inherit">Jobs</Typography>
+            </Button>
+            <Button
+                style={{ textTransform: 'none' }}
+                color="inherit"
+                href="/bloglist">
+                <Typography color="inherit">Blog</Typography>
+            </Button>
+            <Button
+                style={{ textTransform: 'none' }}
+                color="inherit"
+                href="/howitworks">
+                <Typography color="inherit">How&nbsp;it&nbsp;works</Typography>
             </Button>
             &nbsp;
-            <SelectLanguage/>
+            {!auth.user && <HeaderButtons />}
         </Box>
     )
 }

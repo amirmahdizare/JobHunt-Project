@@ -36,17 +36,6 @@ const HeaderButtons = (props) => {
     return (
         <Box py={2} display='flex' flexDirection='row' justifyContent='space-between' >
             <Box>
-            <Button
-                className={classes.postJobButton}
-                variant="contained"
-                color="secondary"
-                startIcon={<AddOutlinedIcon />}
-                onClick={props.onButtonClick}
-                >
-                <Typography variant="body1"> Post Jobs</Typography>
-
-            </Button></Box>
-            <Box>
                 <Button
                     className={classes.button}
                     startIcon={<VpnKeyOutlinedIcon />}
