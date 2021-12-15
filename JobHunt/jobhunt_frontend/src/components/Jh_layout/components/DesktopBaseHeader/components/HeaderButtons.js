@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
         textTransform: 'none',
         boxSizing: 'border-box',
         transition: 'all 0.4s ease 0s',
-        padding:' 8px 22px',
+        padding: ' 8px 22px',
         '&:hover': {
             backgroundColor: '#fb236a',
             color: 'white',
@@ -33,6 +33,7 @@ const HeaderButtons = () => {
     return (
         <Box >
             <Button
+                disableRipple
                 size="large"
                 className={classes.button}
                 startIcon={<VpnKeyOutlinedIcon />}
@@ -41,6 +42,7 @@ const HeaderButtons = () => {
                 <Typography variant="body1">Sign Up</Typography>
             </Button>
             <Button
+                disableRipple
                 size="large"
                 className={classes.button}
                 startIcon={<ExitToAppIcon />}

@@ -323,6 +323,19 @@ const getCooperationKindById = async (id) => {
         return Promise.reject(new Error('No Info Found'))
     }
 }
+const getHowWorks = async (page) => {
+    const response = await api.get(`/workflows/guests`, {
+        headers: {
+            Lang: getLanguage()
+        },
+        params: { page: page ? page : 1 }
+    })
+
+    const { data: { data: { entities } } } = response
+    const fullDetailData = Promise.all(entities.map(async (info) => ({ ...info, image: await generateImageURL('jobhunt', Object.values(info.media)[0]) })))
+    return fullDetailData
+}
+
 
 export {
     getPopularCategories,
@@ -350,6 +363,7 @@ export {
     getAllCorporations,
     getSpecificCorporation,
     getTopJobs,
-    getCompanyDetailById
+    getCompanyDetailById,
+    getHowWorks
 
 }
