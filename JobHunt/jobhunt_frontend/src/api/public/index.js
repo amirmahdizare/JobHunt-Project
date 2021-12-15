@@ -187,9 +187,9 @@ const getOverServices = async () => {
     return response.data.data.entities
 }
 
-const getStatistics =async () =>{
+const getStatistics = async () => {
 
-    const getCount =async (endpoint) =>{
+    const getCount = async (endpoint) => {
         const response = await api.get(endpoint, {
             headers: {
                 Lang: getLanguage()
@@ -197,31 +197,77 @@ const getStatistics =async () =>{
         })
         return response.data.data.number_of_entities
     }
-    
-    try { 
-        var jobsCount =await getCount('/jobs/offers/guests?page=1')
-        var companiesCount =await getCount('/companies/guest?page=1')
+
+    try {
+        var jobsCount = await getCount('/jobs/offers/guests?page=1')
+        var companiesCount = await getCount('/companies/guest?page=1')
         var usersCount = await getCount('/users/guests/counts?page=1')
     } catch (error) {
         return {}
     }
 
-    return {jobsCount,companiesCount,usersCount }
+    return { jobsCount, companiesCount, usersCount }
 }
+
+const getAllCorporations = async () => {
+    const response = await api.get('/cooperation-kinds/guests?page=1', {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+    return response.data.data
+}
+
+const getAllJobs = async (page , paginationSize) => {
+    const response = await api.get(`/jobs/offers/guests?page=${page}&pagination_size=${paginationSize}`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+    return response.data.data
+}
+
+const getSpecificCompany = async (id) => {
+    const response = await api.get(`/companies/guest/${id}`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+    return response.data.data
+}
+
+const getSpecificCorporation = async (id) => {
+    const response = await api.get(`/cooperation-kinds/guests/${id}`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+    return response.data.data
+}
+
+const getSingleJob = async (id) => {
+    const response = await api.get(`/jobs/offers/guests/${id}`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+    return response.data.data
+}
+
 const postContactUs = async (data) => {
     const response = await api.post('/contact-us/guests', data, {
         headers: { Lang: getLanguage() },
     })
     return await Object.values(response)
 }
-const getContactInfo =async () =>{
+const getContactInfo = async () => {
     try {
         const response = await api.get('/contact-infos/guests', {
             headers: { Lang: getLanguage() },
         })
         console.log(response.data)
         return response.data.data
-        
+
     } catch (error) {
         return Promise.reject(new Error('No Info Found'))
     }
@@ -245,6 +291,10 @@ export {
     getOverServices,
     getStatistics,
     postContactUs,
-    getContactInfo
- 
+    getContactInfo,
+    getAllJobs,
+    getSpecificCompany,
+    getSingleJob,
+    getAllCorporations,
+    getSpecificCorporation
 }

@@ -1,5 +1,5 @@
 import { Box, Container, Divider, Grid } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { LineAwesome, SvgClock, SvgFile, SvgSearchPlusSolid, SvgSearchSolid } from 'react-line-awesome-svg'
 import { Jh_JobSingleHeader } from '../../components/Jh_JobSingleHeader'
 import { Jh_Share } from '../../components/Jh_Share'
@@ -9,34 +9,59 @@ import { JobDetailContainer } from './components/JobDetailContainer'
 import { JobInfo } from './components/JobInfo'
 import { JobLocation } from './components/JobLocation'
 import { JobOverview } from './components/JobOverview'
-import { RecentJobs } from './components/RecentJobs'
+import { RecentJobs } from './components/RecentJobs';
+import { useGetSpecificCompany } from '../../hooks/useGetSpecificCompany';
+import { useGetSingleJob } from '../../hooks/useGetSingleJob';
+import { useHistory } from 'react-router';
+import { formatDate } from '../../components'
+import { generateImageURL } from "../../api/OSS/minioAPI";
+
 const JobSingle = () => {
+
+    const history = useHistory();
+    const path = history.location.pathname.split('/');
+    const jobId = path[path.length - 2];
+    const companyId = path[path.length - 1];
+    const job = useGetSingleJob(jobId);
+    const company = useGetSpecificCompany(companyId);
+    const [logoImage, setLogoImage] = useState(false)
+
+
+    const getImage = async () => {
+        if (company.logo) {
+            const onGetImage = await generateImageURL('jobhunt', Object.values(company.logo)[0]);
+            return onGetImage
+        }
+    }
+
+    useEffect(() => {
+        getImage().then(data => setLogoImage(data))
+    }, [company])
+
     return (
         <Box>
             <Jh_JobSingleHeader
                 image="https://creativelayers.net/themes/jobhunt-html/images/resource/mslider1.jpg"
-                jobTitle="Senior Web Designer"
+                jobTitle={job.title}
                 workTime="PART TIME"
-                location="Ajax, Ontario"
-                datePosted="Posted 4 years ago" />
+                location={company.address}
+                datePosted={`Posted ${formatDate(job.updated_at)}`}
+            />
             <Container maxWidth="lg">
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={8}>
                         <JobInfo
-                            companyName="Tix Dog"
-                            companyLogo="https://creativelayers.net/themes/jobhunt-html/images/resource/sj.png"
-                            location="274 Seven Sisters Road, London, N4 2HY"
-                            website="www.jobhunt.com"
+                            companyName={job.title}
+                            companyLogo={logoImage}
+                            location={company.address}
+                            website={company.website}
                             phoneNumber="+90 538 963 54 87"
                             emailAddress="ali.tufan@jobhunt.com"
                         />
                         <Divider light />
                         <JobDetailContainer
                             title="Job Description"
-                            text={[
-                                "Company is a 2016 Iowa City-born start-up that develops consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti",
-                                "Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien"
-                            ]} />
+                            text={[job.description]} />
                         <JobDetailContainer
                             title="Required Knowledge, Skills, and Abilitie"
                             items={[
@@ -63,11 +88,11 @@ const JobSingle = () => {
                             <Jh_Share />
                         </Box>
                         <Divider light />
-                        <RecentJobs />
+                        {/* <RecentJobs /> */}
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <ApplyBox />
-                        <JobOverview />
+                        <JobOverview job={job} />
                         <JobLocation />
                         <Jh_StatisticCard
                             itemicon={<LineAwesome icon={SvgClock} />}
