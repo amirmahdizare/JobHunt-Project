@@ -25,7 +25,7 @@ const usePostData = () => {
 
     }, [request])
 
-    return [result, error, loading, handleRequest, () => setError()]
+    return [result, error, loading, handleRequest, () => setError(null)]
 
 }
 export { usePostData }
