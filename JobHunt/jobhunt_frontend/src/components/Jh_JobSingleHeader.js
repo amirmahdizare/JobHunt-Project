@@ -5,6 +5,7 @@ import lines from '../asset/backgrounds/lines.png'
 import { Jh_WorkTime } from './Jh_WorkTime'
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import { useGetSpecificCorporation } from '../hooks/useGetSpecificCorporation'
 const useClasses = makeStyles((theme) => ({
     root: {
         alignItems: 'center',
@@ -16,14 +17,14 @@ const useClasses = makeStyles((theme) => ({
         justifyContent: 'center',
         padding: theme.spacing(5),
         position: 'relative',
-        textAlign:'center',
-        wordBreak:'break-word',
-        [theme.breakpoints.up('md')]:{
-        alignItems: 'flex-end',
+        textAlign: 'center',
+        wordBreak: 'break-word',
+        [theme.breakpoints.up('md')]: {
+            alignItems: 'flex-end',
         },
         [theme.breakpoints.down('sm')]: {
             height: 'fit-content',
-            flexDirection:'column'
+            flexDirection: 'column'
         },
         '&:before': {
             background: 'linear-gradient(45deg, rgb(139, 145, 221) 0%, rgb(16, 25, 93) 71% , rgb(16, 25, 93) 100%)',
@@ -51,13 +52,13 @@ const useClasses = makeStyles((theme) => ({
 }))
 export const Jh_JobSingleHeader = (props) => {
     const { jobTitle, workTime, location, datePosted } = props
-    const classes = useClasses(props)
+    const classes = useClasses(props);
     return (
         <Box className={classes.root} >
             <Box my={2} position="relative" flexDirection="inherit">
-                <Typography  variant="h3">{jobTitle}</Typography>
-                <Box  my={4} display='flex' justifyContent="center" flexWrap="wrap" flexDirection="inherit">
-                <Jh_WorkTime style={{borderColor:'inherit',color:'inherit',borderRadius:'24px'}}   workTime={workTime} />
+                <Typography variant="h3">{jobTitle}</Typography>
+                <Box my={4} display='flex' justifyContent="center" flexWrap="wrap" flexDirection="inherit">
+                    <Jh_WorkTime style={{borderColor:'inherit',color:'inherit',borderRadius:'24px'}}   workTime={workTime} />
                     &nbsp;
                     <Button color="inherit" startIcon={<LocationOnOutlinedIcon />}><Typography>{location}</Typography></Button>
                     &nbsp;
