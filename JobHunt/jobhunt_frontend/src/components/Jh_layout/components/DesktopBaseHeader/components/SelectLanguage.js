@@ -30,7 +30,7 @@ export const SelectLanguage = () => {
                     <Link onClick={() => handleChangeingLanguage(country)} underline="none" >
                         {country.url
                             ? <Avatar variant="square" style={{ width: '2rem', height: '1.5rem' }} src={country.url} />
-                            : <CircularProgress style={{ color: 'black',  width: '1.5rem', height: '1.5rem'}} />}
+                            : <CircularProgress style={{ color: 'black', width: '1.5rem', height: '1.5rem' }} />}
 
                     </Link>
                 </MenuItem>
@@ -44,6 +44,7 @@ export const SelectLanguage = () => {
             onMouseEnter={handleToggle}
         >
             <Button
+                disableRipple
                 ref={anchorRef}
                 aria-controls={open ? 'menu-list-grow' : undefined}
                 aria-haspopup="true"
@@ -52,7 +53,7 @@ export const SelectLanguage = () => {
             >
                 {language.url
                     ? <Avatar variant="square" style={{ width: '2rem', height: '1.5rem' }} src={language.url} />
-                    : <CircularProgress style={{color:'inherit', width: '1.5rem', height: '1.5rem'}} />
+                    : <CircularProgress style={{ color: 'inherit', width: '1.5rem', height: '1.5rem' }} />
                 }
             </Button>
             <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
