@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Box, CircularProgress, Container, Typography } from '@material-ui/core'
 import { HomePagesHeader } from '../../components/HomePagesHeader'
 import { getTerms } from '../../api/public'
@@ -14,9 +14,6 @@ const Terms = () => {
 
     const handleChange = (event, value) =>  setPage(value)
 
-    useEffect(() => {
-        console.log(page);
-    }, [page])
     return (
         <Box>
             <HomePagesHeader page="Terms and Conditions" description="Keep up to date with the latest news" />

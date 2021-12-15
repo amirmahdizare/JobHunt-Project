@@ -287,7 +287,16 @@ const getHowWorks = async (page) => {
     const fullDetailData = Promise.all(entities.map(async (info) => ({ ...info, image: await generateImageURL('jobhunt', Object.values(info.media)[0]) })))
     return fullDetailData
 }
+const getPolicies = async (page) => {
+    const response = await api.get(`/policies/guests`, {
+        headers: {
+            Lang: getLanguage()
+        },
+        params: { page: page ? page : 1 }
+    })
 
+    return response.data.data.entities
+}
 
 export {
     getPopularCategories,
@@ -311,6 +320,7 @@ export {
     getContactInfo,
     getTopJobs,
     getCompanyDetailById,
-    getHowWorks
+    getHowWorks,
+    getPolicies
 
 }
