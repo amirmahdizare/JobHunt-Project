@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -89,7 +89,6 @@ export default function CondidatesSlider() {
       {experiences &&
 
         < Slider {...settings} focusOnSelect>
-          {/* <Box> */}
           {experiences.map((exp) =>
             <CandidateComment
               key={exp.id}
@@ -99,14 +98,6 @@ export default function CondidatesSlider() {
             />
 
           )}
-
-
-          {/* <CandidateComment
-          candidateAvatar="https://creativelayers.net/themes/jobhunt-html/images/resource/r2.jpg"
-          candidateName="Ali Tufan"
-          candidateJobTitle="Web Designer"
-          candidateComment="Without JobHunt i’d be homeless, they found me a job and got me sorted out quickly with everything!  Can’t quite believe the service"
-        /> */}
         </Slider >
       }
       < Box display="flex" alignItems="center" justifyContent="center">

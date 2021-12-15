@@ -138,7 +138,8 @@ const getTerms = async (customParams) => {
         headers: { Lang: getLanguage() },
         params: reqParams
     })
-    return await Object.values(response.data.data)
+    const { data: { data: { entities, number_of_pages } } } = response
+    return { terms: entities, pages: number_of_pages }
 }
 
 const getCategoryDetailById = async (id) => {

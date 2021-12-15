@@ -1,35 +1,37 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Container, Typography } from '@material-ui/core'
+import { Box, CircularProgress, Container, Typography } from '@material-ui/core'
 import { HomePagesHeader } from '../../components/HomePagesHeader'
 import { getTerms } from '../../api/public'
-import useLoading from '../../hooks/useLoading'
-import { Loading } from '../../routes/components/Loadable/Loading'
+import { useGetData } from '../../hooks/useGetData'
+import { Term } from './components/Term'
+import { Jh_Pagination } from '../../components/Jh_Pagination'
 
 const Terms = () => {
-    const [data, setData] = useState([])
-    const loading = useLoading()
+    const [page, setPage] = useState(1)
+    const params =  {pagination_size : 5 ,page :page}
+    const [data, error, loading] = useGetData(getTerms ,params)
+    const { terms, pages } = data || []
+
+    const handleChange = (event, value) =>  setPage(value)
+
     useEffect(() => {
-        loading.toggleLoading()
-        getTerms()
-            .then((data) => {
-                setData(data[0])
-                console.log(data)
-            })
-            .finally(() => loading.toggleLoading())
-    }, [])
+        console.log(page);
+    }, [page])
     return (
         <Box>
             <HomePagesHeader page="Terms and Conditions" description="Keep up to date with the latest news" />
             <Container maxWidth="lg">
-                {
-                    loading.isLoading && <Loading />
-                }
-                {data.map((item, index) => (
-                    <Box my={4} key={item.id}>
-                        <Typography variant="h6" gutterBottom>{item.title}</Typography>
-                        <Typography color="textSecondary" variant="body2" gutterBottom>{item.description}</Typography>
-                    </Box>
+                {!loading && terms && terms.map((term, index) => (
+                    <Term title={term.title} description={term.description} key={term.id * Date.now()} />
                 ))}
+
+                <Box display="flex" justifyContent="center">
+                    {terms?.length == 0 && <Typography > Not Data Found</Typography>}
+                    { loading && <Box m={4}><CircularProgress /></Box>}
+                </Box>
+                {pages > 1 &&
+                    <Jh_Pagination handleChange={handleChange} pages={pages} page={page} />
+                }
             </Container>
 
         </Box>
