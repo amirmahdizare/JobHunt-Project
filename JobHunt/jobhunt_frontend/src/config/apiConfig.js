@@ -5,6 +5,6 @@ const api = axios.create({
 })
 
 const centralApi = axios.create({
-    baseURL:process.env.REACT_APP_CENTRAL_API_ENDPOINT
+    baseURL: process.env.REACT_APP_CENTRAL_API_ENDPOINT
 })
-export {api,centralApi}
+export { api, centralApi }

@@ -210,6 +210,52 @@ const getStatistics = async () => {
 
     return { jobsCount, companiesCount, usersCount }
 }
+
+const getAllCorporations = async () => {
+    const response = await api.get('/cooperation-kinds/guests?page=1', {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+    return response.data.data
+}
+
+const getAllJobs = async (page , paginationSize) => {
+    const response = await api.get(`/jobs/offers/guests?page=${page}&pagination_size=${paginationSize}`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+    return response.data.data
+}
+
+const getSpecificCompany = async (id) => {
+    const response = await api.get(`/companies/guest/${id}`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+    return response.data.data
+}
+
+const getSpecificCorporation = async (id) => {
+    const response = await api.get(`/cooperation-kinds/guests/${id}`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+    return response.data.data
+}
+
+const getSingleJob = async (id) => {
+    const response = await api.get(`/jobs/offers/guests/${id}`, {
+        headers: {
+            Lang: getLanguage()
+        }
+    })
+    return response.data.data
+}
+
 const postContactUs = async (data) => {
     const response = await api.post('/contact-us/guests', data, {
         headers: { Lang: getLanguage() },
@@ -334,6 +380,11 @@ export {
     getStatistics,
     postContactUs,
     getContactInfo,
+    getAllJobs,
+    getSpecificCompany,
+    getSingleJob,
+    getAllCorporations,
+    getSpecificCorporation,
     getTopJobs,
     getCompanyDetailById,
     getHowWorks,
