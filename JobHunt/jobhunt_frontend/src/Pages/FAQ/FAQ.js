@@ -1,36 +1,26 @@
-import { Box, Container } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import { Box, CircularProgress, Container, Typography } from '@material-ui/core'
+import React from 'react'
 import { HomePagesHeader } from '../../components/HomePagesHeader'
 import { Question } from './components/Question'
-import { Loading } from '../../routes/components/Loadable/Loading'
-import useLoading from '../../hooks/useLoading'
 import { getFAQs } from '../../api/public'
+import { useGetData } from '../../hooks/useGetData'
 
 const FAQ = () => {
-    const [data, setData] = useState([])
-    const loading = useLoading()
+    const [data, error, loading] = useGetData(getFAQs)
 
-    useEffect(() => {
-        loading.toggleLoading()
-        getFAQs()
-            .then((data) => {
-                console.log(data)
-                setData(data[0])
-            })
-            .finally(() => loading.toggleLoading())
-    }, [])
+
     return (
         <Box>
             <HomePagesHeader page="Faq" description="Keep up to date with the latest news" />
             <Container maxWidth="lg">
                 <Box my={3}>
-                    {
-                        loading.isLoading && <Loading />
-                    }
-
-                    {data.map((question) => (
+                    {!loading && data && data.map((question) => (
                         <Question question={question.question} answer={question.answer} key={question.id} />
                     ))}
+                </Box>
+                <Box display="flex" justifyContent="center">
+                    {data?.length == 0 && <Typography > Not Data Found</Typography>}
+                    {loading && <Box m={4}><CircularProgress /></Box>}
                 </Box>
             </Container>
 
