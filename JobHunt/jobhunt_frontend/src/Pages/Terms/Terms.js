@@ -4,15 +4,12 @@ import { HomePagesHeader } from '../../components/HomePagesHeader'
 import { getTerms } from '../../api/public'
 import { useGetData } from '../../hooks/useGetData'
 import { Term } from './components/Term'
-import { Jh_Pagination } from '../../components/Jh_Pagination'
 
 const Terms = () => {
-    const [page, setPage] = useState(1)
-    const params =  {pagination_size : 5 ,page :page}
-    const [data, error, loading] = useGetData(getTerms ,params)
-    const { terms, pages } = data || []
 
-    const handleChange = (event, value) =>  setPage(value)
+    const [data, error, loading] = useGetData(getTerms)
+    const { terms } = data || []
+
 
     return (
         <Box>
@@ -24,11 +21,9 @@ const Terms = () => {
 
                 <Box display="flex" justifyContent="center">
                     {terms?.length == 0 && <Typography > Not Data Found</Typography>}
-                    { loading && <Box m={4}><CircularProgress /></Box>}
+                    {loading && <Box m={4}><CircularProgress /></Box>}
                 </Box>
-                {pages > 1 &&
-                    <Jh_Pagination handleChange={handleChange} pages={pages} page={page} />
-                }
+
             </Container>
 
         </Box>
