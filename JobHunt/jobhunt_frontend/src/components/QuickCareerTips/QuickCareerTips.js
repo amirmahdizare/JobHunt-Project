@@ -32,13 +32,13 @@ const QuickCareerTips = () => {
                 <Grid className={classes.tipContainer} container spacing={2}>
                     {tips.map(tip => (
                         <Tip
-                            key={tip.id}
-                            id={tip.id}
-                            date={tip.created_at}
-                            description={tip.caption}
-                            image={tip.image}
+                            key={tip?.id}
+                            id={tip?.id}
+                            date={tip?.created_at}
+                            description={tip?.caption}
+                            image={tip?.image}
                             // numberOfComments={0}
-                            title={tip.title}
+                            title={tip?.title}
                         />
                     ))}
                 </Grid>

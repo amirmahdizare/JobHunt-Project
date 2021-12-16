@@ -17,7 +17,7 @@ const useClasses = makeStyles((theme) => ({
 const JobsContainer = () => {
     const classes = useClasses()
     const [data, error, loading] = useGetData(getTopJobs)
-    console.log(data)
+
     return (
         <Box className={classes.root}>
             {loading && <CircularProgress/>}

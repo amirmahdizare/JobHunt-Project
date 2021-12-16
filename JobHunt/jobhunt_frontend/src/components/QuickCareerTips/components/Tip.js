@@ -85,7 +85,7 @@ const Tip = (props) => {
 
                             </Box>
 
-                            {props.description.lenght > 100
+                            {!!props.description && props.description.lenght > 100
                                 ? <Typography variant="subtitle2" color="textSecondary" component="p">{props.description.slice(0, 100)}</Typography>
                                 : <><Typography variant="subtitle2" color="textSecondary" component="p">{props.description}<br /></Typography></>
                             }

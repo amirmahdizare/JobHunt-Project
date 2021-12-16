@@ -7,12 +7,16 @@ const storeServiceIdAndDefineLanguage = async (language) =>{
             'Lang':language
         }
     }
-    const response= await axios(config)
-    console.log(response)
-    const serviceId = response.data.data.filter(item => item.name=='jobHunt')[0].id;
-    window.sessionStorage.setItem('Lang',language)
-    window.sessionStorage.setItem('serviceId',serviceId)
-    // if()
+    try {
+        const response= await axios(config)
+        const serviceId = response.data.data.filter(item => item.name=='jobHunt')[0].id;
+        window.sessionStorage.setItem('Lang',language)
+        window.sessionStorage.setItem('serviceId',serviceId)
+        return true
+    } catch (error) {
+        return false
+    }
+    
 }
 const shareStorage = () =>{
     window.addEventListener('storage', function (event) {

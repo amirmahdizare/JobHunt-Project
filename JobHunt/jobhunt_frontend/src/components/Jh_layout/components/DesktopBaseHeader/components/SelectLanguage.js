@@ -17,10 +17,10 @@ export const SelectLanguage = () => {
     const handleToggle = () => setOpen(!open)
     const anchorRef = React.useRef(null);
 
-    const { language, availableLanguages, setLanguage } = useLanguage()
+    const { language, availableLanguages, handleChangeLanguage } = useLanguage()
 
     const handleChangeingLanguage = (targetLangauge) => {
-        setLanguage(targetLangauge)
+        handleChangeLanguage(targetLangauge)
 
     }
     const makeCountries = () => {
