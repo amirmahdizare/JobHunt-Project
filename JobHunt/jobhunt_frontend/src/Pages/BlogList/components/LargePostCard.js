@@ -46,7 +46,7 @@ export const LargePostCard = (props) => {
     const classes = useStyles()
     return (
         <Card elevation={0} className={classes.root}  >
-            <Link href="#">
+            <Link href={`/Blog/${id}`}>
                 <CardMedia
                     className={classes.media}
                     component="img"
@@ -56,11 +56,11 @@ export const LargePostCard = (props) => {
                 /></Link>
             <CardContent className={classes.content} >
                 <Box>
-                    <Button href="/blog/date" startIcon={<CalendarTodayOutlined color="action" />}><Typography color="textSecondary" variant="body2" >{date}</Typography></Button>
-                    <Button href="/blog/id/#comments" startIcon={<ForumOutlined color="primary" />}><Typography color="primary" variant="body2">{numberOfComments}&nbsp;Comment{numberOfComments != 1 ? 's' : null}</Typography></Button>
+                    <Button href={`/Blog/${id}`} startIcon={<CalendarTodayOutlined color="action" />}><Typography color="textSecondary" variant="body2" >{date}</Typography></Button>
+                    <Button href={`/Blog/${id}`} startIcon={<ForumOutlined color="primary" />}><Typography color="primary" variant="body2">{numberOfComments}&nbsp;Comment{numberOfComments != 1 ? 's' : null}</Typography></Button>
                 </Box>
                 <Box>
-                    <Typography display="block" component={Link} href={`blog/${title[0]}`} underline="none" className={classes.title} variant="h6" style={{ whiteSpace: 'pre-wrap' }} color="inherit" gutterBottom>{title}</Typography>
+                    <Typography display="block" component={Link} href={`blog/${id}`} underline="none" className={classes.title} variant="h6" style={{ whiteSpace: 'pre-wrap' }} color="inherit" gutterBottom>{title}</Typography>
                     <Typography variant="body2" color="textSecondary">{description}</Typography>
                 </Box>
                 <Box>

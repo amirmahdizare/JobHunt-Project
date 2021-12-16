@@ -1,6 +1,5 @@
-import React from 'react'
-import { Jh_BlogFrame } from '../../components/Jh_BlogFrame/Jh_BlogFrame'
-import { Box, CardMedia, CircularProgress, Divider, makeStyles, Typography } from '@material-ui/core'
+import React, { useEffect, useState } from 'react'
+import { Box, CardMedia, Chip, CircularProgress, Divider, makeStyles, Typography } from '@material-ui/core'
 import { SharePost } from './components/SharePost'
 import { PostNavigation } from './components/PostNavigation'
 import { CommentsBox } from './components/CommentsBox'
@@ -10,8 +9,9 @@ import { PostDetail } from './components/PostDetail'
 import { PostDescription } from './components/PostDescription'
 import { getBlogSingle } from '../../api/public'
 import { useParams } from "react-router-dom";
-import { useRequest } from '../../hooks/useRequest'
-
+import { useGetData } from '../../hooks/useGetData'
+import { useLogin } from '../../hooks'
+import { Jh_BlogSingleFrame } from '../../components/BlogFrame/Jh_BlogSingleFrame'
 const useStyles = makeStyles(theme => ({
     postImage: {
         borderRadius: theme.spacing(1),
@@ -21,13 +21,24 @@ const useStyles = makeStyles(theme => ({
 }))
 const BlogSingle = () => {
     const classes = useStyles()
-    let { id } = useParams();
-    const _getBlogSingle = () => getBlogSingle(id)
-    const [data, error, loading] = useRequest(_getBlogSingle)
+
+    //blog id
+    const { id } = useParams();
+
+    //for check login
+    const isLogin = useLogin()
+
+    //featch blog description
+    const [data, error, loading] = useGetData(getBlogSingle, {id})
+
+    //for reply comment
+    const [replyComment, setReplyComment] = useState(null)
+    const handelReplyComment = (value) => setReplyComment(value)
+
 
     return (
 
-        <Jh_BlogFrame>
+        <Jh_BlogSingleFrame>
             {data &&
                 <>
                     <CardMedia
@@ -47,18 +58,21 @@ const BlogSingle = () => {
                     <br />
                     <Divider light />
                     <br />
-                    <PostNavigation />
+                    <PostNavigation id={data.id}/>
                     <br />
                     <Divider light />
-                    <CommentsBox />
-                    <LeaveAReply />
+                    <CommentsBox id={id} handelReplyComment={handelReplyComment} />
+
+                    {isLogin && <LeaveAReply id={id} replyComment={replyComment} handelReplyComment={handelReplyComment} />}
+
                 </>
             }
             <Box width={1} display="flex" alignItems="center" justifyContent="center">
                 {data?.length == 0 && <Typography>No Found posts</Typography>}
                 {!data && loading && <CircularProgress />}
+                {error && <Typography>Error</Typography>}
             </Box>
-        </Jh_BlogFrame>
+        </Jh_BlogSingleFrame>
     )
 }
 export default BlogSingle

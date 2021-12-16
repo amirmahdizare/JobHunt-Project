@@ -33,7 +33,7 @@ export const PostDescription = (props) => {
         <>
             <Typography variant="h6" gutterBottom>{data.title}</Typography>
             <Typography color="textSecondary" variant="body2" gutterBottom>{data.description}</Typography>
-            <Typography variant="h6">About Business Network</Typography>
+            <Typography variant="body2">About Business Network</Typography>
             <Typography variant="body2" color="textSecondary">{data.aboutBusiness1}</Typography>
             {data.keySentence
                 ? <Box className={classes.KeySentenceBox}>

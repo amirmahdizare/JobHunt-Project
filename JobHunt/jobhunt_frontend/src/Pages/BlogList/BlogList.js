@@ -1,35 +1,58 @@
 import { Box, CircularProgress, Divider, Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { getBlogs } from '../../api/public'
-import { Jh_BlogFrame } from '../../components/Jh_BlogFrame/Jh_BlogFrame'
+import { BlogFrame } from '../../components/BlogFrame/BlogFrame'
 import { Jh_Pagination } from '../../components/Jh_Pagination'
 import { LargePostCard } from './components/LargePostCard'
-import { useRequest } from '../../hooks/useRequest'
+import { useGetData } from '../../hooks/useGetData'
+
 
 const BlogList = () => {
-    const [data, loading, error] = useRequest(getBlogs)
+    const [page, setPage] = useState(1);
+    //featch posts
+    const [data, error, loading] = useGetData(getBlogs, {page,pagination_size:2})
+    const { posts, pages } = data || []
+  console.log(data)
+    //recent post
+    const recentPosts = posts ? posts.slice(0, 3) : []
+
+    //for paging
+    const handleChange = (event, value) => setPage(value)
+
+
     return (
-        <Jh_BlogFrame>
-            {data &&
-                data.map((post, index) => (
-                    <>
-                        <LargePostCard
-                            id={post.id}
-                            date={post.date}
-                            description={post.description}
-                            image={post.image}
-                            numberOfComments={post.numberOfComments}
-                            title={post.title}
-                        />
-                        <Divider light />
-                    </>
-                ))}
+        <BlogFrame posts={recentPosts}>
+            {posts &&
+                <>
+                {loading && <Box display={'flex'} alignItems={'center'} justifyContent={'center'}><CircularProgress/></Box>}
+                    {!loading && posts.map((post, index) => (
+                        <>
+                            <LargePostCard
+                                key={post.id}
+                                id={post.id}
+                                date={post.date}
+                                description={post.description}
+                                image={post.image}
+                                numberOfComments={post.numberOfComments}
+                                title={post.title}
+                            />
+                            <Divider light />
+                        </>
+                    ))
+                    }
+                    {pages > 1 &&
+                        <Jh_Pagination pages={pages} page={page} handleChange={handleChange} />
+                    }
+                </>
+            }
+
             <Box width={1} display="flex" alignItems="center" justifyContent="center">
-                {data?.length == 0 && <Typography>No Found posts</Typography>}
-                {!data && loading && <CircularProgress />}
+                {posts?.length == 0 && <Typography>No Found posts</Typography>}
+                {!posts && loading && <CircularProgress />}
+                {error && <Typography>Error: Request failed with status code 500</Typography>}
             </Box>
-            <Jh_Pagination pages={10} />
-        </Jh_BlogFrame>
+        </BlogFrame>
     )
+
 }
 export default BlogList

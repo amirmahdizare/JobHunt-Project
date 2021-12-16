@@ -16,7 +16,7 @@ const useStyles=makeStyles(theme=>({
         marginTop:theme.spacing(4)
     }
 }))
-export const Jh_BlogFrame = (props) => {
+export const BlogFrame = (props) => {
     const classes=useStyles()
     return (
 

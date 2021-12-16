@@ -3,8 +3,12 @@ import { CalendarToday } from '@material-ui/icons'
 import React from 'react'
 import { UserAvatar } from '../../../components/UserAvatar'
 import ReplyIcon from '@material-ui/icons/Reply';
+import { Link } from 'react-scroll'
+import { useLogin } from '../../../hooks/useLogin';
+
 export const Comment = (props) => {
-    const { avatarSrc, name, date, text, replyComment } = props
+    const { avatarSrc, name, date, text, replyComment, id, handelReplyComment } = props
+    const isLogin = useLogin()
     return (
         <Box>
             <Box my={2} display="flex" paddingLeft={replyComment ? '17.5%' : 0}>
@@ -16,11 +20,13 @@ export const Comment = (props) => {
                     </Box>
                     <Typography variant="body2" color="textSecondary">{text}</Typography>
                     <Box>
-                        <Button color="secondary" startIcon={<ReplyIcon />}> Reply</Button>
+                        <Link to="leaveAReply" spy={true} smooth={true}>
+                            <Button disabled={!isLogin} onClick={() => handelReplyComment({ id, name, avatarSrc })} color="secondary" startIcon={<ReplyIcon />}> Reply</Button>
+                        </Link>
                     </Box>
                 </Box>
             </Box>
             <Divider light variant={'fullWidth'} />
-        </Box>
+        </Box >
     )
 }

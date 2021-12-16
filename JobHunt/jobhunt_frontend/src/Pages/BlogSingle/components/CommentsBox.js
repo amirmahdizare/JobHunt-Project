@@ -1,42 +1,55 @@
-import { Box, Divider, Typography } from '@material-ui/core'
-import React from 'react'
+import { Box, CircularProgress, Divider, Typography } from '@material-ui/core'
+import React, { useState } from 'react'
+import { getBlogSingleComment } from '../../../api/public'
+import { Jh_Pagination } from '../../../components/Jh_Pagination'
+import { useGetData } from '../../../hooks/useGetData'
 import { Comment } from './Comment'
 
-export const CommentsBox = () => {
+export const CommentsBox = (props) => {
+    const { id, handelReplyComment } = props
+
+    //featch comments
+    const [page, setPage] = useState(1);
+    const [data, error, loading] = useGetData(getBlogSingleComment, id, page)
+    const { comments, pages } = data || []
+
+    //for paging
+    const handleChange = (event, value) => setPage(value)
+
+
+
     return (
         <Box >
             <br />
             {/* 4 -> numberOfComments */}
-            <Typography variant="h6">4 Comments</Typography>
-            <Box my={2} display="flex" flexDirection="column"  >
-                <Comment
-                    name="Ali TUFAN"
-                    avatarSrc="https://creativelayers.net/themes/jobhunt-html/images/resource/err1.jpg"
-                    date="Jan 16, 2016 07:48 am"
-                    text="Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement tantaneously eel valiantly petted this along across highhandedly much."
-                />
-                <Comment
-                    name="Rachel LOIS"
-                    avatarSrc="https://creativelayers.net/themes/jobhunt-html/images/resource/err2.jpg"
-                    date="Jan 16, 2016 07:48 am"
-                    text="Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement tantaneously eel valiantly petted this along across highhandedly much."
-                    replyComment
-                />
+            {comments &&
+                <>
+                    <Typography variant="h6">{comments.length} Comments</Typography>
+                    <Box my={2} display="flex" flexDirection="column"  >
+                        {comments.map((comment) =>
+                            <Comment
 
-                <Comment
-                    name="Kate ROSELINE"
-                    avatarSrc="https://creativelayers.net/themes/jobhunt-html/images/resource/err3.jpg"
-                    date="Jan 16, 2016 07:48 am"
-                    text="Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement tantaneously eel valiantly petted this along across highhandedly much."
-                />
+                                key={comment.id}
+                                name={comment.user_info.first_name + " " + comment.user_info.last_name}
+                                avatarSrc={comment.image}
+                                date={comment.date}
+                                text={comment.comment}
+                                id={comment.id}
+                                handelReplyComment={handelReplyComment}
+                            />
+                        )}
+                    </Box>
+                    {pages > 1 &&
+                        <Jh_Pagination pages={pages} page={page} handleChange={handleChange} />
+                    }
+                </>
+            }
 
-                <Comment
-                    name="Luis DANIEL"
-                    avatarSrc="https://creativelayers.net/themes/jobhunt-html/images/resource/err4.jpg"
-                    date="Jan 16, 2016 07:48 am"
-                    text="Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement tantaneously eel valiantly petted this along across highhandedly much."
-                />
+            <Box width={1} display="flex" alignItems="center" justifyContent="center">
+                {comments?.length == 0 && <Typography>No Found posts</Typography>}
+                {!comments && loading && <CircularProgress />}
             </Box>
+
         </Box>
     )
 }

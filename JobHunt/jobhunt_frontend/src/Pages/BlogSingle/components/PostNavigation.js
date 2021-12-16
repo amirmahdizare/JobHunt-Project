@@ -2,6 +2,9 @@ import { Box, Grid, Link, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { useGetData } from '../../../hooks/useGetData';
+import { getBlogs } from '../../../api/public';
+import { PostAddSharp } from '@material-ui/icons';
 const useStyles = makeStyles(theme => ({
     icon: {
         color: theme.palette.text.primary,
@@ -16,6 +19,9 @@ const useStyles = makeStyles(theme => ({
 }))
 export const PostNavigation = () => {
     const classes = useStyles()
+    const [data , error,loading]=useGetData(getBlogs,{pagination_size : 100000,page:1})
+    // const currentPost = data?.post
+    // const nextPost  = data?.posts.filter((item,index,posts)=> index)
     return (
         <Box display="flex" justifyContent="space-between">
             <Grid container spacing={2}>

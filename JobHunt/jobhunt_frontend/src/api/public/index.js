@@ -116,14 +116,11 @@ const getBlogs = async (params) => {
         headers: {
             Lang: getLanguage()
         },
-        params: params || {
-            page: 1,
-            pagination_size: 3
-        },
+        params: params ? params : {page: 1 ,pagination_size: 3 }
     })
-    const { data: { data: { entities } } } = response
-    const fullDetailData = Promise.all(entities.map(async (blog) => ({ ...blog, image: await generateImageURL('jobhunt', Object.values(blog.medias)[0]), date: moment(blog.created_at).format('DD MMM, YYYY') })))
-    return fullDetailData
+    const { data: { data: { entities, number_of_pages } } } = response
+    const posts = await Promise.all(entities.map(async (blog, index) => ({ ...blog, image: await generateImageURL('jobhunt', Object.values(blog.medias)[0]), date: moment(blog.created_at).format('DD MMM, YYYY') })))
+    return { posts, pages: number_of_pages }
 }
 const getFAQs = async (customParams) => {
     const reqParams = customParams && customParams.page && customParams.pagination_size ? customParams : { page: 1, pagination_size: 6 }
@@ -360,8 +357,8 @@ const getPricing = async (page) => {
     return data
 }
 
-const getBlogSingle = async (params) => {
-    const response = await api.get(`blogs/guests/${params}`, {
+const getBlogSingle = async ({id}) => {
+    const response = await api.get(`blogs/guests/${id}`, {
         headers: {
             Lang: getLanguage()
         },
@@ -371,6 +368,26 @@ const getBlogSingle = async (params) => {
     const fullDetailData = { ...data, image: await generateImageURL('jobhunt', Object.values(data.medias)[0]), date: moment(data.created_at).format('DD MMM, YYYY') }
     return fullDetailData
 }
+const getBlogSingleComment = async (entity_id, page) => {
+    console.log(entity_id, page);
+
+    const response = await api.get(`/comments/guests`, {
+        headers: {
+            Lang: getLanguage()
+        },
+        params: {
+            page: page,
+            entity_id: entity_id
+        }
+
+    })
+    const { data: { data: { entities, number_of_pages } } } = response
+    const comments = await Promise.all(entities.map(async (comment, index) => ({ ...comment, image: comment.user_info.image ? await generateImageURL('jobhunt', Object.values(comment.user_info.image)[0].path) : null, date: moment(comment.created_at).format('DD MMM, YYYY') })))
+
+    return { comments, pages: number_of_pages }
+}
+
+
 export {
     getPopularCategories,
     getAllCategories,
@@ -382,6 +399,7 @@ export {
     getPartners,
     getBlogs,
     getBlogSingle,
+    getBlogSingleComment,
     getFAQs,
     getTerms,
     getCategoryDetailById,
