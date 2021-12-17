@@ -3,6 +3,9 @@ import { Box, Grid, Typography } from '@material-ui/core'
 import { Jh_Logo1 } from '../../../../../Jh_Logo1'
 import SocialMedias from './components/SocialMedias'
 import { makeStyles } from '@material-ui/core'
+import { useGetData } from '../../../../../../hooks/useGetData'
+import { getContactInfo } from '../../../../../../api/public'
+import { SectionLoading } from '../../../../../SectionLoading'
 const useClasses = makeStyles((theme) => ({
   root: {
     flexDirection: 'column',
@@ -19,17 +22,18 @@ const useClasses = makeStyles((theme) => ({
 }))
 const ContactUs = () => {
   const classes = useClasses()
+  const [info, error, loading] = useGetData(getContactInfo)
   return (
     <Grid item xs={12} md={3}>
       <Box className={classes.root} height="100%">
         <Jh_Logo1 />
-        {/* Address */}
-        <Typography className={classes.text} >ًRoom 605, Unit 5 Building 1,Kaide Jinxiu, Balizhuang, Chaoyang District, Beijing </Typography>
-        {/* Phone Number */}
-        <Typography className={classes.text} >+86 5629-1029</Typography>
-        {/* Email */}
-        <Typography className={classes.text} >info@jobhunt.com</Typography>
-        <SocialMedias />
+        {loading && <SectionLoading />}
+        {!loading && info && <>
+          <Typography className={classes.text} >{info?.address} </Typography>
+          <Typography className={classes.text} >{info?.phone}</Typography>
+          <Typography className={classes.text} >{info?.email}</Typography>
+          <SocialMedias />
+        </>}
 
       </Box>
     </Grid>
