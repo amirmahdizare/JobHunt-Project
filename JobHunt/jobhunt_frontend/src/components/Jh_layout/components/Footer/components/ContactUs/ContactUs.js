@@ -24,7 +24,7 @@ const ContactUs = () => {
   const classes = useClasses()
   const [info, error, loading] = useGetData(getContactInfo)
   return (
-    <Grid item xs={12} md={3}>
+    <Grid item xs={12} md={4}>
       <Box className={classes.root} height="100%">
         <Jh_Logo1 />
         {loading && <SectionLoading />}

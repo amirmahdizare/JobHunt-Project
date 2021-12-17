@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container, Grid, Link, makeStyles, Typography } from '@material-ui/core'
 import { Box } from '@material-ui/core'
-import { DownloadBox } from './components/DownloadBox'
 import ContactUs from './components/ContactUs/ContactUs'
 import FAQ from './components/FAQ'
 import { FindJobs } from './components/FindJobs'
@@ -9,7 +8,7 @@ import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
 const useClasses = makeStyles(theme => ({
     root: {
         backgroundColor: '#24324a',
-        paddingTop:theme.spacing(3)
+        paddingTop:theme.spacing(4)
     },
     rights: {
         backgroundColor: '#1d293e',
@@ -48,8 +47,9 @@ const Footer = () => {
                 <Grid container spacing={2}>
                     <ContactUs />
                     <FAQ />
+                    {/* <FAQ2/> */}
                     <FindJobs />
-                    <DownloadBox />
+                    {/* <DownloadBox /> */}
                 </Grid>
             </Container>
             <Box className={classes.rights} >

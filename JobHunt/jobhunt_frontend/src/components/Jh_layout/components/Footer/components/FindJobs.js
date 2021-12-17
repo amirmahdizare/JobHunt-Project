@@ -5,10 +5,11 @@ import { Typography } from '@material-ui/core'
 const FindJobs = () => {
     return (
         <Grid item xs={12} md={3} >
-            <Box p={2}>
+            <Box p={2} >
                 <Typography variant="h5" style={{ color: 'white' }}>
                     Find Jobs
                 </Typography>
+                <Box mt={2}>
                 <ListMenu
                     menuItems={[
                         { name: 'Beijing Jobs', href: '#' },
@@ -19,6 +20,7 @@ const FindJobs = () => {
                         { name: 'jobhunt Academy', href: '#' }
                     ]}
                 />
+            </Box>
             </Box>
         </Grid>
     )
