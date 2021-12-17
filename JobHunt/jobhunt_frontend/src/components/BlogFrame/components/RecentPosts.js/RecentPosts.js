@@ -9,7 +9,7 @@ export const RecentPosts = (props) => {
             <Typography variant="h6">Recent Posts</Typography>
             <Box my={2}>
                 {posts && posts.map((post) => (
-                    <PostCard id={post.id} title={post.title} date={post.date} image={post.image} />
+                    <PostCard id={post.id} title={post.title} key={post.id} date={post.date} image={post.image} />
                 ))}
             </Box>
         </Box>

@@ -11,6 +11,7 @@ import Link from '@material-ui/core/Link';
 import { Avatar, Box, CircularProgress } from '@material-ui/core';
 
 import { useLanguage } from '../../../../../LanguageProvider/Dev/useLanguage';
+import { getLanguage } from '../../../../../utils';
 
 export const SelectLanguage = () => {
     const [open, setOpen] = useState(false)
@@ -25,7 +26,7 @@ export const SelectLanguage = () => {
     }
     const makeCountries = () => {
         if (availableLanguages)
-            return availableLanguages.filter((item) => item.title != language.title).map((country) =>
+            return availableLanguages.filter((item) => item.suf != getLanguage()).map((country) =>
                 <MenuItem key={country.title} onClick={handleToggle}>
                     <Link onClick={() => handleChangeingLanguage(country)} underline="none" >
                         {country.url

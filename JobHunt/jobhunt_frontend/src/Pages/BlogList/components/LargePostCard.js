@@ -1,6 +1,7 @@
 import React from 'react'
-import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Divider, Link, makeStyles, Typography } from '@material-ui/core'
-import { ArrowRightAlt, Brightness1, CalendarTodayOutlined, ForumOutlined } from '@material-ui/icons'
+import { Box, Button, Card, CardContent, CardMedia, Link, makeStyles, Typography } from '@material-ui/core'
+import { ArrowRightAlt, CalendarTodayOutlined, ForumOutlined } from '@material-ui/icons'
+import { IsNotAvailableContent } from '../../../components/IsNotAvailableContent'
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -42,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 export const LargePostCard = (props) => {
-    const { date, description, image, numberOfComments, title, id } = props
+    const { date, caption, image, numberOfComments, title, id } = props
     const classes = useStyles()
     return (
         <Card elevation={0} className={classes.root}  >
@@ -60,8 +61,8 @@ export const LargePostCard = (props) => {
                     <Button href={`/Blog/${id}`} startIcon={<ForumOutlined color="primary" />}><Typography color="primary" variant="body2">{numberOfComments}&nbsp;Comment{numberOfComments != 1 ? 's' : null}</Typography></Button>
                 </Box>
                 <Box>
-                    <Typography display="block" component={Link} href={`blog/${id}`} underline="none" className={classes.title} variant="h6" style={{ whiteSpace: 'pre-wrap' }} color="inherit" gutterBottom>{title}</Typography>
-                    <Typography variant="body2" color="textSecondary">{description}</Typography>
+                    <Typography display="block" component={Link} href={`blog/${id}`} underline="none" className={classes.title } variant="h6" style={{ whiteSpace: 'pre-wrap' }} color="inherit" gutterBottom>{title || <IsNotAvailableContent>Blog title</IsNotAvailableContent>}</Typography>
+                    <Typography variant="body2" color="textSecondary">{ caption?.substr(0,250)?.concat('...')  || <IsNotAvailableContent>Blog Caption</IsNotAvailableContent> }</Typography>
                 </Box>
                 <Box>
                     <Button size="large" color="secondary" endIcon={<ArrowRightAlt fontSize="large" />} href={`/Blog/${id}`}>Read more</Button>

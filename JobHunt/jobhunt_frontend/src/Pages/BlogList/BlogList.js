@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Divider, Typography } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { getBlogs } from '../../api/public'
 import { BlogFrame } from '../../components/BlogFrame/BlogFrame'
 import { Jh_Pagination } from '../../components/Jh_Pagination'
@@ -10,7 +10,7 @@ import { useGetData } from '../../hooks/useGetData'
 const BlogList = () => {
     const [page, setPage] = useState(1);
     //featch posts
-    const [data, error, loading] = useGetData(getBlogs, {page,pagination_size:2})
+    const [data, error, loading] = useGetData(getBlogs, {page,pagination_size:5})
     const { posts, pages } = data || []
   console.log(data)
     //recent post
@@ -31,7 +31,7 @@ const BlogList = () => {
                                 key={post.id}
                                 id={post.id}
                                 date={post.date}
-                                description={post.description}
+                                caption={post.caption}
                                 image={post.image}
                                 numberOfComments={post.numberOfComments}
                                 title={post.title}

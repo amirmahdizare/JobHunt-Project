@@ -6,13 +6,14 @@ import React from 'react'
 import { UserAvatar } from '../../../components/UserAvatar'
 
 export const PostDetail = (props) => {
-    const {data} = props
+    const {data } = props
+    console.log(data)
     return (
         <Grid container alignItems="center" style={{ margin: '8px' }} spacing={1}>
             <Grid item xs={12} md={4} alignItems="center">
                 <Box display="flex" alignItems="center">
-                    <Link display="inline" href={`/${data.authorName}`}><UserAvatar src={data.authorAvatar} size="medium" /></Link>
-                    <Typography display="inline" color="textSecondary">&nbsp;&nbsp;&nbsp;{data.authorName}</Typography>
+                    <Link display="inline" href={`/${data.authorName}`}><UserAvatar src={data?.authorAvatar} size="medium" /></Link>
+                    <Typography display="inline" color="textSecondary">&nbsp;&nbsp;&nbsp;{data?.user_info?.first_name + ' ' + data?.user_info?.last_name}</Typography>
                 </Box>
             </Grid>
             <Grid item xs={12} md={3}>

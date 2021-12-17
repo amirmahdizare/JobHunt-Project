@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { useGetData } from '../../hooks/useGetData'
 import { useLogin } from '../../hooks'
 import { Jh_BlogSingleFrame } from '../../components/BlogFrame/Jh_BlogSingleFrame'
+import { useLanguage } from '../../LanguageProvider/Dev/useLanguage'
 const useStyles = makeStyles(theme => ({
     postImage: {
         borderRadius: theme.spacing(1),
@@ -20,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 const BlogSingle = () => {
+
     const classes = useStyles()
 
     //blog id
@@ -29,12 +31,11 @@ const BlogSingle = () => {
     const isLogin = useLogin()
 
     //featch blog description
-    const [data, error, loading] = useGetData(getBlogSingle, {id})
+    const [data, error, loading] = useGetData(getBlogSingle, { id })
 
     //for reply comment
     const [replyComment, setReplyComment] = useState(null)
     const handelReplyComment = (value) => setReplyComment(value)
-
 
     return (
 
@@ -58,7 +59,7 @@ const BlogSingle = () => {
                     <br />
                     <Divider light />
                     <br />
-                    <PostNavigation id={data.id}/>
+                    <PostNavigation id={data.id} />
                     <br />
                     <Divider light />
                     <CommentsBox id={id} handelReplyComment={handelReplyComment} />
@@ -70,7 +71,7 @@ const BlogSingle = () => {
             <Box width={1} display="flex" alignItems="center" justifyContent="center">
                 {data?.length == 0 && <Typography>No Found posts</Typography>}
                 {!data && loading && <CircularProgress />}
-                {error && <Typography>Error</Typography>}
+                {error && <Typography>There is no blog with this information</Typography>}
             </Box>
         </Jh_BlogSingleFrame>
     )
