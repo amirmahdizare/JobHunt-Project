@@ -147,7 +147,7 @@ const getSentResumes = async (job_offer_id) => {
     return response.data.data.entities
 }
 
-const getSingleSentResume =async (job_offer_id, id) => {
+const getSingleSentResume = async (job_offer_id, id) => {
     const response = await api.get(`/candidate-apply/employer/${job_offer_id}/${id}`, {
         headers: {
             Lang: getLanguage(),
@@ -177,11 +177,30 @@ const UpdateSentResumeStatus = async (job_offer_id, id, status) => {
         return Promise.reject(error.response.data.message)
     }
 }
+const postComment = async (info, id, parent_id) => {
+    const data = parent_id ? { ...info, entity: "blogs", parent_id } : { ...info, entity: "blogs" }
 
+    try {
+        const response = await api.post(`/comments/users/${id}`, data, {
+            headers: {
+                Lang: getLanguage(),
+                Authorization: getToken()
+            },
+
+
+        })
+        return response.data
+
+    } catch (error) {
+        return error.response.data.message
+    }
+
+}
 export {
     getCompany, deleteCompany,
     storeCompany, updateCompany,
     postJob, updateJob, deleteJob,
     getActivePackages, getSentResumes,
-    getSingleSentResume, UpdateSentResumeStatus
+    getSingleSentResume, UpdateSentResumeStatus,
+    postComment
 }

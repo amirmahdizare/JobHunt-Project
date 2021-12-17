@@ -1,7 +1,8 @@
-import { Box, Container, Grid, makeStyles, Typography } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { Box, CircularProgress, Container, Grid, makeStyles, Typography } from '@material-ui/core'
 import { getBlogs } from '../../api/public'
 import { TipsBg } from '../../asset/index'
+import { useGetData } from '../../hooks/useGetData'
 import Tip from './components/Tip'
 const useClasses = makeStyles((theme) => ({
     root: {
@@ -18,10 +19,8 @@ const useClasses = makeStyles((theme) => ({
 }))
 const QuickCareerTips = () => {
     const classes = useClasses()
-    const [tips, setTips] = useState([])
-    useEffect(() => {
-        getBlogs().then((data) => setTips(data))
-    }, [])
+    const [tipsDetail,error,loading] = useGetData(getBlogs)
+    console.log(tipsDetail?.posts)
     return (
         <Box className={classes.root} width="100%">
             <Container className={classes.container} maxWidth="lg" >
@@ -30,7 +29,7 @@ const QuickCareerTips = () => {
                     <Typography color="textSecondary" gutterBottom>Found by employers communicate directly with hiring managers and recruiters.</Typography>
                 </Box>
                 <Grid className={classes.tipContainer} container spacing={2}>
-                    {tips.map(tip => (
+                    {tipsDetail?.posts !=0 ? tipsDetail?.posts.map(tip => (
                         <Tip
                             key={tip?.id}
                             id={tip?.id}
@@ -40,7 +39,8 @@ const QuickCareerTips = () => {
                             // numberOfComments={0}
                             title={tip?.title}
                         />
-                    ))}
+                    )) : <Typography>No Tips Found</Typography>}
+                    {loading && <Box width={1} display={'flex'} alignItems={'center'} justifyContent={'center'}><CircularProgress/></Box>}
                 </Grid>
             </Container>
         </Box>

@@ -8,15 +8,15 @@ export const SharePost = () => {
         <Box display="flex" alignItems="center">
         <Typography >Share&nbsp;&nbsp;&nbsp;</Typography>
         <Jh_Button
-            href="/#"
+            // href="/#"
             color="secondary"
             icon={<LineAwesome icon={SvgGoogle} />}></Jh_Button>
         <Jh_Button
-            href="/#"
+            // href="/#"
             color="primary"
             icon={<LineAwesome icon={SvgTwitter} />}></Jh_Button>
         <Jh_Button
-            href="/#"
+            // href="/#"
             color="warning"
             icon={<LineAwesome icon={SvgFacebook} />}></Jh_Button>
     </Box>

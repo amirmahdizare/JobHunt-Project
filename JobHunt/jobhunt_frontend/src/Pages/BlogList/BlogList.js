@@ -1,62 +1,59 @@
-import { Divider } from '@material-ui/core'
-import React from 'react'
-import { Jh_BlogFrame } from '../../components/Jh_BlogFrame/Jh_BlogFrame'
+import { Box, CircularProgress, Divider, Typography } from '@material-ui/core'
+import React, { useState } from 'react'
+import { getBlogs } from '../../api/public'
+import { BlogFrame } from '../../components/BlogFrame/BlogFrame'
 import { Jh_Pagination } from '../../components/Jh_Pagination'
 import { LargePostCard } from './components/LargePostCard'
-const posts = [
-    {
-        date: 'November 23, 2017',
-        description: 'Spent several years working on sheep on Wall Street. Had moderate success investing in Yugos on Wall Street. Managed a small team buying and selling pogo sticks for farmers. Spent several years licensing licorice with banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.',
-        image:"https://creativelayers.net/themes/jobhunt-html/images/resource/bl1.jpg",
-        numberOfComments:4,
-        title:"11 Tips to Help You Get New Clients Through Cold Calling"
-    },
-    {
-        date: 'November 23, 2017',
-        description: 'Spent several years working on sheep on Wall Street. Had moderate success investing in Yugos on Wall Street. Managed a small team buying and selling pogo sticks for farmers. Spent several years licensing licorice with banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.',
-        image:"https://creativelayers.net/themes/jobhunt-html/images/resource/bl2.jpg",
-        numberOfComments:4,
-        title:"Do you have a job that the average person doesn’t even know exists?"
-    },    {
-        date: 'November 23, 2017',
-        description: 'Spent several years working on sheep on Wall Street. Had moderate success investing in Yugos on Wall Street. Managed a small team buying and selling pogo sticks for farmers. Spent several years licensing licorice with banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.',
-        image:"https://creativelayers.net/themes/jobhunt-html/images/resource/bl3.jpg",
-        numberOfComments:4,
-        title:"DigitalOcean launches first Canadian data centre in Toronto"
-    },    {
-        date: 'November 23, 2017',
-        description: 'Spent several years working on sheep on Wall Street. Had moderate success investing in Yugos on Wall Street. Managed a small team buying and selling pogo sticks for farmers. Spent several years licensing licorice with banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.',
-        image:"https://creativelayers.net/themes/jobhunt-html/images/resource/bl4.jpg",
-        numberOfComments:4,
-        title:"Canada’s six biggest banks earned a combined $9.2 billion in Q3"
-    },    {
-        date: 'November 23, 2017',
-        description: 'Spent several years working on sheep on Wall Street. Had moderate success investing in Yugos on Wall Street. Managed a small team buying and selling pogo sticks for farmers. Spent several years licensing licorice with banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.',
-        image:"https://farm4.static.flickr.com/3563/3486756814_08ebc50268_z.jpg",
-        numberOfComments:4,
-        title:"Using Banner Stands To Increase Trade Show  Traffic"
-    },
-
-]
+import { useGetData } from '../../hooks/useGetData'
 
 
- const BlogList = () => {
+const BlogList = () => {
+    const [page, setPage] = useState(1);
+    //featch posts
+    const [data, error, loading] = useGetData(getBlogs, { page, pagination_size: 5 })
+    const { posts, pages } = data || []
+
+    //recent post
+    const recentPosts = posts ? posts.slice(0, 3) : []
+
+    //for paging
+    const handleChange = (event, value) => setPage(value)
+
+    console.log(posts)
     return (
-        <Jh_BlogFrame>
-      {posts.map((post,index,posts)=>(
-          <>
-          <LargePostCard 
-          date={post.date}
-          description={post.description}
-          image={post.image}
-          numberOfComments={post.numberOfComments}
-          title={post.title}
-          />
-              <Divider light/>
-          </>
-      ))}
-      <Jh_Pagination pages={10}/>
-        </Jh_BlogFrame>
+        <BlogFrame posts={recentPosts}>
+            {posts &&
+                <>
+                    {loading && <Box display={'flex'} alignItems={'center'} justifyContent={'center'}><CircularProgress /></Box>}
+                    {!loading && posts.map((post, index) => (
+                        <>
+                            <LargePostCard
+                                user_info={post.user_info}
+                                key={post.id}
+                                id={post.id}
+                                date={post.date}
+                                caption={post.caption}
+                                image={post.image}
+                                numberOfComments={post.numberOfComments}
+                                title={post.title}
+                            />
+                            <Divider light />
+                        </>
+                    ))
+                    }
+                    {pages > 1 &&
+                        <Jh_Pagination pages={pages} page={page} handleChange={handleChange} />
+                    }
+                </>
+            }
+
+            <Box width={1} display="flex" alignItems="center" justifyContent="center">
+                {posts?.length == 0 && <Typography>No Found posts</Typography>}
+                {!posts && loading && <CircularProgress />}
+                {error && <Typography>Error: Request failed with status code 500</Typography>}
+            </Box>
+        </BlogFrame>
     )
+
 }
 export default BlogList

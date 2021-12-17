@@ -13,25 +13,25 @@ const useStyles = makeStyles(theme => ({
         background: 'transparent',
         overflow: 'unset',
     },
-    menuItem:{
-        display:'flex',
-        '&:hover':{
-            color:theme.palette.secondary.main
+    menuItem: {
+        display: 'flex',
+        '&:hover': {
+            color: theme.palette.secondary.main
         }
     }
 }))
 export const PostCard = (props) => {
-    const { title, date, image } = props
+    const { title, date, image, id } = props
     const classes = useStyles()
     return (
-        <MenuItem className={classes.menuItem} component={Link} color="textPrimary" href="#" >
+        <MenuItem className={classes.menuItem} component={Link} color="textPrimary" href={`/Blog/${id}`} >
             <Card classes={{ root: classes.cardRoot }}>
                 <CardMedia classes={{ media: classes.media }} image={image} component="img" />
             </Card>
             <Box>
-                <Typography color="inherit" style={{ whiteSpace: 'pre-wrap' }}  variant="body2">{title}</Typography>
+                <Typography color="inherit" style={{ whiteSpace: 'pre-wrap' }} variant="body2">{title}</Typography>
                 <Typography color="textSecondary" variant="subtitle2">{date}</Typography>
-                </Box>
+            </Box>
 
         </MenuItem>
     )

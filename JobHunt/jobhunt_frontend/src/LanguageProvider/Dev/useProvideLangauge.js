@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { storeServiceIdAndDefineLanguage } from "../../api/initilizeApp";
 import { generateImageURL } from "../../api/OSS/minioAPI";
 import { getCountryInfoToSignup } from "../../api/public";
+import { getLanguage } from "../../utils";
 
 function useProvideLangauge() {
 
-    const [language, setLanguage] = useState({ title: 'United Kingdom', suf: 'en' });
+    const [language, setLanguage] = useState({ suf: 'en' });
     const [languageTransalate, setLanguageTransalate] = useState({})
     const [loading, setLoading] = useState({ status: false })
     const [availableLanguages, setAvailableLanguages] = useState([
@@ -19,32 +20,36 @@ function useProvideLangauge() {
         await storeServiceIdAndDefineLanguage(language.suf)
 
         try {
-            const data = await getCountryInfoToSignup(language.title)
+            var defaultLanguageTitle
+            for (let item in availableLanguages) {
+                if (language.suf == availableLanguages[item].suf) defaultLanguageTitle = availableLanguages[item].title
+            }
+            const data = await getCountryInfoToSignup(defaultLanguageTitle)
             const flagUrl = await generateImageURL('central', Object.values(data[0]['flag'])[0]['path'])
             setLanguage({ ...language, url: flagUrl })
         } catch (error) {
-         //error
+            //error
         }
     }
 
 
     useEffect(() => {
-       try {
-           
-           initilizeApp().then(() =>
-               Promise.all(
-                   availableLanguages.map(async (country) => {
-                       const flagurl = await getCountryInfoToSignup(country.title)
-                       const path = Object.values(flagurl[0]['flag'])[0]['path']
-                       return { ...country, url: await generateImageURL('central', path) }
-   
-                   })
-               ).then((data) => {
-                   setAvailableLanguages(data)
-               }))
-       } catch (error) {
-           ///error
-       }
+        try {
+
+            initilizeApp().then(() =>
+                Promise.all(
+                    availableLanguages.map(async (country) => {
+                        const flagurl = await getCountryInfoToSignup(country.title)
+                        const path = Object.values(flagurl[0]['flag'])[0]['path']
+                        return { ...country, url: await generateImageURL('central', path) }
+
+                    })
+                ).then((data) => {
+                    setAvailableLanguages(data)
+                }))
+        } catch (error) {
+            ///error
+        }
 
     }, [])
 
