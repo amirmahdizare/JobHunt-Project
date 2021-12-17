@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Chip, CircularProgress, Grid, TextField, Typography } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { postComment } from '../../../api/employer';
 import { Alert } from '@material-ui/lab'

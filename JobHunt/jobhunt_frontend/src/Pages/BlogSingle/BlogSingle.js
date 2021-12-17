@@ -62,7 +62,7 @@ const BlogSingle = () => {
                     <PostNavigation id={data.id} />
                     <br />
                     <Divider light />
-                    <CommentsBox id={id} handelReplyComment={handelReplyComment} />
+                    <CommentsBox entity_id={id} handelReplyComment={handelReplyComment} />
 
                     {isLogin && <LeaveAReply id={id} replyComment={replyComment} handelReplyComment={handelReplyComment} />}
 

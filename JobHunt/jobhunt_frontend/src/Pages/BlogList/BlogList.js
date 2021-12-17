@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Divider, Typography } from '@material-ui/core'
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import { getBlogs } from '../../api/public'
 import { BlogFrame } from '../../components/BlogFrame/BlogFrame'
 import { Jh_Pagination } from '../../components/Jh_Pagination'
@@ -10,24 +10,25 @@ import { useGetData } from '../../hooks/useGetData'
 const BlogList = () => {
     const [page, setPage] = useState(1);
     //featch posts
-    const [data, error, loading] = useGetData(getBlogs, {page,pagination_size:5})
+    const [data, error, loading] = useGetData(getBlogs, { page, pagination_size: 5 })
     const { posts, pages } = data || []
-  console.log(data)
+
     //recent post
     const recentPosts = posts ? posts.slice(0, 3) : []
 
     //for paging
     const handleChange = (event, value) => setPage(value)
 
-
+    console.log(posts)
     return (
         <BlogFrame posts={recentPosts}>
             {posts &&
                 <>
-                {loading && <Box display={'flex'} alignItems={'center'} justifyContent={'center'}><CircularProgress/></Box>}
+                    {loading && <Box display={'flex'} alignItems={'center'} justifyContent={'center'}><CircularProgress /></Box>}
                     {!loading && posts.map((post, index) => (
                         <>
                             <LargePostCard
+                                user_info={post.user_info}
                                 key={post.id}
                                 id={post.id}
                                 date={post.date}

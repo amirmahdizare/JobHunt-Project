@@ -368,8 +368,8 @@ const getBlogSingle = async ({id}) => {
     const fullDetailData = { ...data, image: await generateImageURL('jobhunt', Object.values(data.medias)[0]), date: moment(data.created_at).format('DD MMM, YYYY') }
     return fullDetailData
 }
-const getBlogSingleComment = async (entity_id, page) => {
-    console.log(entity_id, page);
+const getBlogSingleComment = async ({entity_id, page,pagination_size}) => {
+    // console.log(entity_id, page);
 
     const response = await api.get(`/comments/guests`, {
         headers: {
@@ -377,14 +377,15 @@ const getBlogSingleComment = async (entity_id, page) => {
         },
         params: {
             page: page,
-            entity_id: entity_id
+            entity_id: entity_id,
+            pagination_size
         }
 
     })
-    const { data: { data: { entities, number_of_pages } } } = response
+    const { data: { data: { entities, number_of_pages ,number_of_entities } } } = response
     const comments = await Promise.all(entities.map(async (comment, index) => ({ ...comment, image: comment.user_info.image ? await generateImageURL('jobhunt', Object.values(comment.user_info.image)[0].path) : null, date: moment(comment.created_at).format('DD MMM, YYYY') })))
 
-    return { comments, pages: number_of_pages }
+    return { comments, pages: number_of_pages , number_of_entities }
 }
 
 

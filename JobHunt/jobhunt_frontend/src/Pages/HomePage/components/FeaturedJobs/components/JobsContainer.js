@@ -21,7 +21,7 @@ const JobsContainer = () => {
     return (
         <Box className={classes.root}>
             {loading && <CircularProgress/>}
-            {data ? data.map((job) =>
+            {!loading && data ? data.map((job) =>
 
                 <Jh_JobCard
                     key={job.id}
