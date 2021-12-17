@@ -284,7 +284,7 @@ const jobDetailGenerator =async (job) => {
        try {
            var { logo, name } =await getCompanyDetailById(job.company_id)
           var logourl = await generateImageURL('jobhunt',Object.values(logo)[0])
-           var { title, color } = await getCooperationKindById('61757f08c632ff190d1d6134')
+           var { title, color } = await getCooperationKindById(job.cooperation_kind_id)
         } catch (error) {
            //catch error
         }
@@ -292,7 +292,7 @@ const jobDetailGenerator =async (job) => {
             ...job,
             company_name: name,
            company_logo: logourl,
-            cooperation_kind_title: title,
+            cooperation_kind_title: title || 'Unset',
             cooperation_kind_color: color
         }
     
