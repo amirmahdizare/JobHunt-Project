@@ -14,7 +14,7 @@ export const LoginWithVerification = () => {
     const [step, setStep] = useState(0)
     const [values, setValues] = useState({
         identifier: '',
-        country_code :'',
+        country_code: '',
         verifyCode: ''
     })
     const [result, error, loading, setRequest, cleanErrors] = usePostData()
@@ -32,34 +32,33 @@ export const LoginWithVerification = () => {
         }
     }
 
-    const handleChange = (obj,reg) => {
+    const handleChange = (obj, reg) => {
         setValues({ ...values, ...obj })
         cleanErrors()
     }
     return (
-        <Box my={2}  >
+        <Box my={2}>
             {step == 0 &&
-                <Grid container spacing={1}>
+                <Grid container spacing={2}>
                     <Grid item xs={4} >
-                    <InputField
-                        title="Country Code"
-                        value={values.country_code}
-                        valueTitle='country_code'
-                        handleChange={handleChange}
-                        inputType="number"
-                        required 
-                    />
+                        <InputField
+                            title="Country Code"
+                            value={values.country_code}
+                            valueTitle='country_code'
+                            handleChange={handleChange}
+                            required
+                        />
                     </Grid>
                     <Grid item xs={8}>
-                    <InputField
-                        title="Phone Number"
-                        value={values.identifier}
-                        valueTitle='identifier'
-                        handleChange={handleChange}
-                        inputType="number"
-                        required svgIcon={SvgPhoneSolid}
-                        onKeyDown={(e) => e.key === 'Enter' ? handleClick(e) : null}
-                    /></Grid>
+                        <InputField
+                            title="Phone Number"
+                            value={values.identifier}
+                            valueTitle='identifier'
+                            handleChange={handleChange}
+                            pattern={/[0-9]/gm}
+                            required svgIcon={SvgPhoneSolid}
+                            onKeyDown={(e) => e.key === 'Enter' ? handleClick(e) : null}
+                        /></Grid>
                 </Grid>
             }
             {
@@ -78,16 +77,16 @@ export const LoginWithVerification = () => {
                     />
                 </Box>
             }
-
-            <Button size="large" onClick={handleClick} color="primary" variant="contained" fullWidth  >
-                <Typography style={{ textTransform: 'none' }} variant="h6">
-                    {step == 0 && 'Send Verify Code'}
-                    {step == 1 && 'Login'}
-                </Typography>
-            </Button>
+            <Box my={2}>
+                <Button size="large" onClick={handleClick} color="primary" variant="contained" fullWidth  >
+                    <Typography style={{ textTransform: 'none' }} variant="h6">
+                        {step == 0 && 'Send Verify Code'}
+                        {step == 1 && 'Login'}
+                    </Typography>
+                </Button></Box>
             {loading && <ShowAlertForLoginState loginState='processing' />}
-            {typeof error =='string' && <Alert severity='error' style={{ marginTop: '8px' }} variant='filled'>{capitalizeFirstLetter(error)}</Alert>}
-            {error && typeof error =='object' &&<Alert severity='error' style={{ marginTop: '8px' }} variant='filled'>Wrong format</Alert>}
+            {typeof error == 'string' && <Alert severity='error' style={{ marginTop: '8px' }} variant='filled'>{capitalizeFirstLetter(error)}</Alert>}
+            {error && typeof error == 'object' && <Alert severity='error' style={{ marginTop: '8px' }} variant='filled'>Country Code Or Phone Number have Invalid Format</Alert>}
         </Box>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { Typography, Button, Box, FormControlLabel,Grid, Checkbox } from '@material-ui/core';
+import { Typography, Button, Box, FormControlLabel, Grid, Checkbox } from '@material-ui/core';
 import { SvgKeySolid, SvgUser } from 'react-line-awesome-svg';
 import { useAuth } from '../../../api/authentication/index';
 import { removeTokens, storeUsertoken } from '../../../utils';
@@ -15,13 +15,14 @@ const LoginWithPassword = () => {
     const auth = useAuth()
     const [loginDetail, setLoginDetail] = useState({
         type: 'normal',
-        country_code:'',
+        country_code: '',
         identifier: null
     })
     const [loginState, setLoginState] = useState(null)
     const [values, setValues] = useState({
         identifier: '',
-        password: ''
+        password: '',
+        country_code:''
     })
     const [rememberMe, toggleRememberMe] = useState(false)
     let history = useHistory()
@@ -58,18 +59,16 @@ const LoginWithPassword = () => {
             }))
     }, [])
     return (
-        <Box>
-            <Box my={2}>
+        <Box my={2}>
+            <Box >
                 {loginDetail.type == 'normal' ? <>
-                    <Grid container spacing={1}>
+                    <Grid container spacing={2} >
                         <Grid item xs={4} >
                             <InputField
                                 title="Country Code"
                                 value={values.country_code}
                                 valueTitle='country_code'
                                 handleChange={handleChange}
-                                inputType="text"
-                                inputType="number"
                                 required
                             /></Grid>
                         <Grid item xs={8}>
@@ -79,20 +78,23 @@ const LoginWithPassword = () => {
                                 valueTitle='identifier'
                                 handleChange={handleChange}
                                 formState={loginState}
-                                inputType="number"
+                                pattern={/[0-9]/gm}
                                 required svgIcon={SvgUser}
                             /></Grid>
+
+                        <Grid item xs={12}>
+                            <InputField
+                                title="Password"
+                                value={values.password}
+                                valueTitle='password'
+                                handleChange={handleChange}
+                                formState={loginState}
+                                inputType="password"
+                                required svgIcon={SvgKeySolid}
+                                onKeyDown={(e) => e.key === 'Enter' ? handleClick(e) : null}
+                            />
+                        </Grid>
                     </Grid>
-                    <InputField
-                        title="Password"
-                        value={values.password}
-                        valueTitle='password'
-                        handleChange={handleChange}
-                        formState={loginState}
-                        inputType="password"
-                        required svgIcon={SvgKeySolid}
-                        onKeyDown={(e) => e.key === 'Enter' ? handleClick(e) : null}
-                    />
                     <Box my={1} display="flex" justifyContent="space-between" alignItems="center" width={1}>
                         <FormControlLabel
                             control={
