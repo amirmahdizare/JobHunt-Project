@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
         fill: '#303f9f'
     }
 }))
-export const InputField = ({ formState, title, valueTitle, inputType, svgIcon, value, handleChange, required, helperText,error,onKeyDown, ...props }) => {
+export const InputField = ({ formState, title, valueTitle, inputType, svgIcon, value, handleChange, required, helperText, error, onKeyDown, pattern, ...props }) => {
     const classes = useStyles()
     const iconStyle = () => {
         if (error)
@@ -18,14 +18,16 @@ export const InputField = ({ formState, title, valueTitle, inputType, svgIcon, v
     }
     return (
         <Box className={classes.root}>
-            <FormControl error={error} fullWidth color="primary" margin="normal" variant="outlined" {...props}>
+            <FormControl error={error} fullWidth color="primary"  variant="outlined" {...props}>
                 <InputLabel htmlFor="outlined-adornment-username">{title}</InputLabel>
                 <OutlinedInput
                     type={inputType || 'text'}
                     value={value}
                     label={title}
+                    margin='none'
                     placeholder={helperText}
-                    onChange={(e) => handleChange({ [valueTitle]: e.target.value })}
+                    fullWidth
+                    onChange={(e) =>  handleChange({ [valueTitle]:pattern ? (e.target.value?.match(pattern))?.join('') || '' :e.target.value })}
                     onKeyDown={onKeyDown}
                     endAdornment={
                         svgIcon && <InputAdornment position="end">

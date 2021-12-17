@@ -6,7 +6,7 @@ const ShowAlertForLoginStateComponent = ({loginState}) => {
     var showAlertContent
     switch (loginState) {
         case 'error':
-            showAlertContent = <Alert  style={{ width: '100%', transition: 'all 0.4s ease 0.1s' }} elevation={4} variant="filled" severity="error">Username or Password is incorrect</Alert>
+            showAlertContent = <Alert  style={{ width: '100%', transition: 'all 0.4s ease 0.1s' }} elevation={4} variant="filled" severity="error">No User Found By this Information</Alert>
             break
         case 'success':
             showAlertContent = <Alert  style={{ width: '100%', transition: 'all 0.4s ease 0.1s' }} elevation={4} variant="filled" severity="success"> Login successful</Alert>
