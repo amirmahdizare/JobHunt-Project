@@ -26,7 +26,7 @@ export const SelectCountry = ({ handleChange, country_code }) => {
         }
     }, [countryinfo])
     return (
-        <FormControl variant="outlined" fullWidth margin="normal" >
+        <FormControl variant="outlined" fullWidth  >
             <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
             <Select
                 labelId="select-country-outlined-label"

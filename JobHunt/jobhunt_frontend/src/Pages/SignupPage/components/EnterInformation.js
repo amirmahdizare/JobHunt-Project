@@ -24,7 +24,7 @@ const EnterInformation = ({ handleChange, values, setNextButtonState, errorMessa
                             label="Country Code"
                             variant="outlined"
                             value={values.country_code}
-                            margin="normal"
+                            // margin="none"
                             fullWidth
                             
                         />
@@ -64,6 +64,7 @@ const EnterInformation = ({ handleChange, values, setNextButtonState, errorMessa
                 helperText="At Least 8 Digit"
                 inputType="password"
                 required svgIcon={SvgKeySolid}
+                margin="normal"
             />
             <Grow
                 key='12'
