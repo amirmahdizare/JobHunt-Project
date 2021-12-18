@@ -1,7 +1,6 @@
 import { Button, Box, Card, CardActionArea, CardContent, CardMedia, Typography, CardActions, makeStyles, Grid, Divider, Link } from '@material-ui/core'
 import React from 'react'
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import moment from 'moment';
 const useStyles = makeStyles(theme => ({
     root: {
         borderRadius: theme.spacing(1),
@@ -57,11 +56,10 @@ const useStyles = makeStyles(theme => ({
 
 const Tip = (props) => {
     const classes = useStyles(props);
-    const date = moment(props.date).format('DD MMM, YYYY');
     return (
-        <Grid item xs={12} sm={6} lg={4} {...props}>
-            <Link underline='none' href={"blogs/" + props.id}>
-                <Card className={classes.root}>
+        <Box p={2}>
+            <Card className={classes.root}>
+                <Link underline='none' href={"blogs/" + props.id}>
                     <CardActionArea>
                         <CardMedia
                             component="img"
@@ -75,7 +73,7 @@ const Tip = (props) => {
                                 {props.title}
                             </Typography>
                             <Box className={classes.detail} >
-                                <Typography color="secondary">{date}</Typography>
+                                <Typography color="secondary">{props.date}</Typography>
                                 {props.numberOfComments ?
                                     <>
                                         {props.date ? <Divider color="secondary" orientation="vertical" flexItem /> : null}
@@ -104,9 +102,9 @@ const Tip = (props) => {
                             </Button>
                         </CardActions>
                     </CardActionArea>
-                </Card>
-            </Link>
-        </Grid>
+                </Link>
+            </Card>
+        </Box>
     )
 }
 export default Tip

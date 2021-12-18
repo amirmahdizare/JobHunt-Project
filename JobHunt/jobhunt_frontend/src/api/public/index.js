@@ -1,3 +1,4 @@
+import { formatDate } from "../../components"
 import { api, centralApi } from "../../config/apiConfig"
 import { centralApiHeaderObj, getLanguage, getUserToken } from "../../utils"
 import { generateImageURL } from "../OSS/minioAPI"
@@ -117,11 +118,11 @@ const getBlogs = async (params) => {
         },
         params: params || {
             page: 1,
-            pagination_size: 3
+            // pagination_size: 3
         },
     })
     const { data: { data: { entities } } } = response
-    const fullDetailData = Promise.all(entities.map(async (blog) => ({ ...blog, image: await generateImageURL('jobhunt', Object.values(blog.medias)[0]) })))
+    const fullDetailData = Promise.all(entities.map(async (blog) => ({ ...blog, date: formatDate(blog.created_at), image: await generateImageURL('jobhunt', Object.values(blog.medias)[0]) })))
     return fullDetailData
 }
 const getFAQs = async (customParams) => {
@@ -220,7 +221,7 @@ const getAllCorporations = async () => {
     return response.data.data
 }
 
-const getAllJobs = async (page , paginationSize) => {
+const getAllJobs = async (page, paginationSize) => {
     const response = await api.get(`/jobs/offers/guests?page=${page}&pagination_size=${paginationSize}`, {
         headers: {
             Lang: getLanguage()
@@ -280,24 +281,24 @@ const getTopJobs = async () => {
         params: { page: 1, pagination_size: 6 }
     })
     const plainJobs = response.data.data.entities
-    return await Promise.all(plainJobs.map(async(job) => await jobDetailGenerator(job) ))
+    return await Promise.all(plainJobs.map(async (job) => await jobDetailGenerator(job)))
 }
-const jobDetailGenerator =async (job) => {
-       try {
-           var { logo, name } =await getCompanyDetailById(job.company_id)
-          var logourl = await generateImageURL('jobhunt',Object.values(logo)[0])
-           var { title, color } = await getCooperationKindById('61757f08c632ff190d1d6134')
-        } catch (error) {
-           //catch error
-        }
-        return {
-            ...job,
-            company_name: name,
-           company_logo: logourl,
-            cooperation_kind_title: title,
-            cooperation_kind_color: color
-        }
-    
+const jobDetailGenerator = async (job) => {
+    try {
+        var { logo, name } = await getCompanyDetailById(job.company_id)
+        var logourl = await generateImageURL('jobhunt', Object.values(logo)[0])
+        var { title, color } = await getCooperationKindById('61757f08c632ff190d1d6134')
+    } catch (error) {
+        //catch error
+    }
+    return {
+        ...job,
+        company_name: name,
+        company_logo: logourl,
+        cooperation_kind_title: title,
+        cooperation_kind_color: color
+    }
+
 }
 const getCompanyDetailById = async (id) => {
     try {
