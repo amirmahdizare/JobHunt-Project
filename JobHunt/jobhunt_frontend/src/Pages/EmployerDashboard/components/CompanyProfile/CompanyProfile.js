@@ -74,12 +74,12 @@ export const CompanyProfile = () => {
         getCompany()
             .then((data) => {
 
-                if (!data.length) {
+                if (!data) {
                     setState('add')
                 }
                 else {
                     setState('edit')
-                    setInfo(data[0])
+                    setInfo(data)
                 }
                 setLoading(false)
             })

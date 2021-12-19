@@ -3,7 +3,7 @@ const usePostJobData = () => {
     const [info, setInfo] = useState({
         title: "",
         description: "",
-        //company_id : "",
+        // company_id : detail?.company_id,
         category_id: "",
         cooperation_kind_id: "",
         salary: {

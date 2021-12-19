@@ -11,7 +11,7 @@ const getCompany = async () => {
             page: 1,
         }
     })
-    return response.data.data.entities
+    return response.data.data.entities?.[0]
 }
 
 const storeCompany = async (dataObj) => {
@@ -72,6 +72,7 @@ const updateCompany = async (dataObj) => {
 
 const postJob = async (dataObj) => {
     const data = JSON.stringify(dataObj)
+    console.log(data)
     try {
         const response = await api.post('/jobs/offers/employer', data, {
             headers: {

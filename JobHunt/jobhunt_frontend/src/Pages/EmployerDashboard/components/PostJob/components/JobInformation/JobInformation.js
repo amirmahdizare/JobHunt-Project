@@ -17,7 +17,7 @@ export const JobInformation = (props) => {
     return (
         <Box boxSizing="border-box">
             <Grid container spacing={3} className={classes.container}>
-                <Grid item xs={12} md={6} key="SSS">
+                <Grid item xs={12} md={6} >
                     <Typography variant="body2" gutterBottom>Title</Typography>
                     <TextField
                         key="title"
