@@ -125,13 +125,13 @@ const getBlogs = async (params) => {
     return fullDetailData
 }
 const getFAQs = async (customParams) => {
-    // const reqParams = customParams && customParams.page && customParams.pagination_size ? customParams : { page: 1, pagination_size: 6 }
+    const reqParams = customParams && customParams.page && customParams.pagination_size ? customParams : { page: 1, pagination_size: 6 }
     const response = await api.get('/faqs/guests', {
         headers: { Lang: getLanguage() },
-        params: { page: 1 }
+        params: reqParams
     })
-    const { data: { data: { entities } } } = response
-    return entities
+    const { data: { data: { entities, number_of_pages } } } = response
+    return { faqs: entities, pages: number_of_pages }
 }
 const getTerms = async (customParams) => {
     const reqParams = customParams && customParams.page && customParams.pagination_size ? customParams : { page: 1, pagination_size: 6 }
