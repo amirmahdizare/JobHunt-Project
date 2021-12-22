@@ -52,7 +52,6 @@ build-production:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker build -t ${PRODUCTION_IMAGE_URL} .
     - docker push ${PRODUCTION_IMAGE_URL}
-    - rm -f vars
   only:
     - /^v\d+\.\d+\.\d+$/ 
 
