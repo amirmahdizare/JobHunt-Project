@@ -1,0 +1,6 @@
+---
+
+# Frontend
+front_service_name: front.service
+front_service_path: "{{ project_path }}/{{ front_service_name }}"
+front_service_image_url: "{{ docker_gitlab_registry_url }}/frontend/jobhunt:latest"

@@ -1,0 +1,2 @@
+[production]
+130.185.121.186 ansible_user=devops ansible_port=2223

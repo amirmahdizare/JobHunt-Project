@@ -1,0 +1,21 @@
+---
+
+# Basic
+domain: workinchina.org
+project_path: "/srv/production/{{ domain }}"
+volume_data_path: "/mnt/{{ domain }}"
+
+#Docker Registry
+docker_private_registry_url: registry.blytd.com
+docker_gitlab_registry_url: registry.gitlab.blytd.com
+
+docker_network: jobhunt
+ansible_python_interpreter: /usr/bin/python3
+
+# Nginx
+nginx_path: "{{ project_path }}/nginx"
+nginx_conf_path: "{{ nginx_path }}/conf"
+
+# SSL
+ssl_base_path: /etc/letsencrypt
+ssl_cert_live_path: "/etc/letsencrypt/live/{{ domain }}"

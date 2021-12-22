@@ -12,6 +12,7 @@ variables:
   DOCKER_DRIVER: overlay2
   REGISTRY_URL: registry.blytd.com
   ANSIBLE_PATH: .playbooks
+  ANSIBLE_PRODUCTION_PATH: .ansible
   STAGE_IMAGE_URL: $CI_REGISTRY/frontend/jobhunt:stage-latest
   PRODUCTION_IMAGE_URL: $CI_REGISTRY/frontend/jobhunt:latest
 
@@ -42,3 +43,34 @@ deploy-stage:
     - ansible-playbook $ANSIBLE_PATH/playbook.yml --inventory $ANSIBLE_PATH/inventory.yml
   only:
     - develop
+
+
+build-production:
+  stage: build
+  script:
+    - docker login -u ci -p $PRIVATE_REGISTRY_PASSWD registry.blytd.com
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build -t ${PRODUCTION_IMAGE_URL} .
+    - docker push ${PRODUCTION_IMAGE_URL}
+    - rm -f vars
+  only:
+    - /^v\d+\.\d+\.\d+$/ 
+
+
+deploy-production:
+  image: gableroux/ansible:4.5.0
+  stage: stage
+  script:
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$DEVOPS_PRODUCTION_SERVER_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - eval "$(ssh-agent -s)"
+    - ssh-add ~/.ssh/id_rsa
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ansible-galaxy install -r $ANSIBLE_PRODUCTION_PATH/requirements.yml
+    - ansible-playbook $ANSIBLE_PRODUCTION_PATH/main.yml --inventory $ANSIBLE_PRODUCTION_PATH/production
+  only:
+    - /^v\d+\.\d+\.\d+$/
+  when: manual
+

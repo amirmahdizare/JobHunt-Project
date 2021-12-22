@@ -1,0 +1,39 @@
+---
+
+
+- name: install certain python modules for docker
+  pip:
+    name: "{{ item.name }}"
+    version: "{{ item.version }}"
+    state: present
+    extra_args: "--no-cache-dir"
+  with_items:
+  - { name: docker, version: 5.0.3 }
+  - { name: "docker-compose", version: 1.29.2 }
+
+
+- name: login docker into private registry
+  docker_login:
+    registry: "{{ docker_private_registry_url }}"
+    username: "{{ docker_private_registry_username }}"
+    password: "{{ docker_private_registry_password }}"
+    reauthorize: yes
+
+
+- name: login docker into gitlab registry
+  docker_login:
+    registry: "{{ docker_gitlab_registry_url }}"
+    username: "{{ docker_gitlab_registry_username }}"
+    password: "{{ docker_gitlab_registry_password }}"
+    reauthorize: yes
+
+
+- name: login docker into public registry
+  docker_login:
+    username: "{{ docker_public_registry_username }}"
+    password: "{{ docker_public_registry_password }}"
+    reauthorize: yes
+
+- name: create project docker network
+  docker_network:
+    name: "{{ project_network }}"
