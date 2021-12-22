@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  {{ front_service_name }}:
+    image: {{ front_service_image_url }}
+    container_name: {{ front_service_name }}
+    hostname: {{ front_service_name }}
+    restart: always
+    networks:
+      - {{ docker_network }}
+
+networks:
+  {{ docker_network }}:
+    external: true

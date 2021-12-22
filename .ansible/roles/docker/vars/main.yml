@@ -1,0 +1,14 @@
+---
+
+docker_private_registry_url: registry.blytd.com
+docker_private_registry_username: ci
+docker_private_registry_password: wTNHpMkPpzKjHMmj3Fh3gjKW7s47MVPb
+
+docker_gitlab_registry_url: registry.gitlab.blytd.com
+docker_gitlab_registry_username: ciprod
+docker_gitlab_registry_password: ahth7ooxahtainguxu9ohjaithaemae4
+
+docker_public_registry_username: gzf80759
+docker_public_registry_password: 123456789
+
+project_network: jobhunt

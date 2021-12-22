@@ -1,0 +1,10 @@
+---
+
+
+- name: create base directory
+  file:
+    path: "{{ front_service_path }}"
+    state: directory
+    owner: devops
+    group: devops
+    mode: 0644

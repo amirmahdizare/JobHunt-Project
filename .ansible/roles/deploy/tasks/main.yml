@@ -1,0 +1,39 @@
+---
+
+
+- name: create front service base directory
+  file:
+    path: "{{ front_service_path }}"
+    state: directory
+    owner: devops
+    group: devops
+    mode: 0644
+
+- name: copy front service docker-compose file
+  template: 
+    src: docker-compose.api.yml.j2
+    dest: "{{ front_service_path }}/docker-compose.yml"
+    owner: devops
+    group: devops
+    mode: 0644
+
+- name: pull new image
+  command: "{{ item }}"
+  args:
+    chdir: "{{ front_service_path }}"
+  with_items:
+    - docker-compose pull
+    - "docker-compose stop {{ front_service_name }}"
+    - "docker-compose rm -f {{ front_service_name }}"
+
+- name: bring up front docker service
+  docker_compose:
+    project_name: front
+    build: no
+    project_src: "{{ front_service_path }}"
+
+
+- name: restart Nginx
+  debug: msg="trigger nginx-restart"
+  notify: restart nginx
+  changed_when: true

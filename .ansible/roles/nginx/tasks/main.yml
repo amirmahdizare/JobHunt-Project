@@ -1,0 +1,34 @@
+---
+
+- name: create Nginx base directory
+  file:
+    path: "{{ nginx_path }}"
+    state: directory
+    owner: devops
+    group: devops
+    mode: 0644
+
+
+- name: create Nginx sites directory
+  file:
+    path: "{{ nginx_conf_path }}/sites-enabled"
+    state: directory
+    owner: devops
+    group: devops
+    mode: 0644
+
+
+- name: copying nginx config files
+  synchronize:
+    dirs: yes
+    src: conf
+    dest: "{{ nginx_path }}"
+
+
+- name: add site config
+  template: 
+    src: jobhunt.conf.j2
+    dest: "{{ nginx_conf_path }}/sites-enabled/{{ domain }}.conf"
+    owner: devops
+    group: devops
+    mode: 0644
