@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core";
 import { getBlogs, } from "../../../api/public";
 import { useGetData } from '../../../hooks/useGetData'
 import Tip from "./Tip";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 const useClasses = makeStyles((theme) => ({
@@ -49,6 +49,16 @@ export default function TipsSlider() {
     autoplay: true,
     infinite: true
   })
+
+  const [isLoadMore, setIsLoadMore] = useState(false)
+
+  const afterChange = (current) => {
+    let slick_active = document.querySelectorAll('#tips .slick-track > .slick-active');
+    let slick_slide = document.querySelectorAll('#tips .slick-track > .slick-slide');
+    if (current === slick_slide.length - slick_active.length) setIsLoadMore((prev) => !prev)
+  };
+
+
   const classes = useClasses()
   var settings = {
     autoplay: config.autoplay,
@@ -95,18 +105,29 @@ export default function TipsSlider() {
         }
       },
     ],
-
+    afterChange
 
   };
+  const [page, setPage] = useState(1)
+  const params = { page: page, pagination_size: 4 }
+  const [data, error, loading] = useGetData(getBlogs, params)
+  const [tips, setTips] = useState([])
+  const { pages } = data || 1
 
-  const [tips, error, loading] = useGetData(getBlogs)
+  useEffect(() => {
+    if (data && data.tips) setTips((prev) => ([...prev, ...data.tips]))
+  }, [data])
+
+  useEffect(() => {
+    if (pages > page) setPage((prev) => prev + 1)
+
+  }, [isLoadMore])
+
   return (
-    <Container maxWidth="lg" className={classes.root} >
+    <Container maxWidth="lg" className={classes.root} id="tips">
 
       {tips &&
-
         <Slider {...settings} focusOnSelect>
-
           {tips.map(tip => (
             <Tip
               key={tip.id}
