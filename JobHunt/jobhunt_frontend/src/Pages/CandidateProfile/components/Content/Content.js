@@ -8,6 +8,7 @@ import {
 	makeStyles,
 	Typography,
 	InputBase,
+	TextareaAutosize,
 } from '@material-ui/core'
 import { SkillsPercentage } from './components/SkillsPercentage'
 import { WorkExperience } from './components/WorkExperience/WorkExperience'
@@ -112,6 +113,40 @@ export const Content = () => {
 							</Jh_Card>
 						</Grid>
 					</Grid>
+					<Box display='flex' flexDirection='column' padding={'10px'}>
+						<p>Description</p>
+						<TextareaAutosize
+							style={{
+								borderColor: '#e2e2e2',
+								color: 'rgba(0, 0, 0, 0.54)',
+								borderRadius: '5px',
+								borderWidth: '2px',
+								padding: '25px',
+								lineHeight: '1.1rem',
+							}}
+						>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a
+							ipsum tellus. Interdum et malesuada fames ac ante ipsum primis in
+							faucibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+							Proin a ipsum tellus. Interdum et malesuada fames ac ante ipsum
+							primis in faucibus. Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames
+							ac ante ipsum primis in faucibus.
+						</TextareaAutosize>
+					</Box>
+					<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+						<Button
+							className={classes.browseBtn}
+							style={{
+								borderColor: '#f50057',
+								color: 'black',
+								borderRadius: '8px',
+							}}
+							variant='outlined'
+						>
+							Update
+						</Button>
+					</div>
 					<Divider light />
 
 					<CertificatesSection />
