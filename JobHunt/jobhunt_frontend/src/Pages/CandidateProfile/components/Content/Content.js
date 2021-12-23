@@ -35,7 +35,7 @@ export const Content = () => {
 					<SkillsPercentage />
 				</Grid>
 				<Divider orientation='vertical' flexItem />
-				<Grid item xs={12} lg={8}>
+				<Grid item xs={12} lg={8} style={{ padding: '10px 20px' }}>
 					<Box p={1}>
 						<Typography variant='h5'>My Profile</Typography>
 					</Box>
@@ -147,6 +147,7 @@ export const Content = () => {
 							Update
 						</Button>
 					</div>
+					<Typography variant='h5'>Social Edit</Typography>
 					<Grid container spacing='2' style={{ padding: '10px' }}>
 						<Grid
 							lg={6}
