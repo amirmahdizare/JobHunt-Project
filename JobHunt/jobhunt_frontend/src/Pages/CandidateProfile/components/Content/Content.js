@@ -1,23 +1,23 @@
-import React from 'react'
 import {
 	Box,
 	Button,
 	Container,
 	Divider,
 	Grid,
-	makeStyles,
-	Typography,
+	IconButton,
 	InputBase,
+	makeStyles,
 	TextareaAutosize,
+	Typography,
 } from '@material-ui/core'
-import { SkillsPercentage } from './components/SkillsPercentage'
-import { WorkExperience } from './components/WorkExperience/WorkExperience'
-import { Portfolio } from './components/Portfolio/Portfolio'
-import { ProfessionalSkills } from './components/ProfessionalSkills/ProfessionalSkills'
-import { CertificatesSection } from './components/CertificatesSection/CertificatesSection'
+import React from 'react'
 import { CandidateMenu } from '../../../../components/CandidateMenu'
-import { UserAvatar } from '../../../../components/UserAvatar'
 import { Jh_Card } from '../../../../components/Jh_Card'
+import { UserAvatar } from '../../../../components/UserAvatar'
+import { SkillsPercentage } from './components/SkillsPercentage'
+import TwitterIcon from '@material-ui/icons/Twitter'
+import LinkedinIcon from '@material-ui/icons/LinkedIn'
+import FacebookIcon from '@material-ui/icons/Facebook'
 const useClasses = makeStyles((theme) => ({
 	browseBtn: {
 		borderRadius: theme.spacing(2),
@@ -147,9 +147,97 @@ export const Content = () => {
 							Update
 						</Button>
 					</div>
-					<Divider light />
-
-					<CertificatesSection />
+					<Grid container spacing='2' style={{ padding: '10px' }}>
+						<Grid
+							lg={6}
+							item
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Facebook</p>
+							<Jh_Card>
+								<InputBase
+									style={{ flex: 1 }}
+									placeholder='www.facebook.com/saeed.eyvazy'
+								/>
+								<IconButton
+									disableFocusRipple
+									type='submit'
+									aria-label='search'
+								>
+									<FacebookIcon color='primary' />
+								</IconButton>
+							</Jh_Card>
+						</Grid>
+						<Grid
+							item
+							lg={6}
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Twitter</p>
+							<Jh_Card>
+								<InputBase
+									style={{ flex: 1 }}
+									placeholder='www.twitter.com/saeed.eyvazy'
+								/>
+								<IconButton
+									disableFocusRipple
+									type='submit'
+									aria-label='search'
+								>
+									<TwitterIcon color='primary' />
+								</IconButton>
+							</Jh_Card>
+						</Grid>
+						<Grid
+							item
+							lg={6}
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Google</p>
+							<Jh_Card>
+								<InputBase
+									style={{ flex: 1 }}
+									placeholder='www.google.com/saeed.eyvazy'
+								/>
+								<IconButton
+									disableFocusRipple
+									type='submit'
+									aria-label='search'
+								>
+									<LinkedinIcon color='primary' />
+								</IconButton>
+							</Jh_Card>
+						</Grid>
+						<Grid
+							item
+							lg={6}
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Linkedin</p>
+							<Jh_Card>
+								<InputBase
+									style={{ flex: 1 }}
+									placeholder='www.linkedin.com/saeed.eyvazy'
+								/>
+								<IconButton
+									disableFocusRipple
+									type='submit'
+									aria-label='search'
+								>
+									<LinkedinIcon color='primary' />
+								</IconButton>
+							</Jh_Card>
+						</Grid>
+					</Grid>
+					{/* <Divider light /> */}
 				</Grid>
 			</Grid>
 		</Container>
