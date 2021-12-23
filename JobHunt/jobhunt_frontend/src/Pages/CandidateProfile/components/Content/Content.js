@@ -7,15 +7,16 @@ import {
 	Grid,
 	makeStyles,
 	Typography,
+	InputBase,
 } from '@material-ui/core'
 import { SkillsPercentage } from './components/SkillsPercentage'
-import { Education } from './components/Education/Education'
 import { WorkExperience } from './components/WorkExperience/WorkExperience'
 import { Portfolio } from './components/Portfolio/Portfolio'
 import { ProfessionalSkills } from './components/ProfessionalSkills/ProfessionalSkills'
 import { CertificatesSection } from './components/CertificatesSection/CertificatesSection'
 import { CandidateMenu } from '../../../../components/CandidateMenu'
 import { UserAvatar } from '../../../../components/UserAvatar'
+import { Jh_Card } from '../../../../components/Jh_Card'
 const useClasses = makeStyles((theme) => ({
 	browseBtn: {
 		borderRadius: theme.spacing(2),
@@ -71,15 +72,48 @@ export const Content = () => {
 								gutterBottom
 							>
 								Max file size is 1MB, Minimum dimension: 270*210 And Suitable
-								files are .jpg& .png
+								files are .jpg & .png
 							</Typography>
 						</Box>
 					</Box>
+					<Grid container spacing='2' style={{ padding: '10px' }}>
+						<Grid
+							lg={6}
+							item
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Full Name</p>
+							<Jh_Card>
+								<InputBase
+									inputProps={{ 'aria-label': 'Select Location' }}
+									fullWidth
+									id='name'
+									labelWidth={70}
+								/>
+							</Jh_Card>
+						</Grid>
+						<Grid
+							item
+							lg={6}
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Job Title</p>
+							<Jh_Card>
+								<InputBase
+									fullWidth
+									width='full'
+									id='job-title'
+									labelWidth={70}
+								/>
+							</Jh_Card>
+						</Grid>
+					</Grid>
 					<Divider light />
-					<Education />
-					<WorkExperience />
-					<Portfolio />
-					<ProfessionalSkills />
+
 					<CertificatesSection />
 				</Grid>
 			</Grid>
