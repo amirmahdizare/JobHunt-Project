@@ -217,8 +217,8 @@ const getCompanyJobs = async ({ page, pagination_size ,status = null }) => {
             }
 
         })
-        const  { data: { data: { entities ,  number_of_entities} }  } = response
-        return { entities,number_of_entities}
+        const  { data: { data: { entities ,  number_of_entities ,number_of_pages} }  } = response
+        return { entities,number_of_entities,number_of_pages}
 
 
     } catch (error) {
