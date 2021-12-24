@@ -13,9 +13,9 @@ const getCompany = async () => {
             }
         })
         return Promise.resolve(response.data?.data)
-        
+
     } catch (error) {
-      return  Promise.reject(error.response.data.message)
+        return Promise.reject(error.response.data.message)
     }
 }
 
@@ -82,7 +82,7 @@ const postJob = async (dataObj) => {
             headers: {
                 Lang: getLanguage(),
                 Authorization: getToken(),
-               'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             }
         })
         if (response.statusText == "ok")
@@ -204,11 +204,32 @@ const postComment = async (info, id, parent_id) => {
     }
 
 }
+
+const getCompanyJobs = async ({ page, pagination_size ,status = null }) => {
+    try {
+        const response = await api.get(`/jobs/offers/employer`, {
+            headers: {
+                Lang: getLanguage(),
+                Authorization: getToken()
+            },
+            params: {
+                page, pagination_size ,status
+            }
+
+        })
+        const  { data: { data: { entities ,  number_of_entities} }  } = response
+        return { entities,number_of_entities}
+
+
+    } catch (error) {
+        return error.response.data.message
+    }
+}
 export {
     getCompany, deleteCompany,
     storeCompany, updateCompany,
     postJob, updateJob, deleteJob,
     getActivePackage, getSentResumes,
     getSingleSentResume, UpdateSentResumeStatus,
-    postComment
+    postComment, getCompanyJobs
 }
