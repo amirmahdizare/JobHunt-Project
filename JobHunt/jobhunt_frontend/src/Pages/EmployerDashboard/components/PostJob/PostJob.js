@@ -1,43 +1,34 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import { usePostJobData } from './hooks/usePostJobData'
-import { useSteps } from './hooks/useSteps'
-import { useError } from './hooks/useError'
-
+import { useEmployerActivePackage } from '../../../../hooks/useEmployerActivePackage'
 
 import { SectionHeader } from '../../../../components/SectionHeader'
-import { PostJobStepper } from './components/PostJobStepper/PostJobStepper'
 import { JobInformation } from './components/JobInformation/JobInformation'
-
+import { PackageLess } from './components/PackageLess'
 import { Box } from '@material-ui/core'
 
-export const PostJob = () => {
-    const [info, handleChange] = usePostJobData()
-    const [error,setError]=useError()
-    const [activeStep, handleNext, handleBack,loading] = useSteps(info,setError)
 
-    const stepContent = useMemo(() => {
-        switch (activeStep) {
-            case 0:
-                return <JobInformation info={info} error={error}  handleChange={handleChange} />;
-            case 1:
-                return "Packages Not Found"
-            default: return null
-        }
-    })
+export const PostJob = () => {
+
+    const [info, handleChange, postJob, postJobStatus] = usePostJobData()
+    const [packageInfo,error, loading] = useEmployerActivePackage()
 
     return (
-        <Box>
+        <Box boxSizing={'border-box'}>
             <SectionHeader title="Post A Job" />
-            <PostJobStepper
-                activeStep={activeStep}
-                handleNext={handleNext}
-                handleBack={handleBack}
-                loading={loading}
-                >
-                {stepContent}
-            </PostJobStepper>
-
+            {
+                (postJobStatus.status != 'success' || packageInfo?.rules?.job_posting_limit > 0)
+                    ? 
+                        <JobInformation
+                            info={info}
+                            postJob={postJob}
+                            handleChange={handleChange}
+                            postJobStatus={postJobStatus}
+                            mode={'add'}
+                        />
+                    : <PackageLess packageInfo={packageInfo} loading={loading} />
+            }
         </Box>
     )
 }

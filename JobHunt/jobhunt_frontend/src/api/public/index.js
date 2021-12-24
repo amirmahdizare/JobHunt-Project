@@ -1,6 +1,6 @@
 import moment from "moment"
 import { api, centralApi } from "../../config/apiConfig"
-import { centralApiHeaderObj, getLanguage, getUserToken } from "../../utils"
+import { centralApiHeaderObj, getLanguage, getServiceId, getUserToken } from "../../utils"
 import { generateImageURL } from "../OSS/minioAPI"
 
 const getPopularCategories = async (customParams) => {
@@ -43,10 +43,10 @@ const getValidCountriesToSignupDetail = async () => {
     return countries
 }
 
-const getSingleCountryInfo = async (name) => {
+const getSingleCountryInfo = async ({ country }) => {
     const response = await centralApi.get('/countries', {
         params: {
-            name: name,
+            name: country,
             page: 1
         },
         headers: centralApiHeaderObj()
@@ -116,7 +116,7 @@ const getBlogs = async (params) => {
         headers: {
             Lang: getLanguage()
         },
-        params: params ? params : {page: 1 ,pagination_size: 3 }
+        params: params ? params : { page: 1, pagination_size: 3 }
     })
     const { data: { data: { entities, number_of_pages } } } = response
     const posts = await Promise.all(entities.map(async (blog, index) => ({ ...blog, image: await generateImageURL('jobhunt', Object.values(blog.medias)[0]), date: moment(blog.created_at).format('DD MMM, YYYY') })))
@@ -218,7 +218,7 @@ const getAllCorporations = async () => {
     return response.data.data
 }
 
-const getAllJobs = async (page , paginationSize) => {
+const getAllJobs = async (page, paginationSize) => {
     const response = await api.get(`/jobs/offers/guests?page=${page}&pagination_size=${paginationSize}`, {
         headers: {
             Lang: getLanguage()
@@ -278,24 +278,24 @@ const getTopJobs = async () => {
         params: { page: 1, pagination_size: 6 }
     })
     const plainJobs = response.data.data.entities
-    return await Promise.all(plainJobs.map(async(job) => await jobDetailGenerator(job) ))
+    return await Promise.all(plainJobs.map(async (job) => await jobDetailGenerator(job)))
 }
-const jobDetailGenerator =async (job) => {
-       try {
-           var { logo, name } =await getCompanyDetailById(job.company_id)
-          var logourl = await generateImageURL('jobhunt',Object.values(logo)[0])
-           var { title, color } = await getCooperationKindById(job.cooperation_kind_id)
-        } catch (error) {
-           //catch error
-        }
-        return {
-            ...job,
-            company_name: name,
-           company_logo: logourl,
-            cooperation_kind_title: title || 'Unset',
-            cooperation_kind_color: color
-        }
-    
+const jobDetailGenerator = async (job) => {
+    try {
+        var { logo, name } = await getCompanyDetailById(job.company_id)
+        var logourl = await generateImageURL('jobhunt', Object.values(logo)[0])
+        var { title, color } = await getCooperationKindById(job.cooperation_kind_id)
+    } catch (error) {
+        //catch error
+    }
+    return {
+        ...job,
+        company_name: name,
+        company_logo: logourl,
+        cooperation_kind_title: title || 'Unset',
+        cooperation_kind_color: color
+    }
+
 }
 const getCompanyDetailById = async (id) => {
     try {
@@ -357,7 +357,7 @@ const getPricing = async (page) => {
     return data
 }
 
-const getBlogSingle = async ({id}) => {
+const getBlogSingle = async ({ id }) => {
     const response = await api.get(`blogs/guests/${id}`, {
         headers: {
             Lang: getLanguage()
@@ -368,7 +368,7 @@ const getBlogSingle = async ({id}) => {
     const fullDetailData = { ...data, image: await generateImageURL('jobhunt', Object.values(data.medias)[0]), date: moment(data.created_at).format('DD MMM, YYYY') }
     return fullDetailData
 }
-const getBlogSingleComment = async ({entity_id, page,pagination_size}) => {
+const getBlogSingleComment = async ({ entity_id, page, pagination_size }) => {
     // console.log(entity_id, page);
 
     const response = await api.get(`/comments/guests`, {
@@ -382,13 +382,32 @@ const getBlogSingleComment = async ({entity_id, page,pagination_size}) => {
         }
 
     })
-    const { data: { data: { entities, number_of_pages ,number_of_entities } } } = response
+    const { data: { data: { entities, number_of_pages, number_of_entities } } } = response
     const comments = await Promise.all(entities.map(async (comment, index) => ({ ...comment, image: comment.user_info.image ? await generateImageURL('jobhunt', Object.values(comment.user_info.image)[0].path) : null, date: moment(comment.created_at).format('DD MMM, YYYY') })))
 
-    return { comments, pages: number_of_pages , number_of_entities }
+    return { comments, pages: number_of_pages, number_of_entities }
 }
 
+const getChinaStates = async () => {
+    const response = await centralApi.get(`/countries/61042fec9703294a6e37ef67/states`, {
+        headers: {
+            Lang: getLanguage(),
+            'Service-ID': getServiceId()
+        },
+    })
 
+    return response.data.data
+}
+const getStateCities = async ({state_id}) => {
+    const response = await centralApi.get(`/countries/61042fec9703294a6e37ef67/states/${state_id}/cities`, {
+        headers: {
+            Lang: getLanguage(),
+            'Service-ID': getServiceId()
+        },
+    })
+    console.log("States")
+    return response.data.data
+}
 export {
     getPopularCategories,
     getAllCategories,
@@ -420,6 +439,8 @@ export {
     getCompanyDetailById,
     getHowWorks,
     getPolicies,
-    getPricing
+    getPricing,
+    getChinaStates,
+    getStateCities
 
 }

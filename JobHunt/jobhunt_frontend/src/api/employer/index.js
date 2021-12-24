@@ -2,16 +2,21 @@ import { api } from "../../config/apiConfig"
 import { getLanguage, getToken } from "../../utils"
 
 const getCompany = async () => {
-    const response = await api.get('/companies/employer', {
-        headers: {
-            Lang: getLanguage(),
-            Authorization: getToken()
-        },
-        params: {
-            page: 1,
-        }
-    })
-    return response.data.data.entities?.[0]
+    try {
+        const response = await api.get('/companies/employer', {
+            headers: {
+                Lang: getLanguage(),
+                Authorization: getToken()
+            },
+            params: {
+                page: 1,
+            }
+        })
+        return Promise.resolve(response.data?.data)
+        
+    } catch (error) {
+      return  Promise.reject(error.response.data.message)
+    }
 }
 
 const storeCompany = async (dataObj) => {
@@ -72,16 +77,16 @@ const updateCompany = async (dataObj) => {
 
 const postJob = async (dataObj) => {
     const data = JSON.stringify(dataObj)
-    console.log(data)
     try {
         const response = await api.post('/jobs/offers/employer', data, {
             headers: {
                 Lang: getLanguage(),
-                Authorization: getToken()
+                Authorization: getToken(),
+               'Content-Type': 'application/json'
             }
         })
         if (response.statusText == "ok")
-            return Promise.resolve()
+            return Promise.resolve(response.data.data.id)
     } catch (error) {
         return Promise.reject(error.response.data.message)
     }
@@ -120,16 +125,18 @@ const deleteJob = async (id) => {
 
 }
 
-const getActivePackages = async () => {
+const getActivePackage = async ({ id }) => {
     try {
-        const response = await api.get('/packages/users', {
+        const response = await api.get('/packages/employers/' + id, {
             headers: {
                 Lang: getLanguage(),
                 Authorization: getToken()
             }
         })
-        if (response.statusText == "ok")
-            return Promise.resolve(response.data)////Need to be Modified
+        if (response.data.code == "200") {
+            console.log(response.data)
+            return Promise.resolve(response.data.data)
+        }
     } catch (error) {
         return Promise.reject(error.response.data.message)
     }
@@ -201,7 +208,7 @@ export {
     getCompany, deleteCompany,
     storeCompany, updateCompany,
     postJob, updateJob, deleteJob,
-    getActivePackages, getSentResumes,
+    getActivePackage, getSentResumes,
     getSingleSentResume, UpdateSentResumeStatus,
     postComment
 }

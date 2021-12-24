@@ -1,3 +1,4 @@
+import React from "react"
 const getServiceId = () => {
     return window.sessionStorage.getItem('serviceId')
 
@@ -39,5 +40,27 @@ return window.sessionStorage.setItem('user',user)
 const getUser = () =>{
     return window.sessionStorage.getItem('user') || null
 }
-
-export { getServiceId, getLanguage,storeToken,getToken ,centralApiHeaderObj ,storeUsertoken,getUserToken,capitalizeFirstLetter,storeUser,getUser,removeTokens}
+const getCurrency = (currency) => {
+    const currencies = [
+        {
+          value: 'USD',
+          label: <i class="la la-usd" />,
+        },
+        {
+          value: 'EUR',
+          label: <i class="la la-eur" />,
+        },
+        {
+          value: 'cny',
+          label: <i class="la la-cny" />
+        },
+      ];
+    if(currency){
+        for (const curr of currencies) {
+            if(curr.value.toUpperCase==currency?.toUpperCase) 
+            return curr.label
+        }
+    }
+    return currency
+}
+export { getServiceId, getLanguage,storeToken,getToken ,centralApiHeaderObj ,storeUsertoken,getUserToken,capitalizeFirstLetter,storeUser,getUser,removeTokens,getCurrency}
