@@ -1,5 +1,5 @@
 import { Box, Button, CircularProgress, makeStyles, Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useCompanyStatistics } from '../../../../../hooks/useCompanyStatistics'
 import { LineAwesome, SvgClock, SvgFile, SvgUsersSolid } from 'react-line-awesome-svg'
 
@@ -27,9 +27,11 @@ const useStyles = makeStyles(theme => ({
         fill: theme.palette.primary.light
     }
 }))
-export const Header = () => {
-    const { jobPosted, activeJobs, loading } = useCompanyStatistics()
+export const Header = ({refresh}) => {
+    
+    const { jobPosted, activeJobs, loading ,refreshFnc} = useCompanyStatistics()
     const classes = useStyles()
+    useEffect(() => refreshFnc(), [refresh])
 
     return (
         <Box className={classes.buttonContainer}>

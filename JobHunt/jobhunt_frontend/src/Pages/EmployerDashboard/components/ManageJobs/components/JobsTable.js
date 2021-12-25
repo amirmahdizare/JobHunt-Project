@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, makeStyles, Typography } from '@material-ui/core'
+import { Box, Button, makeStyles, Typography } from '@material-ui/core'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,6 +11,7 @@ import { Jh_Pagination } from '../../../../../components/Jh_Pagination';
 import { getCompanyJobs } from '../../../../../api/employer';
 import { useGetData } from '../../../../../hooks/useGetData';
 import { JobSkeleton } from './JobSkeleton';
+import { Header } from './Header';
 
 const useStyles = makeStyles(theme => ({
     table: {
@@ -52,19 +53,19 @@ const rows = [
 
 ];
 
-export const JobsTable = () => {
-    const [page, setPage] = useState(1)
-    const classes = useStyles()
-    const [JobsDetail, error, loading] = useGetData(getCompanyJobs, { pagination_size: 5, page: page })
-    if (JobsDetail)
-        var { entities = null, number_of_entities = 0, number_of_pages } = JobsDetail
-    //console.log(entities)
-    const handleChange = (event, value) => setPage(value)
-    console.log( document.querySelector('.MuiPagination-ul li:last-child button svg'))
-    // document.querySelector('.MuiPagination-ul li:last-child button svg').before(text)
+const JobsTable = () => {
 
+    const [page, setPage] = useState(1)
+    const [JobsDetail, error, loading, refresh] = useGetData(getCompanyJobs, { pagination_size: 5, page })
+    const classes = useStyles()
+
+    if (JobsDetail)
+        var { entities = null, number_of_pages } = JobsDetail
+
+    const handleChange = (event, value) => setPage(value)
     return (
         <Box>
+            <Header refresh={loading}/>
             <TableContainer className={classes.tableContainer} component={Box}>
                 <Table className={classes.table} aria-label="Jobs table">
                     <TableHead>
@@ -77,7 +78,7 @@ export const JobsTable = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {entities && !loading ? entities.map((row) => <Job {...row} />) : [0, 0, 0, 0, 0].map(() => <JobSkeleton />)}
+                        {entities && !loading ? entities.map((row) => <Job {...row} refreshCallback={refresh} key={row?.id} />) : [0, 0, 0, 0, 0].map(() => <JobSkeleton />)}
                     </TableBody>
                 </Table>
             </TableContainer>
@@ -87,3 +88,4 @@ export const JobsTable = () => {
         </Box>
     )
 }
+export { JobsTable }

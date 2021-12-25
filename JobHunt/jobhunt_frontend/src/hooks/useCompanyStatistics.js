@@ -6,7 +6,8 @@ const useCompanyStatistics = () => {
     return {
         jobPosted: jobPostedDetail?.[0]?.number_of_entities,
         activeJobs: activeJobsDetail?.[0]?.number_of_entities,
-        loading: activeJobsDetail?.[2] && activeJobsDetail?.[2]
+        loading: activeJobsDetail?.[2] && activeJobsDetail?.[2],
+        refreshFnc :() => {jobPostedDetail?.[3]() ; activeJobsDetail?.[3]() }
     }
 
 }

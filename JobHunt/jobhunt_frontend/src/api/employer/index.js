@@ -39,7 +39,7 @@ const storeCompany = async (dataObj) => {
     }
 }
 
-const deleteCompany = async (id) => {
+const deleteCompany = async ({id}) => {
     try {
         const response = await api.delete(`/companies/employer/${id}`, {
             headers: {
@@ -48,10 +48,10 @@ const deleteCompany = async (id) => {
             }
         })
         if (response.status == '200')
-            return Promise.resolve()
+            return Promise.resolve(true)
 
     } catch (error) {
-        return Promise.reject()
+        return Promise.reject(false)
     }
 }
 
@@ -109,7 +109,7 @@ const updateJob = async (dataObj, id) => {
     }
 }
 
-const deleteJob = async (id) => {
+const deleteJob = async ({id}) => {
     try {
         const response = await api.delete(`/jobs/offers/employer/${id}`, {
             headers: {
@@ -117,8 +117,8 @@ const deleteJob = async (id) => {
                 Authorization: getToken()
             }
         })
-        if (response.statusText == "ok")
-            return Promise.resolve()
+        if (response.data.code == "200")
+            return Promise.resolve(true)
     } catch (error) {
         return Promise.reject(error.response.data.message)
     }
