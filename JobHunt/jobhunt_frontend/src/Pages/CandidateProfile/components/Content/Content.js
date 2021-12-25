@@ -3,10 +3,14 @@ import {
 	Button,
 	Container,
 	Divider,
+	FormControl,
 	Grid,
 	IconButton,
 	InputBase,
+	InputLabel,
 	makeStyles,
+	MenuItem,
+	Select,
 	TextareaAutosize,
 	Typography,
 } from '@material-ui/core'
@@ -88,6 +92,7 @@ export const Content = () => {
 							<p>Full Name</p>
 							<Jh_Card>
 								<InputBase
+									style={{ minHeight: '3.1876em' }}
 									inputProps={{ 'aria-label': 'Select Location' }}
 									fullWidth
 									id='name'
@@ -105,6 +110,7 @@ export const Content = () => {
 							<p>Job Title</p>
 							<Jh_Card>
 								<InputBase
+									style={{ minHeight: '3.1876em' }}
 									fullWidth
 									width='full'
 									id='job-title'
@@ -148,6 +154,7 @@ export const Content = () => {
 						</Button>
 					</div>
 					<Typography variant='h5'>Social Edit</Typography>
+					<Divider light />
 					<Grid container spacing='2' style={{ padding: '10px' }}>
 						<Grid
 							lg={6}
@@ -238,7 +245,170 @@ export const Content = () => {
 							</Jh_Card>
 						</Grid>
 					</Grid>
-					{/* <Divider light /> */}
+					<Typography variant='h5'>Contact</Typography>
+					<Divider light />
+					<Grid container spacing='2' style={{ padding: '10px' }}>
+						<Grid
+							lg={4}
+							item
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Phone number</p>
+							<Jh_Card>
+								<InputBase
+									inputProps={{ 'aria-label': 'Select Location' }}
+									fullWidth
+									id='name'
+									labelWidth={70}
+									style={{ minHeight: '3.1876em' }}
+								/>
+							</Jh_Card>
+						</Grid>
+						<Grid
+							lg={4}
+							item
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Email</p>
+							<Jh_Card>
+								<InputBase
+									style={{ minHeight: '3.1876em' }}
+									inputProps={{ 'aria-label': 'Select Location' }}
+									fullWidth
+									id='name'
+									labelWidth={70}
+								/>
+							</Jh_Card>
+						</Grid>
+						<Grid
+							lg={4}
+							item
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Website</p>
+							<Jh_Card>
+								<InputBase
+									style={{ minHeight: '3.1876em' }}
+									inputProps={{ 'aria-label': 'Select Location' }}
+									fullWidth
+									id='name'
+									labelWidth={70}
+								/>
+							</Jh_Card>
+						</Grid>
+						<Grid
+							lg={6}
+							item
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Country</p>
+							<FormControl fullWidth variant='outlined'>
+								<InputLabel id='demo-simple-select-outlined-label'>
+									China
+								</InputLabel>
+								<Select
+									labelId='select-country-outlined-label'
+									id='demo-simple-select-outlined'
+									label='Country'
+								>
+									<MenuItem value=''>china</MenuItem>
+								</Select>
+							</FormControl>
+						</Grid>
+						<Grid
+							lg={6}
+							item
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>City</p>
+							<FormControl fullWidth variant='outlined'>
+								<Select
+									labelId='select-country-outlined-label'
+									id='demo-simple-select-outlined'
+									label='Country'
+								>
+									<MenuItem value=''>chuango</MenuItem>
+								</Select>
+							</FormControl>
+						</Grid>
+						<Grid
+							lg={6}
+							item
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Find On Map</p>
+							<Jh_Card>
+								<InputBase
+									inputProps={{ 'aria-label': 'Select Location' }}
+									fullWidth
+									style={{ minHeight: '3.1876em' }}
+									id='name'
+									labelWidth={70}
+								/>
+							</Jh_Card>
+						</Grid>
+						<Grid
+							lg={3}
+							item
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Latitude</p>
+							<Jh_Card>
+								<InputBase
+									style={{ minHeight: '3.1876em' }}
+									inputProps={{ 'aria-label': 'Select Location' }}
+									fullWidth
+									id='name'
+									labelWidth={70}
+								/>
+							</Jh_Card>
+						</Grid>
+						<Grid
+							lg={3}
+							item
+							display='flex'
+							flexDirection='column'
+							justifyContent='space-between'
+						>
+							<p>Longtiude</p>
+							<Jh_Card>
+								<InputBase
+									style={{ minHeight: '3.1876em' }}
+									inputProps={{ 'aria-label': 'Select Location' }}
+									fullWidth
+									id='name'
+									labelWidth={70}
+								/>
+							</Jh_Card>
+						</Grid>
+					</Grid>
+					<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+						<Button
+							className={classes.browseBtn}
+							style={{
+								borderColor: '#f50057',
+								color: 'black',
+								borderRadius: '8px',
+							}}
+							variant='outlined'
+						>
+							Update
+						</Button>
+					</div>
 				</Grid>
 			</Grid>
 		</Container>
