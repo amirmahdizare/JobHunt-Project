@@ -18,13 +18,6 @@
     mode: 0644
 
 
-- name: copying nginx config files
-  synchronize:
-    dirs: yes
-    src: conf
-    dest: "{{ nginx_path }}"
-
-
 - name: add site config
   template: 
     src: jobhunt.conf.j2
