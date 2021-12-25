@@ -1,6 +1,6 @@
 server {
     listen                          0.0.0.0:80;
-    server_name                     {{ api_domain }} www.{{ api_domain }};
+    server_name                     {{ domain }} www.{{ domain }};
 
 
     return                          301 https://$host$request_uri;
@@ -8,7 +8,7 @@ server {
 
 server {
     listen                          0.0.0.0:443 ssl http2;
-    server_name                     {{ api_domain }} www.{{ api_domain }};
+    server_name                     {{ domain }} www.{{ domain }};
 
     include                         {{ nginx_container_path }}/snippets/ssl-params.conf;
     ssl_dhparam                     {{ nginx_container_path }}/dhparam.pem;
@@ -17,8 +17,8 @@ server {
     ssl_trusted_certificate         {{ ssl_base_path }}/live/{{ domain }}/fullchain.pem;
 
 
-    access_log                      /var/log/nginx/{{ api_domain }}.access.log;
-    error_log                       /var/log/nginx/{{ api_domain }}.error.log;
+    access_log                      /var/log/nginx/{{ domain }}.access.log;
+    error_log                       /var/log/nginx/{{ domain }}.error.log;
 
     location / {
         if ($request_method = OPTIONS ) {
@@ -42,6 +42,6 @@ server {
 
         chunked_transfer_encoding   off;
 
-        proxy_pass                  http://api.jobhunt.service:80;
+        proxy_pass                  http://front.service:80;
     }
 }
