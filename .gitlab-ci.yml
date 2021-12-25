@@ -67,7 +67,6 @@ deploy-production:
     - eval "$(ssh-agent -s)"
     - ssh-add ~/.ssh/id_rsa
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ansible-galaxy install -r $ANSIBLE_PRODUCTION_PATH/requirements.yml
     - ansible-playbook $ANSIBLE_PRODUCTION_PATH/main.yml --inventory $ANSIBLE_PRODUCTION_PATH/production
   only:
     - /^v\d+\.\d+\.\d+$/
