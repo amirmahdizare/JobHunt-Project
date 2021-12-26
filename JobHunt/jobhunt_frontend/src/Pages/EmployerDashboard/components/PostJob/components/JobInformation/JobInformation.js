@@ -299,11 +299,11 @@ export const JobInformation = (props) => {
 
                     </Grid>
                 </>}
-                <Grid item xs={12} md={postJobStatus.status == 'success' ? 12 : 10}>
+                <Grid item xs={12} md={postJobStatus.status == 'success' ? 12 : 8}>
                     <PostJobStatus postJobStatus={postJobStatus} mode={mode} />
                 </Grid>
                 {postJobStatus.status != 'success' &&
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={12} md={4}>
                         <Button
                             variant='contained'
                             color="primary"
@@ -315,7 +315,7 @@ export const JobInformation = (props) => {
                         >
                             {postJobStatus.status == 'loading'
                                 ? <CircularProgress style={{ width: '1.5rem', height: '1.5rem' }} />
-                                : 'Post Job'}
+                                : mode == 'add' ? ' Post Job' : 'Edit Job'}
                         </Button>
 
                     </Grid>}

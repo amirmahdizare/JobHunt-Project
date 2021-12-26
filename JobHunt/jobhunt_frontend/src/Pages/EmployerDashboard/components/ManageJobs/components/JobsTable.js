@@ -78,7 +78,7 @@ const JobsTable = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {entities && !loading ? entities.map((row) => <Job {...row} refreshCallback={refresh} key={row?.id} />) : [0, 0, 0, 0, 0].map(() => <JobSkeleton />)}
+                        {entities && !loading ? entities.map((row) => <Job {...row} refreshCallback={refresh} key={row.id} />) : [0, 0, 0, 0, 0].map((e,i) => <JobSkeleton key={i} />)}
                     </TableBody>
                 </Table>
             </TableContainer>

@@ -9,8 +9,8 @@ export const PostJobStatus = ({ postJobStatus,mode }) => {
             {postJobStatus.status == 'success' &&
                 <Alert severity='success' variant='filled' style={{alignItems: 'center'}} >
                     <Box display={'flex'} alignItems={'center'}>
-                        {mode=='add' &&<Typography component={'span'}>Job Sent Successfully</Typography>}
                         {mode=='edit' &&<Typography component={'span'}>Job Edited Successfully</Typography>}
+                        {mode=='add' &&<><Typography component={'span'}>Job Sent Successfully</Typography>
                          &nbsp;&nbsp;&nbsp;
                         <Button
                             variant="contained"
@@ -20,7 +20,7 @@ export const PostJobStatus = ({ postJobStatus,mode }) => {
                             startIcon={<VisibilityIcon/>}
                         >
                             View Job Offer Status
-                        </Button>
+                        </Button></>}
                     </Box>
                 </Alert>
             }

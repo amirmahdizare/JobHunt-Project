@@ -93,13 +93,16 @@ const postJob = async (dataObj) => {
 
 }
 
-const updateJob = async (dataObj, id) => {
+const updateJob = async (dataObj) => {
     const data = JSON.stringify(dataObj)
     try {
+        const {id} = dataObj
         const response = await api.put(`/jobs/offers/employer/${id}`, data, {
             headers: {
                 Lang: getLanguage(),
-                Authorization: getToken()
+                Authorization: getToken(),
+                'Content-Type': 'application/json'
+
             }
         })
         if (response.statusText == "ok")
@@ -225,11 +228,27 @@ const getCompanyJobs = async ({ page, pagination_size ,status = null }) => {
         return error.response.data.message
     }
 }
+const getCompanyJob = async({id}) =>{
+    try {
+        const response = await api.get(`/jobs/offers/employer/${id}`, {
+            headers: {
+                Lang: getLanguage(),
+                Authorization: getToken()
+            },
+
+
+        })
+        return response.data.data
+
+    } catch (error) {
+        return error.response.data.message
+    }
+}
 export {
     getCompany, deleteCompany,
     storeCompany, updateCompany,
     postJob, updateJob, deleteJob,
     getActivePackage, getSentResumes,
     getSingleSentResume, UpdateSentResumeStatus,
-    postComment, getCompanyJobs
+    postComment, getCompanyJobs,getCompanyJob
 }

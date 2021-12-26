@@ -8,12 +8,14 @@ import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import moment from 'moment';
 import { capitalizeFirstLetter } from '../../../../../utils';
 import { DeleteJobDialoge } from './DeleteJobDialoge';
+import { EditJobDialoge } from './EditJobDialoge/EditJobDialoge';
 
 export const Job = ({application,title,city_name,created_at,status,id,refreshCallback}) => {
-    const [open,setOpen]=useState(false)
+    const [deleteDialogeStatus,setDeleteDialogeStatus]=useState(false)
+    const [editDialogeStatus,setEditDialogeStatus]=useState(false)
     return (
         <>
-        <TableRow key={id}>
+        <TableRow >
             <TableCell align="left">
                 <Typography variant="body1" >{title.length > 25  ?  title.substr(0,25) +"..."  : title }</Typography>
                { city_name  &&<Typography variant="body2" color="textSecondary"><LocationOnOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize="small" />&nbsp;{city_name}</Typography>}
@@ -30,13 +32,16 @@ export const Job = ({application,title,city_name,created_at,status,id,refreshCal
             <TableCell align="left" >
                 <Box display="flex" flexWrap="nowrap">
                     <Jh_Tooltip link={'/job/'+id} title="View Job" laIcon={SvgEye} />
-                    <Jh_Tooltip title="Edit" laIcon={SvgPencilAltSolid} />
-                    <Jh_Tooltip title="Delete"  callback={()=>setOpen(true)} laIcon={SvgTrashAlt} />
+                    <Jh_Tooltip title="Edit" callback={()=>setEditDialogeStatus(true)} laIcon={SvgPencilAltSolid} />
+                    <Jh_Tooltip title="Delete"  callback={()=>setDeleteDialogeStatus(true)} laIcon={SvgTrashAlt} />
                 </Box>
 
             </TableCell>
         </TableRow>
-        <DeleteJobDialoge open ={open} setOpen={setOpen} id={id} refreshCallback={refreshCallback}/>
+        <DeleteJobDialoge open ={deleteDialogeStatus} setOpen={setDeleteDialogeStatus} id={id} refreshCallback={refreshCallback}/>
+        <EditJobDialoge  open ={editDialogeStatus} setOpen={setEditDialogeStatus} id={id} refreshCallback={refreshCallback}
+        
+        />
         </>
     )
 }
