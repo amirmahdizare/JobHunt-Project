@@ -1,9 +1,8 @@
 import { Box } from '@material-ui/core'
 import React from 'react'
-import { Content } from './components/Content/Content'
 import { Header } from './components/Header'
-
-const CandidateDashboard = () => {
+import { Content } from './components/Content/Content'
+const CandidateProfile = () => {
 	return (
 		<Box>
 			<Header />
@@ -11,4 +10,4 @@ const CandidateDashboard = () => {
 		</Box>
 	)
 }
-export default CandidateDashboard
+export default CandidateProfile
