@@ -60,6 +60,7 @@ const useClasses = makeStyles(theme => ({
         [theme.breakpoints.down('xs')]: {
             justifyContent: 'center',
         },
+        marginRight: 10
     },
     jobTitle: {
         fontWeight: '600'
@@ -94,8 +95,8 @@ const Jh_BigJobCard = (props) => {
     const [like, setLike] = useState(false)
     const [logoImage, setLogoImage] = useState(false)
     const classes = useClasses()
-    const { name, logo } = useGetSpecificCompany(job.company_id);
-    const { title, color } = useGetSpecificCorporation(job.cooperation_kind_id);
+    const { name, logo, address } = useGetSpecificCompany(job.company_id);
+    // const { title, color } = useGetSpecificCorporation(job.cooperation_kind_id);
 
     const getImage = async () => {
         if (logo) {
@@ -120,27 +121,27 @@ const Jh_BigJobCard = (props) => {
                     <Grid container direction="column" xs={24} sm={hideDetail ? 12 : 8} >
                         <Grid container xs={24}>
                             <Grid item xs={12} sm={hideDetail ? 5 : 3} className={classes.companyLogoContainer}>
-
                                 {logo && <CardMedia
                                     className={classes.companyLogo}
                                     image={logoImage}
-                                />}
+                                />
+                                }
                             </Grid>
                             <Grid item xs={12} sm={hideDetail ? 12 : 8} >
-                                <Typography className={classes.jobTitle} variant="body1" component="b">{job.title}</Typography>
+                                <Typography className={classes.jobTitle} variant="body1" component="b">{job?.title}</Typography>
                                 <Typography className={classes.companyName} color="primary" variant="body1">{name}</Typography>
+                                <Grid item className={classes.locationContainer} style={{ marginLeft: 0 }}>
+                                    <LocationOnOutlinedIcon />
+                                    <Typography variant="body2" >{address}</Typography>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid item xs={24} className={classes.locationContainer}>
-                            <LocationOnOutlinedIcon className={classes.icon} />
-                            <Typography variant="body2" >{"Sacramento, California"} </Typography>
                         </Grid>
                     </Grid>
                     {!hideDetail ?
                         <Grid item xs={12} sm={3} className={classes.itemContainer}>
                             <FavoriteBorderIcon className={classes.icon} style={{ color: !like ? 'gray' : 'red' }} onClick={() => setLike(!like)} />
                             <Box>
-                                <Button className={classes.workTime} style={{ color: color, borderColor: color }} variant="outlined">{title} </Button>
+                                <Button className={classes.workTime} style={{ color: job?.cooperation_kind?.color, borderColor: job?.cooperation_kind?.color }} variant="outlined">{job?.cooperation_kind?.title} </Button>
                                 {job.updated_at &&
                                     <Typography display="block" variant="body2" color="textSecondary" className={classes.dateTxt}>
                                         {formatDate(job.updated_at)}

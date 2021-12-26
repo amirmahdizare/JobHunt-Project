@@ -6,9 +6,10 @@ const _signin = async function (setUser, { identifier, password }) {
   var data = new FormData();
   data.append('identifier', identifier);
   data.append('password', password);
+  data.append('country_code', '+98');
   try {
     
-    const response = await centralApi.post('/login', data, {
+    const response = await centralApi.post('/login?ident_kind=mobile', data, {
       headers: centralApiHeaderObj()
     })
     
@@ -22,10 +23,7 @@ const _signin = async function (setUser, { identifier, password }) {
     }
   } catch (error) {
     return Promise.reject(error.response.data.message)
-    
   }
- 
-  
-
 }
+
 export { _signin }

@@ -51,7 +51,7 @@ const JobSingle = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={8}>
                         <JobInfo
-                            companyName={job.title}
+                            companyName={company.name}
                             companyLogo={logoImage}
                             location={company.address}
                             website={company.website}
@@ -62,7 +62,7 @@ const JobSingle = () => {
                         <JobDetailContainer
                             title="Job Description"
                             text={[job.description]} />
-                        <JobDetailContainer
+                        {/* <JobDetailContainer
                             title="Required Knowledge, Skills, and Abilitie"
                             items={[
                                 'Ability to write code – HTML & CSS (SCSS flavor of SASS preferred when writing CSS)',
@@ -82,7 +82,7 @@ const JobSingle = () => {
                                 'Excellent communication skills, most notably a demonstrated ability to solicit and address creative and design feedback',
                                 'Must be able to work under pressure and meet deadlines while maintaining a positive attitude and providing exemplary customer service',
                                 'Ability to work independently and to carry out assignments to completion within parameters of instructions given, prescribed routines, and standard accepted practices'
-                            ]} />
+                            ]} /> */}
                         <Divider light />
                         <Box width={1 / 4} my={2}>
                             <Jh_Share />
@@ -91,9 +91,9 @@ const JobSingle = () => {
                         {/* <RecentJobs /> */}
                     </Grid>
                     <Grid item xs={12} md={4}>
-                        <ApplyBox />
+                        <ApplyBox job={job} />
                         <JobOverview job={job} />
-                        <JobLocation />
+                        <JobLocation company={company} />
                         <Jh_StatisticCard
                             itemicon={<LineAwesome icon={SvgClock} />}
                             itemName="Days"
