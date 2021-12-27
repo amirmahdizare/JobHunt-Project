@@ -22,6 +22,7 @@ import { SkillsPercentage } from './components/SkillsPercentage'
 import TwitterIcon from '@material-ui/icons/Twitter'
 import LinkedinIcon from '@material-ui/icons/LinkedIn'
 import FacebookIcon from '@material-ui/icons/Facebook'
+import { getProfileData } from '../../../../api/condidate'
 const useClasses = makeStyles((theme) => ({
 	browseBtn: {
 		borderRadius: theme.spacing(2),
@@ -30,6 +31,35 @@ const useClasses = makeStyles((theme) => ({
 }))
 export const Content = () => {
 	const classes = useClasses()
+	const [profileFName, setProfileFName] = React.useState('')
+	const [profileLName, setProfileLName] = React.useState('')
+	const [email, setEmail] = React.useState('')
+	const [phoneNumber, setPhoneNumber] = React.useState('')
+	const [website, setWebsite] = React.useState('')
+	const [cityId, setCityId] = React.useState('')
+	const [countryId, setCountryId] = React.useState('')
+	React.useEffect(() => {
+		const _getProfile = async () => {
+			const {
+				city_id,
+				country_id,
+				first_name,
+				last_name,
+				job_hunt_email,
+				phone_number,
+				website,
+			} = await getProfileData()
+
+			setProfileFName(first_name)
+			setProfileLName(last_name)
+			setEmail(job_hunt_email)
+			setPhoneNumber(phone_number)
+			setWebsite(website)
+			setCityId(city_id)
+			setCountryId(country_id)
+		}
+		_getProfile()
+	}, [])
 	return (
 		<Container>
 			<Grid container direction='row'>
@@ -97,6 +127,8 @@ export const Content = () => {
 									fullWidth
 									id='name'
 									labelWidth={70}
+									value={`${profileFName} ${profileLName}`}
+									onChange={(e) => setProfileFName(e.target.value)}
 								/>
 							</Jh_Card>
 						</Grid>
@@ -263,6 +295,8 @@ export const Content = () => {
 									id='name'
 									labelWidth={70}
 									style={{ minHeight: '3.1876em' }}
+									value={phoneNumber}
+									onChange={(e) => setPhoneNumber(e.target.value)}
 								/>
 							</Jh_Card>
 						</Grid>
@@ -281,6 +315,8 @@ export const Content = () => {
 									fullWidth
 									id='name'
 									labelWidth={70}
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</Jh_Card>
 						</Grid>
@@ -299,6 +335,8 @@ export const Content = () => {
 									fullWidth
 									id='name'
 									labelWidth={70}
+									value={website}
+									onChange={(e) => setWebsite(e.target.value)}
 								/>
 							</Jh_Card>
 						</Grid>
@@ -311,13 +349,12 @@ export const Content = () => {
 						>
 							<p>Country</p>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='demo-simple-select-outlined-label'>
-									China
-								</InputLabel>
 								<Select
 									labelId='select-country-outlined-label'
 									id='demo-simple-select-outlined'
 									label='Country'
+									value={countryId}
+									onSelect={(e) => setCountryId(e.target.value)}
 								>
 									<MenuItem value=''>china</MenuItem>
 								</Select>
@@ -336,6 +373,8 @@ export const Content = () => {
 									labelId='select-country-outlined-label'
 									id='demo-simple-select-outlined'
 									label='Country'
+									value={cityId}
+									onSelect={(e) => setCityId(e.target.value)}
 								>
 									<MenuItem value=''>chuango</MenuItem>
 								</Select>
