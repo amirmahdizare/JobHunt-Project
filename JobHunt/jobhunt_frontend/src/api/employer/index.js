@@ -137,7 +137,6 @@ const getActivePackage = async ({ id }) => {
             }
         })
         if (response.data.code == "200") {
-            console.log(response.data)
             return Promise.resolve(response.data.data)
         }
     } catch (error) {

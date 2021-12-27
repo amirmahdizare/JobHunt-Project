@@ -1,9 +1,10 @@
 import { Box, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Jh_Pagination } from '../../../../../components/Jh_Pagination'
-import { JobSkeleton } from '../../ManageJobs/components/JobSkeleton';
+import { useEmployerActivePackage } from '../../../../../hooks/useEmployerActivePackage';
+import { getCurrency } from '../../../../../utils';
 import { Package } from './Package';
-
+import { SectionLoading } from '../../../../../components/SectionLoading'
 const useStyles = makeStyles(theme => ({
     table: {
         minWidth: 650,
@@ -30,42 +31,39 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const PackagesTable = () => {
+
     const classes = useStyles()
-    function createData(transactionID, package_type, expiry, job_posting_limit, featured_jobs, price, status) {
-        return { transactionID, package_type, expiry, job_posting_limit, featured_jobs, price, status };
-    }
-
-    const rows = [
-        createData('221319456', 'Supper Jobs', '2021-10-05T14:48:00.000Z', 15, 10, 5, 'Pending'),
-        createData('321219456', 'Golden', '2023-10-05T14:48:00.000Z', 10, 9, 1, 'Pending'),
-
-
-    ];
+    const [packageInfo, error, loading] = useEmployerActivePackage()
     return (
         <Box>
-            <TableContainer className={classes.tableContainer} component={Box}>
+            {loading && <SectionLoading />}
+            {!packageInfo && !loading && <Typography>You Dont Have Active Package , Buy from Below</Typography>}
+            {packageInfo && !loading && <TableContainer className={classes.tableContainer} component={Box}>
                 <Table className={classes.table} aria-label="Jobs table">
                     <TableHead>
                         <TableRow>
                             <TableCell classes={{ root: classes.thead }} align="left"><Typography>Transaction ID</Typography></TableCell>
                             <TableCell classes={{ root: classes.thead }} align="left"><Typography>Package Type</Typography> </TableCell>
                             <TableCell classes={{ root: classes.thead }} align="left"><Typography>Expiry</Typography></TableCell>
-                            <TableCell classes={{ root: classes.thead }} align="left"><Typography> Total Jobs/CVs</Typography></TableCell>
-                            <TableCell classes={{ root: classes.thead }} align="left"><Typography>Used</Typography> </TableCell>
-                            <TableCell classes={{ root: classes.thead }} align="left"><Typography>Remaining</Typography> </TableCell>
-                            <TableCell classes={{ root: classes.thead }} align="left"><Typography>Status</Typography> </TableCell>
-
+                            <TableCell classes={{ root: classes.thead }} align="left"><Typography>Job Posting Limit</Typography> </TableCell>
+                            <TableCell classes={{ root: classes.thead }} align="left"><Typography>Price</Typography> </TableCell>
 
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows ? rows.map((row) => <Package {...row} key={row.id} />) : [0, 0, 0, 0, 0].map((e, i) => <JobSkeleton key={i} />)}
+
+                        <Package
+                            packageID={packageInfo?.id}
+                            package_type={packageInfo?.type}
+                            expiry={packageInfo?.rules?.expire_rule}
+                            job_posting_limit={packageInfo?.rules?.job_posting_limit}
+                            price={packageInfo?.price?.amount}
+                            currency={getCurrency(packageInfo?.price?.currency)}
+                        //    status={}
+                        />
                     </TableBody>
                 </Table>
-            </TableContainer>
-            {/* {number_of_pages > 1 &&
-                <Jh_Pagination page={page} pages={number_of_pages} handleChange={handleChange} />} */}
-
+            </TableContainer>}
         </Box>
     )
 }

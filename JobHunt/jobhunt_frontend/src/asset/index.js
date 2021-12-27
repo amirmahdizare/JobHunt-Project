@@ -5,8 +5,13 @@ import appstore from './downloadfromImages/appstore.png'
 import googleplay from './downloadfromImages/googleplay.png'
 import TipsBg from './backgrounds/TipsBg.jpg'
 import noImage from './backgrounds/noImage.png'
+import applepay from './images/applepay.png'
+import bluechinese from './images/bluechinese.png'
+import paypal from './images/paypal.png'
+import visa from './images/visa.png'
+import unionpay from './images/unionpay.png'
 export {
     logo, logo2, appstore,
     loader, googleplay, TipsBg,
-    noImage
+    noImage ,applepay,bluechinese,paypal,visa,unionpay
 }
