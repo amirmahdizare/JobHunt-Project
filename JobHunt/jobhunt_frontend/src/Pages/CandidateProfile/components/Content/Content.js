@@ -7,22 +7,21 @@ import {
 	Grid,
 	IconButton,
 	InputBase,
-	InputLabel,
 	makeStyles,
 	MenuItem,
 	Select,
 	TextareaAutosize,
 	Typography,
 } from '@material-ui/core'
+import FacebookIcon from '@material-ui/icons/Facebook'
+import LinkedinIcon from '@material-ui/icons/LinkedIn'
+import TwitterIcon from '@material-ui/icons/Twitter'
 import React from 'react'
+import { getProfileData, updateProfile } from '../../../../api/condidate'
 import { CandidateMenu } from '../../../../components/CandidateMenu'
 import { Jh_Card } from '../../../../components/Jh_Card'
 import { UserAvatar } from '../../../../components/UserAvatar'
 import { SkillsPercentage } from './components/SkillsPercentage'
-import TwitterIcon from '@material-ui/icons/Twitter'
-import LinkedinIcon from '@material-ui/icons/LinkedIn'
-import FacebookIcon from '@material-ui/icons/Facebook'
-import { getProfileData } from '../../../../api/condidate'
 const useClasses = makeStyles((theme) => ({
 	browseBtn: {
 		borderRadius: theme.spacing(2),
@@ -40,9 +39,13 @@ export const Content = () => {
 	const [countryId, setCountryId] = React.useState('')
 	const [socialLink, setSocialLink] = React.useState('')
 	const [description, setDescription] = React.useState('')
+	const [nickname, setNickname] = React.useState('')
+	const [username, setUsername] = React.useState('')
+
 	React.useEffect(() => {
 		const _getProfile = async () => {
 			const {
+				nickname,
 				city_id,
 				country_id,
 				first_name,
@@ -52,6 +55,7 @@ export const Content = () => {
 				website,
 				social_links,
 				description,
+				username,
 			} = await getProfileData()
 
 			setProfileFName(first_name)
@@ -63,6 +67,8 @@ export const Content = () => {
 			setCountryId(country_id)
 			setSocialLink(social_links)
 			setDescription(description)
+			setNickname(nickname)
+			setUsername(username)
 		}
 		_getProfile()
 	}, [])
@@ -133,8 +139,8 @@ export const Content = () => {
 									fullWidth
 									id='name'
 									labelWidth={70}
-									value={`${profileFName} ${profileLName}`}
-									onChange={(e) => setProfileFName(e.target.value)}
+									value={nickname}
+									onChange={(e) => setNickname(e.target.value)}
 								/>
 							</Jh_Card>
 						</Grid>
@@ -181,6 +187,21 @@ export const Content = () => {
 								borderRadius: '8px',
 							}}
 							variant='outlined'
+							onClick={() =>
+								updateProfile({
+									city_id: cityId,
+									country_id: countryId,
+									last_name: profileLName,
+									first_name: profileFName,
+									job_hunt_email: email,
+									phone_number: phoneNumber,
+									website,
+									social_links: socialLink,
+									description,
+									nickname,
+									username,
+								})
+							}
 						>
 							Update
 						</Button>
@@ -448,6 +469,21 @@ export const Content = () => {
 								borderRadius: '8px',
 							}}
 							variant='outlined'
+							onClick={() =>
+								updateProfile({
+									city_id: cityId,
+									country_id: countryId,
+									last_name: profileLName,
+									first_name: profileFName,
+									job_hunt_email: email,
+									phone_number: phoneNumber,
+									website,
+									social_links: socialLink,
+									description,
+									nickname,
+									username,
+								})
+							}
 						>
 							Update
 						</Button>
