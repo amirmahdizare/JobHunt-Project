@@ -39,6 +39,7 @@ export const Content = () => {
 	const [cityId, setCityId] = React.useState('')
 	const [countryId, setCountryId] = React.useState('')
 	const [socialLink, setSocialLink] = React.useState('')
+	const [description, setDescription] = React.useState('')
 	React.useEffect(() => {
 		const _getProfile = async () => {
 			const {
@@ -50,6 +51,7 @@ export const Content = () => {
 				phone_number,
 				website,
 				social_links,
+				description,
 			} = await getProfileData()
 
 			setProfileFName(first_name)
@@ -60,6 +62,7 @@ export const Content = () => {
 			setCityId(city_id)
 			setCountryId(country_id)
 			setSocialLink(social_links)
+			setDescription(description)
 		}
 		_getProfile()
 	}, [])
@@ -165,15 +168,9 @@ export const Content = () => {
 								padding: '25px',
 								lineHeight: '1.1rem',
 							}}
-						>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a
-							ipsum tellus. Interdum et malesuada fames ac ante ipsum primis in
-							faucibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Proin a ipsum tellus. Interdum et malesuada fames ac ante ipsum
-							primis in faucibus. Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames
-							ac ante ipsum primis in faucibus.
-						</TextareaAutosize>
+							value={description}
+							onChange={(e) => setDescription(e.target.value)}
+						></TextareaAutosize>
 					</Box>
 					<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
 						<Button
