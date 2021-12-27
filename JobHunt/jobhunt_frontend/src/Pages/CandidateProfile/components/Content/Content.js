@@ -38,6 +38,7 @@ export const Content = () => {
 	const [website, setWebsite] = React.useState('')
 	const [cityId, setCityId] = React.useState('')
 	const [countryId, setCountryId] = React.useState('')
+	const [socialLink, setSocialLink] = React.useState('')
 	React.useEffect(() => {
 		const _getProfile = async () => {
 			const {
@@ -48,6 +49,7 @@ export const Content = () => {
 				job_hunt_email,
 				phone_number,
 				website,
+				social_links,
 			} = await getProfileData()
 
 			setProfileFName(first_name)
@@ -57,6 +59,7 @@ export const Content = () => {
 			setWebsite(website)
 			setCityId(city_id)
 			setCountryId(country_id)
+			setSocialLink(social_links)
 		}
 		_getProfile()
 	}, [])
@@ -199,7 +202,9 @@ export const Content = () => {
 							<Jh_Card>
 								<InputBase
 									style={{ flex: 1 }}
-									placeholder='www.facebook.com/saeed.eyvazy'
+									placeholder='www.facebook.com'
+									value={socialLink.linkedin}
+									onChange={(e) => setSocialLink(e.target.value)}
 								/>
 								<IconButton
 									disableFocusRipple
@@ -221,7 +226,8 @@ export const Content = () => {
 							<Jh_Card>
 								<InputBase
 									style={{ flex: 1 }}
-									placeholder='www.twitter.com/saeed.eyvazy'
+									placeholder='www.twitter.com'
+									value={socialLink.twitter}
 								/>
 								<IconButton
 									disableFocusRipple
@@ -243,7 +249,8 @@ export const Content = () => {
 							<Jh_Card>
 								<InputBase
 									style={{ flex: 1 }}
-									placeholder='www.google.com/saeed.eyvazy'
+									placeholder='www.google.com'
+									value={socialLink.google}
 								/>
 								<IconButton
 									disableFocusRipple
