@@ -7,21 +7,21 @@ import {
 	Grid,
 	IconButton,
 	InputBase,
-	InputLabel,
 	makeStyles,
 	MenuItem,
 	Select,
 	TextareaAutosize,
 	Typography,
 } from '@material-ui/core'
+import FacebookIcon from '@material-ui/icons/Facebook'
+import LinkedinIcon from '@material-ui/icons/LinkedIn'
+import TwitterIcon from '@material-ui/icons/Twitter'
 import React from 'react'
+import { getProfileData, updateProfile } from '../../../../api/condidate'
 import { CandidateMenu } from '../../../../components/CandidateMenu'
 import { Jh_Card } from '../../../../components/Jh_Card'
 import { UserAvatar } from '../../../../components/UserAvatar'
 import { SkillsPercentage } from './components/SkillsPercentage'
-import TwitterIcon from '@material-ui/icons/Twitter'
-import LinkedinIcon from '@material-ui/icons/LinkedIn'
-import FacebookIcon from '@material-ui/icons/Facebook'
 const useClasses = makeStyles((theme) => ({
 	browseBtn: {
 		borderRadius: theme.spacing(2),
@@ -30,6 +30,48 @@ const useClasses = makeStyles((theme) => ({
 }))
 export const Content = () => {
 	const classes = useClasses()
+	const [profileFName, setProfileFName] = React.useState('')
+	const [profileLName, setProfileLName] = React.useState('')
+	const [email, setEmail] = React.useState('')
+	const [phoneNumber, setPhoneNumber] = React.useState('')
+	const [website, setWebsite] = React.useState('')
+	const [cityId, setCityId] = React.useState('')
+	const [countryId, setCountryId] = React.useState('')
+	const [socialLink, setSocialLink] = React.useState('')
+	const [description, setDescription] = React.useState('')
+	const [nickname, setNickname] = React.useState('')
+	const [username, setUsername] = React.useState('')
+
+	React.useEffect(() => {
+		const _getProfile = async () => {
+			const {
+				nickname,
+				city_id,
+				country_id,
+				first_name,
+				last_name,
+				job_hunt_email,
+				phone_number,
+				website,
+				social_links,
+				description,
+				username,
+			} = await getProfileData()
+
+			setProfileFName(first_name)
+			setProfileLName(last_name)
+			setEmail(job_hunt_email)
+			setPhoneNumber(phone_number)
+			setWebsite(website)
+			setCityId(city_id)
+			setCountryId(country_id)
+			setSocialLink(social_links)
+			setDescription(description)
+			setNickname(nickname)
+			setUsername(username)
+		}
+		_getProfile()
+	}, [])
 	return (
 		<Container>
 			<Grid container direction='row'>
@@ -97,6 +139,8 @@ export const Content = () => {
 									fullWidth
 									id='name'
 									labelWidth={70}
+									value={nickname}
+									onChange={(e) => setNickname(e.target.value)}
 								/>
 							</Jh_Card>
 						</Grid>
@@ -130,15 +174,9 @@ export const Content = () => {
 								padding: '25px',
 								lineHeight: '1.1rem',
 							}}
-						>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a
-							ipsum tellus. Interdum et malesuada fames ac ante ipsum primis in
-							faucibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Proin a ipsum tellus. Interdum et malesuada fames ac ante ipsum
-							primis in faucibus. Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames
-							ac ante ipsum primis in faucibus.
-						</TextareaAutosize>
+							value={description}
+							onChange={(e) => setDescription(e.target.value)}
+						></TextareaAutosize>
 					</Box>
 					<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
 						<Button
@@ -149,6 +187,21 @@ export const Content = () => {
 								borderRadius: '8px',
 							}}
 							variant='outlined'
+							onClick={() =>
+								updateProfile({
+									city_id: cityId,
+									country_id: countryId,
+									last_name: profileLName,
+									first_name: profileFName,
+									job_hunt_email: email,
+									phone_number: phoneNumber,
+									website,
+									social_links: socialLink,
+									description,
+									nickname,
+									username,
+								})
+							}
 						>
 							Update
 						</Button>
@@ -167,7 +220,9 @@ export const Content = () => {
 							<Jh_Card>
 								<InputBase
 									style={{ flex: 1 }}
-									placeholder='www.facebook.com/saeed.eyvazy'
+									placeholder='www.facebook.com'
+									value={socialLink.linkedin}
+									onChange={(e) => setSocialLink(e.target.value)}
 								/>
 								<IconButton
 									disableFocusRipple
@@ -189,7 +244,8 @@ export const Content = () => {
 							<Jh_Card>
 								<InputBase
 									style={{ flex: 1 }}
-									placeholder='www.twitter.com/saeed.eyvazy'
+									placeholder='www.twitter.com'
+									value={socialLink.twitter}
 								/>
 								<IconButton
 									disableFocusRipple
@@ -211,7 +267,8 @@ export const Content = () => {
 							<Jh_Card>
 								<InputBase
 									style={{ flex: 1 }}
-									placeholder='www.google.com/saeed.eyvazy'
+									placeholder='www.google.com'
+									value={socialLink.google}
 								/>
 								<IconButton
 									disableFocusRipple
@@ -263,6 +320,8 @@ export const Content = () => {
 									id='name'
 									labelWidth={70}
 									style={{ minHeight: '3.1876em' }}
+									value={phoneNumber}
+									onChange={(e) => setPhoneNumber(e.target.value)}
 								/>
 							</Jh_Card>
 						</Grid>
@@ -281,6 +340,8 @@ export const Content = () => {
 									fullWidth
 									id='name'
 									labelWidth={70}
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</Jh_Card>
 						</Grid>
@@ -299,6 +360,8 @@ export const Content = () => {
 									fullWidth
 									id='name'
 									labelWidth={70}
+									value={website}
+									onChange={(e) => setWebsite(e.target.value)}
 								/>
 							</Jh_Card>
 						</Grid>
@@ -311,13 +374,12 @@ export const Content = () => {
 						>
 							<p>Country</p>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='demo-simple-select-outlined-label'>
-									China
-								</InputLabel>
 								<Select
 									labelId='select-country-outlined-label'
 									id='demo-simple-select-outlined'
 									label='Country'
+									value={countryId}
+									onSelect={(e) => setCountryId(e.target.value)}
 								>
 									<MenuItem value=''>china</MenuItem>
 								</Select>
@@ -336,6 +398,8 @@ export const Content = () => {
 									labelId='select-country-outlined-label'
 									id='demo-simple-select-outlined'
 									label='Country'
+									value={cityId}
+									onSelect={(e) => setCityId(e.target.value)}
 								>
 									<MenuItem value=''>chuango</MenuItem>
 								</Select>
@@ -405,6 +469,21 @@ export const Content = () => {
 								borderRadius: '8px',
 							}}
 							variant='outlined'
+							onClick={() =>
+								updateProfile({
+									city_id: cityId,
+									country_id: countryId,
+									last_name: profileLName,
+									first_name: profileFName,
+									job_hunt_email: email,
+									phone_number: phoneNumber,
+									website,
+									social_links: socialLink,
+									description,
+									nickname,
+									username,
+								})
+							}
 						>
 							Update
 						</Button>
