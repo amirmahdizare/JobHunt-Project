@@ -128,7 +128,8 @@ const getFAQs = async (customParams) => {
         headers: { Lang: getLanguage() },
         params: reqParams
     })
-    return await Object.values(response.data.data)
+    const { data: { data: { entities, number_of_pages } } } = response
+    return { faqs: entities, pages: number_of_pages }
 }
 const getTerms = async (customParams) => {
     const reqParams = customParams && customParams.page && customParams.pagination_size ? customParams : { page: 1, pagination_size: 6 }
@@ -218,7 +219,7 @@ const getAllCorporations = async () => {
     return response.data.data
 }
 
-const getAllJobs = async (page , paginationSize) => {
+const getAllJobs = async (page, paginationSize) => {
     const response = await api.get(`/jobs/offers/guests?page=${page}&pagination_size=${paginationSize}`, {
         headers: {
             Lang: getLanguage()
@@ -278,24 +279,24 @@ const getTopJobs = async () => {
         params: { page: 1, pagination_size: 6 }
     })
     const plainJobs = response.data.data.entities
-    return await Promise.all(plainJobs.map(async(job) => await jobDetailGenerator(job) ))
+    return await Promise.all(plainJobs.map(async (job) => await jobDetailGenerator(job)))
 }
-const jobDetailGenerator =async (job) => {
-       try {
-           var { logo, name } =await getCompanyDetailById(job.company_id)
-          var logourl = await generateImageURL('jobhunt',Object.values(logo)[0])
-           var { title, color } = await getCooperationKindById(job.cooperation_kind_id)
-        } catch (error) {
-           //catch error
-        }
-        return {
-            ...job,
-            company_name: name,
-           company_logo: logourl,
-            cooperation_kind_title: title || 'Unset',
-            cooperation_kind_color: color
-        }
-    
+const jobDetailGenerator = async (job) => {
+    try {
+        var { logo, name } = await getCompanyDetailById(job.company_id)
+        var logourl = await generateImageURL('jobhunt', Object.values(logo)[0])
+        var { title, color } = await getCooperationKindById('61757f08c632ff190d1d6134')
+    } catch (error) {
+        //catch error
+    }
+    return {
+        ...job,
+        company_name: name,
+        company_logo: logourl,
+        cooperation_kind_title: title,
+        cooperation_kind_color: color
+    }
+
 }
 const getCompanyDetailById = async (id) => {
     try {
