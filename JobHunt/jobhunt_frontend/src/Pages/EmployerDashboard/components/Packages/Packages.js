@@ -11,7 +11,7 @@ export const Packages = () => {
             <SectionHeader title="Packages" />
             <PackagesTable />
             <Pricing mode={'outter'} />
-            <Payment/>
+            {/* <Payment/> */}
         </Box>
     )
 }
