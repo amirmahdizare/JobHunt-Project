@@ -39,7 +39,7 @@ const storeCompany = async (dataObj) => {
     }
 }
 
-const deleteCompany = async ({id}) => {
+const deleteCompany = async ({ id }) => {
     try {
         const response = await api.delete(`/companies/employer/${id}`, {
             headers: {
@@ -96,7 +96,7 @@ const postJob = async (dataObj) => {
 const updateJob = async (dataObj) => {
     const data = JSON.stringify(dataObj)
     try {
-        const {id} = dataObj
+        const { id } = dataObj
         const response = await api.put(`/jobs/offers/employer/${id}`, data, {
             headers: {
                 Lang: getLanguage(),
@@ -112,7 +112,7 @@ const updateJob = async (dataObj) => {
     }
 }
 
-const deleteJob = async ({id}) => {
+const deleteJob = async ({ id }) => {
     try {
         const response = await api.delete(`/jobs/offers/employer/${id}`, {
             headers: {
@@ -144,7 +144,8 @@ const getActivePackage = async ({ id }) => {
     }
 }
 
-const getSentResumes = async (job_offer_id) => {
+const getSentResumes = async ({ job_offer_id }) => {
+    if (!job_offer_id) return
     const response = await api.get(`/candidate-apply/employer/${job_offer_id}`, {
         headers: {
             Lang: getLanguage(),
@@ -154,7 +155,8 @@ const getSentResumes = async (job_offer_id) => {
             page: 1,
         }
     })
-    return response.data.data.entities
+    const  { data: { data: { entities, number_of_pages } } }  = response
+    return { entities, number_of_pages }
 }
 
 const getSingleSentResume = async (job_offer_id, id) => {
@@ -170,19 +172,20 @@ const getSingleSentResume = async (job_offer_id, id) => {
     return response.data.data.entities
 }
 
-const UpdateSentResumeStatus = async (job_offer_id, id, status) => {
+const UpdateSentResumeStatus = async ({ job_offer_id, id, status }) => {
     try {
-        const response = await api.put(`/candidate-apply/employer/${job_offer_id}/${id}`, '', {
+        const response = await api.put(`/candidate-apply/employer/${job_offer_id}/${id}`, JSON.stringify({ "page": 1 }), {
             headers: {
                 Lang: getLanguage(),
-                Authorization: getToken()
+                Authorization: getToken(),
+                'Content-Type': 'application/json'
             },
             params: {
                 status: status
             }
         })
-        if (response.statusText == "ok")
-            return Promise.resolve()
+        if (response.data.code == "200")
+            return Promise.resolve(response.data.data.status)
     } catch (error) {
         return Promise.reject(error.response.data.message)
     }
@@ -207,7 +210,7 @@ const postComment = async (info, id, parent_id) => {
 
 }
 
-const getCompanyJobs = async ({ page, pagination_size ,status = null }) => {
+const getCompanyJobs = async ({ page, pagination_size, status = null }) => {
     try {
         const response = await api.get(`/jobs/offers/employer`, {
             headers: {
@@ -215,19 +218,29 @@ const getCompanyJobs = async ({ page, pagination_size ,status = null }) => {
                 Authorization: getToken()
             },
             params: {
-                page, pagination_size ,status
+                page, pagination_size, status
             }
 
         })
-        const  { data: { data: { entities ,  number_of_entities ,number_of_pages} }  } = response
-        return { entities,number_of_entities,number_of_pages}
+        const { data: { data: { entities, number_of_entities, number_of_pages } } } = response
+        return { entities, number_of_entities, number_of_pages }
 
 
     } catch (error) {
         return error.response.data.message
     }
 }
-const getCompanyJob = async({id}) =>{
+const getCompanyAllJobs = async () => {
+    try {
+        const { number_of_entities } = await getCompanyJobs({ page: 1 })
+        const response = await getCompanyJobs({ page: 1, pagination_size: number_of_entities })
+        return response
+
+    } catch (error) {
+
+    }
+}
+const getCompanyJob = async ({ id }) => {
     try {
         const response = await api.get(`/jobs/offers/employer/${id}`, {
             headers: {
@@ -249,5 +262,5 @@ export {
     postJob, updateJob, deleteJob,
     getActivePackage, getSentResumes,
     getSingleSentResume, UpdateSentResumeStatus,
-    postComment, getCompanyJobs,getCompanyJob
+    postComment, getCompanyJobs, getCompanyJob, getCompanyAllJobs
 }

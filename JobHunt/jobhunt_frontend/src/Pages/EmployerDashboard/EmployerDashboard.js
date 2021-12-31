@@ -9,8 +9,9 @@ import { CompanyProfile } from './components/CompanyProfile/CompanyProfile'
 import { ManageJobs } from './components/ManageJobs/ManageJobs'
 import { Packages } from './components/Packages/Packages'
 import { PostJob } from './components/PostJob/PostJob'
+import { Resumes } from './components/Resumes/Resumes'
 import { Transactions } from './components/Transactions/Transactions'
-
+import { AppliedCandidate } from './components/Resumes/components/AppliedCandidate'
 const EmployerDashboard = () => {
     let { path, url } = useRouteMatch();
     return (
@@ -26,9 +27,9 @@ const EmployerDashboard = () => {
                         <Switch>
                             <Route path={`${path}/managejobs`} component={ManageJobs} />
                             <Route exact path={`${path}/companyprofile`} component={CompanyProfile} />
-                            <Route exact path={`${path}/transactions`} children={Transactions} />
-                            <Route exact path={`${path}/resumes`} children={<h1>Resumes</h1>} />
-                            <Route exact path={`${path}/packages`} children={Packages} />
+                            <Route exact path={`${path}/transactions`} component={Transactions} />
+                            <Route exact path={`${path}/resumes`} component={Resumes} />
+                            <Route exact path={`${path}/packages`} component={Packages} />
                             <Route exact path={`${path}/postjob`} component={PostJob} />
                             <Route exact path={`${path}/jobalert`} children={<h1>Job Alert</h1>} />
                             <Route exact path={`${path}/changepassword`} component={ChangePassword} />

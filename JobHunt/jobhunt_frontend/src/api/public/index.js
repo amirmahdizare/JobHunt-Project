@@ -405,9 +405,27 @@ const getStateCities = async ({state_id}) => {
             'Service-ID': getServiceId()
         },
     })
-    console.log("States")
     return response.data.data
 }
+
+
+const getCandidateInfo = async ({id})=>{
+    try {
+        const response = await api.get(`/candidates/guests/${id}`, {
+            headers: {
+                Lang: getLanguage(),
+                // 'Service-ID': getServiceId(),
+                'Content-Type': 'application/json'
+            },
+        })
+        return Promise.resolve(response.data.data)
+        
+    } catch (error) {
+        return Promise.reject(error.response.data.message)
+    }
+}
+
+
 export {
     getPopularCategories,
     getAllCategories,
@@ -441,6 +459,7 @@ export {
     getPolicies,
     getPricing,
     getChinaStates,
-    getStateCities
+    getStateCities,
+    getCandidateInfo
 
 }
