@@ -13,7 +13,7 @@ const _verifyCode = async function (setUser, verifyCode) {
             return true
         }
     } catch (error) {
-        return Promise.reject(error.response.data)
+        return Promise.reject(error.response.data.message)
     }
 }
 export { _verifyCode }

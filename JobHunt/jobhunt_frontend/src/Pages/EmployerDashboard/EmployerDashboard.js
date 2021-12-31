@@ -12,6 +12,7 @@ import { PostJob } from './components/PostJob/PostJob'
 import { Resumes } from './components/Resumes/Resumes'
 import { Transactions } from './components/Transactions/Transactions'
 import { AppliedCandidate } from './components/Resumes/components/AppliedCandidate'
+import { UserChangePassword } from '../../components/UserChangePassword/UserChangePassword'
 const EmployerDashboard = () => {
     let { path, url } = useRouteMatch();
     return (
@@ -32,7 +33,7 @@ const EmployerDashboard = () => {
                             <Route exact path={`${path}/packages`} component={Packages} />
                             <Route exact path={`${path}/postjob`} component={PostJob} />
                             <Route exact path={`${path}/jobalert`} children={<h1>Job Alert</h1>} />
-                            <Route exact path={`${path}/changepassword`} component={ChangePassword} />
+                            <Route exact path={`${path}/changepassword`} component={UserChangePassword} />
                             <Route children={<Redirect to={`${path}/managejobs`}/>}  />
                         </Switch>
                     </Grid>

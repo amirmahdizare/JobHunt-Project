@@ -95,7 +95,7 @@ export default function SignupPage() {
         
       } catch (error) {
         toggleLoading(false)
-        setErrorMessages(error.message)
+        setErrorMessages(error)
       }
 
     }

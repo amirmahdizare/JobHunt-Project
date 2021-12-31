@@ -95,7 +95,7 @@ export default function ForgotPassword() {
                 })
                 .catch(e => {
                     toggleLoading(false)
-                    setErrorMessages(e.message)
+                    setErrorMessages(e)
                 })
 
         }

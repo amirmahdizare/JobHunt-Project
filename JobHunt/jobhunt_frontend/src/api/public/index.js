@@ -414,7 +414,6 @@ const getCandidateInfo = async ({id})=>{
         const response = await api.get(`/candidates/guests/${id}`, {
             headers: {
                 Lang: getLanguage(),
-                // 'Service-ID': getServiceId(),
                 'Content-Type': 'application/json'
             },
         })
