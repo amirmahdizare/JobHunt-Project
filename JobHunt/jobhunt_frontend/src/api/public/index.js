@@ -110,18 +110,18 @@ const getPartners = async (customParams) => {
     return { partners: fullDetailData, pages: number_of_pages }
 }
 
-const getBlogs = async (customParams) => {
-    const reqParams = customParams && customParams.page && customParams.pagination_size ? customParams : { page: 1, pagination_size: 6 }
+const getBlogs = async (params) => {
     const response = await api.get('blogs/guests', {
         headers: {
             Lang: getLanguage()
         },
-        params: params ? params : { page: 1, pagination_size: 3 }
+        params: params ? params : {page: 1 ,pagination_size: 3 }
     })
     const { data: { data: { entities, number_of_pages } } } = response
-    const fullDetailData = await Promise.all(entities.map(async (blog) => ({ ...blog, date: formatDate(blog.created_at), image: await generateImageURL('jobhunt', Object.values(blog.medias)[0]) })))
-    return { tips: fullDetailData, pages: number_of_pages }
+    const posts = await Promise.all(entities.map(async (blog, index) => ({ ...blog, image: await generateImageURL('jobhunt', Object.values(blog.medias)[0]), date: moment(blog.created_at).format('DD MMM, YYYY') })))
+    return { posts, pages: number_of_pages }
 }
+
 const getFAQs = async (customParams) => {
     const reqParams = customParams && customParams.page && customParams.pagination_size ? customParams : { page: 1, pagination_size: 6 }
     const response = await api.get('/faqs/guests', {

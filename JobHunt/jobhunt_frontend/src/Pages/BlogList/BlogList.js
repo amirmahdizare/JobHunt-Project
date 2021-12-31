@@ -19,7 +19,6 @@ const BlogList = () => {
     //for paging
     const handleChange = (event, value) => setPage(value)
 
-    console.log(posts)
     return (
         <BlogFrame posts={recentPosts}>
             {posts &&
