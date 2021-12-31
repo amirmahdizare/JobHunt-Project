@@ -1,0 +1,14 @@
+---
+
+- name: reload nginx
+  command: 
+  args:
+    chdir: "{{ nginx_path }}"
+  with_items:
+    - docker-compose exec nginx nginx -s reload
+
+- name: restart nginx
+  docker_compose:
+    project_src: "{{ nginx_path }}"
+    build: no
+    restarted: yes

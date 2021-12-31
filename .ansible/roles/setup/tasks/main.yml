@@ -1,0 +1,7 @@
+---
+
+- name: Install necessary packages
+  package:
+    name: 
+      - libffi-dev
+    state: present

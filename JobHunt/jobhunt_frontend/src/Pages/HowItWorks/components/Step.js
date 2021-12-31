@@ -1,17 +1,17 @@
 import { Badge, Box, Card, CardMedia, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
 const useStyles = makeStyles(theme => ({
-    container:{
-        position:'relative',
-        [theme.breakpoints.up('md')]:{
-            direction:(props) =>(props.direction),
-            marginTop:theme.spacing(7),
-            marginBottom:theme.spacing(7)
+    container: {
+        position: 'relative',
+        [theme.breakpoints.up('md')]: {
+            direction: (props) => (props.direction),
+            marginTop: theme.spacing(7),
+            marginBottom: theme.spacing(7)
         },
-        [theme.breakpoints.down('sm')]:{
-            direction:'ltr',
-            marginTop:theme.spacing(3),
-            marginBottom:theme.spacing(3)
+        [theme.breakpoints.down('sm')]: {
+            direction: 'ltr',
+            marginTop: theme.spacing(3),
+            marginBottom: theme.spacing(3)
         }
     },
     stepImage: {
@@ -54,11 +54,11 @@ const useStyles = makeStyles(theme => ({
     },
     detail: {
         padding: theme.spacing(10),
-        [theme.breakpoints.down('sm')]:{
-            padding:theme.spacing(4),
-            textAlign:'left'
+        [theme.breakpoints.down('sm')]: {
+            padding: theme.spacing(4),
+            textAlign: 'left'
         },
-        position:'relative',
+        position: 'relative',
         width: '70%',
     },
     badge: {
@@ -67,36 +67,36 @@ const useStyles = makeStyles(theme => ({
         height: '60px',
         fontSize: theme.typography.h2.fontSize,
         width: '60px',
-        [theme.breakpoints.up('md')]:{
-            right:'unset',
-            transform:'unset',
-            top:'unset',
+        [theme.breakpoints.up('md')]: {
+            right: 'unset',
+            transform: 'unset',
+            top: 'unset',
             left: (props) => (props.direction == 'ltr' ? '-30px' : 'unset'),
             right: (props) => (props.direction == 'rtl' ? '-30px' : 'unset'),
 
         },
-        [theme.breakpoints.down('sm')]:{
-            top:'-30px',
-            right:'unset ',
-            left:'50% ',
-            transform:'translateX(-50%)',
+        [theme.breakpoints.down('sm')]: {
+            top: '-30px',
+            right: 'unset ',
+            left: '50% ',
+            transform: 'translateX(-50%)',
         },
     },
     watermark: {
-        fill: theme.palette.grey[200],
-        [theme.breakpoints.up('md')]:{
+        color: '#edeff7',
+        [theme.breakpoints.up('md')]: {
             fontSize: '120px',
             left: (props) => (props.direction == 'rtl' ? '0px' : 'unset'),
             right: (props) => (props.direction == 'ltr' ? '0px' : 'unset'),
         },
-        
-        [theme.breakpoints.down('sm')]:{
-            fontSize:'70px',
-            right:'10px',
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '70px',
+            right: '10px',
         },
         position: 'absolute',
         top: '10px',
-        zIndex:'1',
+        zIndex: '1',
     },
 }))
 export const Step = (props) => {
@@ -108,8 +108,8 @@ export const Step = (props) => {
                 <CardMedia component="img" image={image} />
             </Card>
             <Box className={classes.detailBox}>
-                <Badge classes={{badge: classes.badge}} component="div"  color="secondary" badgeContent={number} >
-                        <Box className={classes.watermark}>{icon}</Box>
+                <Badge classes={{ badge: classes.badge }} component="div" color="secondary" badgeContent={number} >
+                    <Box className={classes.watermark}>{icon}</Box>
                     <Card elevation={0} className={classes.detail} >
                         <Typography variant="h5" gutterBottom >{title}</Typography>
                         <Typography color="textSecondary">{description}</Typography>
