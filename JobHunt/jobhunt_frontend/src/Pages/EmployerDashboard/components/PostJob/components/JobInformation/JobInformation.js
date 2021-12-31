@@ -14,19 +14,21 @@ import { useStateCities } from '../../../../../../hooks/useStateCities.js'
 import { useCarearLevel } from '../../../../../../hooks/useCarearLevel.js'
 import { useQualification } from '../../../../../../hooks/useQualification.js'
 import { useSalaryTypes } from '../../../../../../hooks/useSalaryTypes.js'
+import { useIndustryJobs } from '../../../../../../hooks/useIndustryJobs.js'
 
 export const JobInformation = (props) => {
 
     const categories = useCategories()
     const worktimes = useJobWorktimes()
     const currencies = useCurrencies()
-    const { info, handleChange, postJob, postJobStatus,mode} = props
+    const { info, handleChange, postJob, postJobStatus, mode } = props
     const [states, states_error, states_loading] = useChinaStates()
     const [cities, cities_error, cities_loading] = useStateCities(info.state_id)
     const salaryTypes = useSalaryTypes()
     const qualification = useQualification()
     const carearLevel = useCarearLevel()
     const classes = useStyles()
+    const industryJobs = useIndustryJobs()
 
     const errorGenerator = (field, realFieldName) => {
         return {
@@ -34,7 +36,7 @@ export const JobInformation = (props) => {
                 ? true
                 : false,
             helperText: postJobStatus?.detail?.[field]
-                ? realFieldName && 'The ' + capitalizeFirstLetter (realFieldName) + " is required" || capitalizeFirstLetter(postJobStatus?.detail?.[field]?.[0])
+                ? realFieldName && 'The ' + capitalizeFirstLetter(realFieldName) + " is required" || capitalizeFirstLetter(postJobStatus?.detail?.[field]?.[0])
                 : null
         }
     }
@@ -59,7 +61,7 @@ export const JobInformation = (props) => {
                             value={info.title}
                             onChange={(e) => handleChange({ ['title']: e.target.value })}
                             fullWidth
-                            {...errorGenerator('title','title')}
+                            {...errorGenerator('title', 'title')}
                         />
                     </Grid>
 
@@ -135,12 +137,21 @@ export const JobInformation = (props) => {
                         <Typography variant="body2" gutterBottom>Industry Job</Typography>
                         <TextField
                             variant="outlined"
-                            value={info.industry_job}
+                            value={info.industry_job || 'unset'}
                             placeholder='Ex : Management'
                             onChange={(e) => handleChange({ industry_job: e.target.value })}
                             fullWidth
+                            select
                             {...errorGenerator('industry_job', 'Industry Job')}
-                        />
+                            {...classnameGenerator('industry_job')}
+                        >
+                            <MenuItem value="unset" disabled className='placeholder'>Select Industry Job</MenuItem>
+                            {industryJobs && industryJobs.map((option) => (
+                                <MenuItem key={option} value={option}>
+                                    {option}
+                                </MenuItem>
+                            ))}
+                        </TextField>
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <Typography variant="body2" gutterBottom>Qualification</Typography>
@@ -183,7 +194,7 @@ export const JobInformation = (props) => {
                             variant="outlined"
                             placeholder='Ex : 25000'
                             value={info.salary?.amount}
-                            onChange={(e) => handleChange({ salary: { ...info.salary, amount: e.target.value } },'salary.amount')}
+                            onChange={(e) => handleChange({ salary: { ...info.salary, amount: e.target.value } }, 'salary.amount')}
                             fullWidth
                             {...errorGenerator('salary.amount', 'Salary')}
                         />
@@ -196,7 +207,7 @@ export const JobInformation = (props) => {
                             fullWidth
                             placeholder='Select Currency'
                             value={info.salary?.currency || "unset"}
-                            onChange={(e) => handleChange({ salary: { ...info.salary, currency: e.target.value } },'salary.currency')}
+                            onChange={(e) => handleChange({ salary: { ...info.salary, currency: e.target.value } }, 'salary.currency')}
                             variant="outlined"
                             {...classnameGenerator('salary.currency')}
                             {...errorGenerator('salary.currency', 'Salary Currency')}
@@ -216,7 +227,7 @@ export const JobInformation = (props) => {
                             select
                             fullWidth
                             value={info.salary?.type || 'unset'}
-                            onChange={(e) => handleChange({ salary: { ...info.salary, type: e.target.value } },'salary.type')}
+                            onChange={(e) => handleChange({ salary: { ...info.salary, type: e.target.value } }, 'salary.type')}
                             variant="outlined"
                             {...classnameGenerator('salary.type')}
                             {...errorGenerator('salary.type', 'Salary Type')}
@@ -282,7 +293,7 @@ export const JobInformation = (props) => {
                             value={info.tags?.[0]}
                             onChange={(e) => handleChange({ tags: [e.target.value] })}
                             fullWidth
-                            {...errorGenerator('tags','Tags')}
+                            {...errorGenerator('tags', 'Tags')}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -290,12 +301,12 @@ export const JobInformation = (props) => {
                         <ReactQuill
                             className={classes.quill}
                             theme="snow"
-                            style={{borderColor :  errorGenerator('description').error ? 'red' :' unset'}}
+                            style={{ borderColor: errorGenerator('description').error ? 'red' : ' unset' }}
                             placeholder="Enter Job Description"
                             value={info.description}
                             onChange={c => handleChange({ description: c })}
                         />
-                        {errorGenerator('description').error && <Typography color="secondary" variant="subtitle2">&nbsp;{errorGenerator('description','Description').helperText}</Typography>}
+                        {errorGenerator('description').error && <Typography color="secondary" variant="subtitle2">&nbsp;{errorGenerator('description', 'Description').helperText}</Typography>}
 
                     </Grid>
                 </>}
