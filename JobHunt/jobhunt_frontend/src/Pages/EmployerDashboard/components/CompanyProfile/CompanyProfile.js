@@ -192,6 +192,7 @@ export const CompanyProfile = () => {
                     </Box>
                     &nbsp;
                     <Typography variant="body2" color="textSecondary">Max file size is 1MB, Minimum dimension: 270x210 And Suitable files are .jpg & .png</Typography>
+                    <Typography color="error">{errorTextGenerator('logo')}</Typography>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
@@ -232,6 +233,7 @@ export const CompanyProfile = () => {
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
                             variant="inline"
+                            fullWidth
                             format="MM-dd-yyyy"
                             inputVariant="outlined"
                             invalidLabel="fvfv"
@@ -270,32 +272,32 @@ export const CompanyProfile = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Typography color="textSecondary" gutterBottom>Phone Number</Typography>
+                    <Typography  gutterBottom>Phone Number</Typography>
                     <TextField
                         variant="outlined"
                         fullWidth
-                        disabled
-                        error={!!error['phones']}
-                        helperText={errorTextGenerator('phones')}
+                        // disabled
+                        error={!!error['contacts[phone]']}
+                        helperText={errorTextGenerator('contacts[phone]')}
                         onChange={(e) => {
                             const phones = [e.target.value]
-                            handleChange('phones', e.target.value)
+                            handleChange('contacts[phone]', e.target.value)
                         }}
-                        value={valueGenerator('phones')}
+                        value={valueGenerator('contacts[phone]')}
                     >
                     </TextField>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                    <Typography color="textSecondary" gutterBottom>Email</Typography>
+                    <Typography  gutterBottom>Email</Typography>
                     <TextField
-                        disabled
+                        // disabled
                         variant="outlined"
                         fullWidth
-                        error={!!error['email']}
-                        helperText={errorTextGenerator('email')}
-                        onChange={(e) => handleChange('email', e.target.value)}
-                        value={valueGenerator('email')}
+                        error={!!error['contacts[email]']}
+                        helperText={errorTextGenerator('contacts[email]')}
+                        onChange={(e) => handleChange('contacts[email]', e.target.value)}
+                        value={valueGenerator('contacts[email]')}
                     >
                     </TextField>
                 </Grid>
@@ -312,6 +314,31 @@ export const CompanyProfile = () => {
                     >
                     </TextField>
                 </Grid>
+                <Grid item xs={12} md={6}>
+                    <Typography gutterBottom>Instagram Link</Typography>
+                    <TextField
+                        variant="outlined"
+                        fullWidth
+                        error={!!error['social_links[instagram]']}
+                        helperText={errorTextGenerator('social_links[instagram]')}
+                        onChange={(e) => handleChange('social_links[instagram]', e.target.value)}
+                        value={valueGenerator('social_links[instagram]')}
+                    >
+                    </TextField>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <Typography gutterBottom>Facebook Link</Typography>
+                    <TextField
+                        variant="outlined"
+                        fullWidth
+                        error={!!error['social_links[facebook]']}
+                        helperText={errorTextGenerator('social_links[facebook]')}
+                        onChange={(e) => handleChange('social_links[facebook]', e.target.value)}
+                        value={valueGenerator('social_links[facebook]')}
+                    >
+                    </TextField>
+                </Grid>
+
                 <Grid item xs={12} >
                     <Typography gutterBottom>Address</Typography>
                     <TextField

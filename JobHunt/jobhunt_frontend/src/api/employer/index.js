@@ -56,12 +56,13 @@ const deleteCompany = async ({ id }) => {
 }
 
 const updateCompany = async (dataObj) => {
+    if(dataObj?.logo.size > 1000000) return Promise.reject({logo:['Your Logo size is bigger than 1Mb!']})
     const data = new FormData()
     for (let item in dataObj) {
         data.append(`${item}`, dataObj[item])
     }
     try {
-        const response = await api.post(`/companies/employer/${dataObj.id}/update`, data, {
+        const response = await api.post(`/companies/employer/update`, data, {
             headers: {
                 Lang: getLanguage(),
                 Authorization: getToken()
