@@ -115,7 +115,7 @@ const getBlogs = async (params) => {
         headers: {
             Lang: getLanguage()
         },
-        params: params ? params : {page: 1 ,pagination_size: 3 }
+        params: params ? params : { page: 1, pagination_size: 3 }
     })
     const { data: { data: { entities, number_of_pages } } } = response
     const posts = await Promise.all(entities.map(async (blog, index) => ({ ...blog, image: await generateImageURL('jobhunt', Object.values(blog.medias)[0]), date: moment(blog.created_at).format('DD MMM, YYYY') })))
@@ -303,7 +303,11 @@ const getCompanyDetailById = async (id) => {
         const response = await api.get('/companies/guest/' + id, {
             headers: { Lang: getLanguage() },
         })
-        return response.data.data
+        const logoPath = Object.values(response.data.data.logo)?.[0]
+        if (logoPath)
+            var logo = await generateImageURL('jobhunt', logoPath)
+        const category = await getCategoryDetailById(response.data.data?.category_id)
+        return { ...response.data.data, logo, category }
 
     } catch (error) {
         return Promise.reject(new Error('No Info Found'))
@@ -402,7 +406,7 @@ const getChinaStates = async () => {
 
     return response.data.data
 }
-const getStateCities = async ({state_id}) => {
+const getStateCities = async ({ state_id }) => {
     const response = await centralApi.get(`/countries/61042fec9703294a6e37ef67/states/${state_id}/cities`, {
         headers: {
             Lang: getLanguage(),
@@ -413,7 +417,7 @@ const getStateCities = async ({state_id}) => {
 }
 
 
-const getCandidateInfo = async ({id})=>{
+const getCandidateInfo = async ({ id }) => {
     try {
         const response = await api.get(`/candidates/guests/${id}`, {
             headers: {
@@ -422,13 +426,37 @@ const getCandidateInfo = async ({id})=>{
             },
         })
         return Promise.resolve(response.data.data)
-        
+
     } catch (error) {
         return Promise.reject(error.response.data.message)
     }
 }
 
+const getCompanies = async ({ page, pagination_size, data }) => {
+    try {
+        const response = await api.get(`/companies/guest`, {
+            headers: {
+                Lang: getLanguage(),
+                'Content-Type': 'application/json'
+            },
+            params: {
+                data: JSON.stringify({ page: 2 }),
+                page, pagination_size
+            }
+        })
+        var { data: { data: { entities, number_of_pages } } } = response
+        console.log(entities, number_of_pages)
+        entities = await Promise.all(entities.map(async (emp) => {
+            const logoPath = Object.values(emp.logo)[0]
+            return { ...emp, logo: logoPath ? await generateImageURL('jobhunt', logoPath) : null }
+        }
+        ))
+        return Promise.resolve({ entities, number_of_pages })
 
+    } catch (error) {
+        return Promise.reject(error.response.data.message)
+    }
+}
 export {
     getPopularCategories,
     getAllCategories,
@@ -463,6 +491,7 @@ export {
     getPricing,
     getChinaStates,
     getStateCities,
-    getCandidateInfo
+    getCandidateInfo,
+    getCompanies,
 
 }

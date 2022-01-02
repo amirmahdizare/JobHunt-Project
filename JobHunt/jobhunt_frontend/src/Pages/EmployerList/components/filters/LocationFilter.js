@@ -1,8 +1,8 @@
 import { IconButton, InputBase } from '@material-ui/core'
 import React from 'react'
-import { Jh_Card } from '../../../components/Jh_Card'
+import { Jh_Card } from '../../../../components/Jh_Card' 
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined'
-export const SelectLocation = () => {
+export const LocationFilter = () => {
 	return (
 		<Jh_Card>
 			<InputBase

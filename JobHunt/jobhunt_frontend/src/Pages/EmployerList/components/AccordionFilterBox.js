@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import {
     Accordion, AccordionDetails, AccordionSummary,
@@ -33,11 +33,22 @@ export const AccordionFilterBox = (props) => {
 
     const [state, setState] = useState(initialState);
     const [expand, setExpand] = useState(true)
+    const { handleFilter } = props
     const handleChange = (obj) => {
         setState({ ...state, ...obj });
     };
+    useEffect(() => {
+        const filters = []
+        for (const key in state) {
+           if (state[key] )  filters.push(key) 
+        }
+        handleFilter(filters)
+        return () => {
+            // cleanup
+        }
+    }, [state])
     return (
-        <Jh_Card  >
+        <Jh_Card >
             <Accordion square expanded={expand} elevation={0} classes={{ root: classes.root }}  >
                 <AccordionSummary
                     expandIcon={<IconButton onClick={() => setExpand(!expand)} >{expand ? <RemoveIcon /> : <AddIcon />}</IconButton>}
@@ -51,7 +62,7 @@ export const AccordionFilterBox = (props) => {
                     <FormGroup >
                         {props.items ? props.items.map(item => (<FormControlLabel
                             key={item.id}
-                            control={<Checkbox checked={state[item.id]} onChange={() => handleChange({ [item.id]: true })} id={item.id} color="primary" />}
+                            control={<Checkbox checked={state[item.id]} onChange={() => handleChange({ [item.id]: !state[item.id] })} id={item.id} color="primary" />}
                             label={<Typography variant="body2">{item.title}&nbsp;{item.number ? <>&nbsp;({item.number})</> : undefined}</Typography>}
                         />)) : <Typography>No Item Found!</Typography>}
 

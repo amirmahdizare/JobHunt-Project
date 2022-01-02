@@ -1,12 +1,8 @@
-import { memo, useEffect, useMemo, useState } from "react"
 import { getAllCategories } from "../api/public"
-
+import {useGetData} from './useGetData'
 const useCategories = () =>{
-    const [categories, setCategories] = useState([])
-    useEffect(() => {
-        getAllCategories().then((data) => setCategories(data))
-    },[])
-    return categories
+    const [data, error, loading,refreshData]=useGetData(getAllCategories)
+    return [data, error, loading,refreshData]
 }
 export {useCategories}
 
