@@ -283,8 +283,8 @@ const getTopJobs = async () => {
 }
 const jobDetailGenerator = async (job) => {
     try {
-        var { logo, name } = await getCompanyDetailById(job.company_id)
-        var logourl = await generateImageURL('jobhunt', Object.values(logo)[0])
+        var { logo, name } = await getCompanyDetailById(job.company?.id)
+        // var logourl = await generateImageURL('jobhunt', Object.values(logo)[0])
         var { title, color } = await getCooperationKindById(job.cooperation_kind_id)
     } catch (error) {
         //catch error
@@ -292,7 +292,7 @@ const jobDetailGenerator = async (job) => {
     return {
         ...job,
         company_name: name,
-        company_logo: logourl,
+        company_logo: logo,
         cooperation_kind_title: title || 'Unset',
         cooperation_kind_color: color
     }
