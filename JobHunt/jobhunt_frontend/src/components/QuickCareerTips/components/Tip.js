@@ -59,7 +59,7 @@ const Tip = (props) => {
     return (
         <Box p={2}>
             <Card className={classes.root}>
-                <Link underline='none' href={"blogs/" + props.id}>
+                <Link underline='none' href={"blog/" + props.id}>
                     <CardActionArea>
                         <CardMedia
                             component="img"
