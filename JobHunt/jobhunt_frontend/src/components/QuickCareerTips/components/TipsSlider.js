@@ -122,13 +122,13 @@ export default function TipsSlider() {
     if (pages > page) setPage((prev) => prev + 1)
 
   }, [isLoadMore])
-
+   console.log(data)
   return (
     <Container maxWidth="lg" className={classes.root} id="tips">
 
-      {tips &&
+      {data?.posts &&
         <Slider {...settings} focusOnSelect>
-          {tips.map(tip => (
+          {data?.posts.map(tip => (
             <Tip
               key={tip.id}
               id={tip.id}
@@ -142,8 +142,8 @@ export default function TipsSlider() {
         </Slider >
       }
       < Box display="flex" alignItems="center" justifyContent="center">
-        {tips?.length == 0 && <Typography>No tips Found</Typography>}
-        {!tips && loading && <CircularProgress />}
+        {data?.posts?.length == 0 && <Typography>No tips Found</Typography>}
+        {!data?.posts && loading && <CircularProgress />}
 
       </Box>
 
