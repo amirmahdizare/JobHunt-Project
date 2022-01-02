@@ -303,7 +303,11 @@ const getCompanyDetailById = async (id) => {
         const response = await api.get('/companies/guest/' + id, {
             headers: { Lang: getLanguage() },
         })
-        return response.data.data
+        const logoPath = Object.values(response.data.data.logo)?.[0]
+        if (logoPath)
+            var logo = await generateImageURL('jobhunt', logoPath)
+        const category = await getCategoryDetailById(response.data.data?.category_id)
+        return { ...response.data.data, logo, category }
 
     } catch (error) {
         return Promise.reject(new Error('No Info Found'))
@@ -436,7 +440,7 @@ const getCompanies = async ({ page, pagination_size, data }) => {
                 'Content-Type': 'application/json'
             },
             params: {
-                data:JSON.stringify({page:2}),
+                data: JSON.stringify({ page: 2 }),
                 page, pagination_size
             }
         })
@@ -488,6 +492,6 @@ export {
     getChinaStates,
     getStateCities,
     getCandidateInfo,
-    getCompanies
+    getCompanies,
 
 }

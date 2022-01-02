@@ -6,6 +6,7 @@ import {
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import { LineAwesome, SvgCalendar, SvgEye, SvgFileAlt, SvgThemeisle } from 'react-line-awesome-svg';
 import { Jh_WorkTime } from '../../../components/Jh_WorkTime';
+import { noImageEmployer } from '../../../asset';
 const useStyles = makeStyles(theme => ({
     root: {
         [theme.breakpoints.up('md')]:
@@ -33,6 +34,7 @@ export const EmployerInfo = (props) => {
     const fileIcon = <LineAwesome className={classes.icon} icon={SvgFileAlt} />
     const calendarIcon = <LineAwesome className={classes.icon} icon={SvgCalendar} />
     const viewIcon = <LineAwesome className={classes.icon} icon={SvgEye} />
+    const {logo} = props
     return (
         <Grid item xs={12} md={10}>
 
@@ -40,18 +42,18 @@ export const EmployerInfo = (props) => {
             <Grid item xs={4} md={2} mr={2} >
                 <CardMedia
                     className={classes.employerLogo}
-                    src="https://creativelayers.net/themes/jobhunt-html/images/resource/sdf.png"
+                    src={logo || noImageEmployer}
                     component="img"
                     height="140px" />
             </Grid>
             <Grid item xs={12} md={10}>
                 <Typography variant="h4" gutterBottom>{props.name}</Typography>
                 <Button disableRipple> <Typography color="textSecondary" >{<LocationOnOutlinedIcon className={classes.icon} style={{ verticalAlign: 'middle' }} />}&nbsp;{props.location}</Typography></Button>
-                <Jh_WorkTime workTime={props.workTime} />
+                {/* <Jh_WorkTime workTime={props.workTime} /> */}
                 <Box mt={1}>
-                    <Button disableRipple> <Typography color="textSecondary">{fileIcon}&nbsp;Applications&nbsp;{props.applications}</Typography></Button>
+                    {/* <Button disableRipple> <Typography color="textSecondary">{fileIcon}&nbsp;Applications&nbsp;{props.applications}</Typography></Button>
                     <Button disableRipple ><Typography color="textSecondary">{calendarIcon}&nbsp;Post Date:&nbsp;{props.postDate}</Typography></Button>
-                    <Button disableRipple ><Typography color="textSecondary">{viewIcon}&nbsp;Views&nbsp;{props.views}</Typography></Button>
+                    <Button disableRipple ><Typography color="textSecondary">{viewIcon}&nbsp;Views&nbsp;{props.views}</Typography></Button> */}
 
                 </Box>
             </Grid>
