@@ -10,8 +10,9 @@ import bluechinese from './images/bluechinese.png'
 import paypal from './images/paypal.png'
 import visa from './images/visa.png'
 import unionpay from './images/unionpay.png'
+import noImageEmployer from './images/noImageEmployer.jpg'
 export {
     logo, logo2, appstore,
     loader, googleplay, TipsBg,
-    noImage ,applepay,bluechinese,paypal,visa,unionpay
+    noImage ,applepay,bluechinese,paypal,visa,unionpay,noImageEmployer
 }

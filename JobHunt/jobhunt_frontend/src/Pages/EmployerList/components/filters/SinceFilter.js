@@ -1,6 +1,6 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, IconButton, makeStyles, Slider, Typography, withStyles } from '@material-ui/core'
 import React, { useState } from 'react'
-import { Jh_Card } from '../../../components/Jh_Card'
+import { Jh_Card } from '../../../../components/Jh_Card'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 const useStyles = makeStyles(theme => ({
@@ -56,7 +56,7 @@ const AirbnbSlider = withStyles({
 })(Slider);
 
 
-export const Since = (props) => {
+export const SinceFilter = (props) => {
     const classes = useStyles()
     const [range, setRange] = useState({
         min: props.min,
