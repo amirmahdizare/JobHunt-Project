@@ -7,8 +7,12 @@ import { EmployerMenu } from '../../components/EmployerMenu'
 import { ChangePassword } from './components/ChangePassword/ChangePassword'
 import { CompanyProfile } from './components/CompanyProfile/CompanyProfile'
 import { ManageJobs } from './components/ManageJobs/ManageJobs'
+import { Packages } from './components/Packages/Packages'
 import { PostJob } from './components/PostJob/PostJob'
-
+import { Resumes } from './components/Resumes/Resumes'
+import { Transactions } from './components/Transactions/Transactions'
+import { AppliedCandidate } from './components/Resumes/components/AppliedCandidate'
+import { UserChangePassword } from '../../components/UserChangePassword/UserChangePassword'
 const EmployerDashboard = () => {
     let { path, url } = useRouteMatch();
     return (
@@ -16,20 +20,20 @@ const EmployerDashboard = () => {
             <ContentHeader image={CandidatesDashboardBackground} text="Welcome Tara Planer" />
             <Container maxWidth="lg">
                 <Grid container >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={2}>
                         <EmployerMenu />
                     </Grid>
                     <Divider light orientation="vertical" flexItem />
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md>
                         <Switch>
                             <Route path={`${path}/managejobs`} component={ManageJobs} />
                             <Route exact path={`${path}/companyprofile`} component={CompanyProfile} />
-                            <Route exact path={`${path}/transactions`} children={<h1>Transactions</h1>} />
-                            <Route exact path={`${path}/resumes`} children={<h1>Resumes</h1>} />
-                            <Route exact path={`${path}/packages`} children={<h1>Packages</h1>} />
+                            <Route exact path={`${path}/transactions`} component={Transactions} />
+                            <Route exact path={`${path}/resumes`} component={Resumes} />
+                            <Route exact path={`${path}/packages`} component={Packages} />
                             <Route exact path={`${path}/postjob`} component={PostJob} />
                             <Route exact path={`${path}/jobalert`} children={<h1>Job Alert</h1>} />
-                            <Route exact path={`${path}/changepassword`} component={ChangePassword} />
+                            <Route exact path={`${path}/changepassword`} component={UserChangePassword} />
                             <Route children={<Redirect to={`${path}/managejobs`}/>}  />
                         </Switch>
                     </Grid>

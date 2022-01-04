@@ -1,7 +1,8 @@
 import { Box, Button, Card, CardActionArea, CardMedia, Grid, makeStyles, Typography } from '@material-ui/core'
 import { React, useState } from 'react'
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+// import moment from 'moment';
 const useClasses = makeStyles(theme => ({
     root: {
         boxSizing: 'border-box',
@@ -72,41 +73,43 @@ const useClasses = makeStyles(theme => ({
     }
 
 }))
-const Jh_JobCard = (props) => {
+const Jh_JobCard = ({ key, title, company, cooperation_kind, city_name, created_at,company_logo, hideDetail }) => {
     const [like, setLike] = useState(false)
     const classes = useClasses()
-    const { workTimeColor } = props
     const makeWorkTimestatus = (color) => ({ color: color, borderColor: color })
 
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} key={key}>
             <CardActionArea className={classes.content}>
                 <Grid container spacing={1}>
-                    <Grid item xs={12} sm={props.hideDetail ? 4 : 1} className={classes.companyLogoContainer}>
+                    <Grid item xs={12} sm={hideDetail ? 4 : 1} className={classes.companyLogoContainer}>
 
-                        <CardMedia
+                     <CardMedia
                             className={classes.companyLogo}
-                            image={props.companyLogo}
-                        />
+                            image={company_logo}
+                        /> 
                     </Grid>
-                    <Grid item xs={12} sm={props.hideDetail ? 8 : 5} >
-                        <Typography className={classes.jobTitle} variant="body1" component="b">{props.jobTitle}</Typography>
-                        <Typography className={classes.companyName} variant="body2">{props.companyName}</Typography>
+                    <Grid item xs={12} sm={hideDetail ? 8 : 5} >
+                        <Typography className={classes.jobTitle} variant="body1" component="b">{title}</Typography>
+                        <Typography className={classes.companyName} variant="body2">{company?.name}</Typography>
 
                     </Grid>
-                    {!props.hideDetail ?
+                    {!hideDetail ?
                         <>
                             <Grid item xs={12} sm={3} className={classes.locationContainer} >
-                                <LocationOnOutlinedIcon className={classes.icon} />
-                                <Typography variant="body2" >{props.companyLocation} </Typography>
+                                {city_name && <>
+                                    <LocationOnOutlinedIcon className={classes.icon} />
+                                    <Typography variant="body2" >{city_name} </Typography>
+                                </>}
 
                             </Grid>
                             <Grid item xs={12} sm={3} className={classes.itemContainer}>
-                                <FavoriteBorderIcon className={classes.icon} style={{ color: !like ? 'gray' : 'red' }} onClick={() => setLike(!like)} />
-                                <Box>
-                                    <Button className={classes.workTime} style={makeWorkTimestatus(workTimeColor)} variant="outlined">{props.workTime} </Button>
-                                    <Typography display="block" variant="body2" color="textSecondary">{props.registeredDate}</Typography>
+                                {/* <FavoriteBorderIcon className={classes.icon} style={{ color: !like ? 'gray' : 'red' }} onClick={() => setLike(!like)} /> */}
+                                <Box display='flex' alignContent={'center'}>
+                                    <Button className={classes.workTime} style={makeWorkTimestatus(cooperation_kind?.color)} variant="outlined">{cooperation_kind?.title} </Button>
+                                    {/* &nbsp; */}
+                                    {/* <Typography variant="body2" color="textSecondary">{created_at && moment(created_at).format('DD MMM, YYYY')}</Typography> */}
                                 </Box>
                             </Grid>
                         </>

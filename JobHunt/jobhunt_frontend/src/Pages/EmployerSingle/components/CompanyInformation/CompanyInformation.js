@@ -10,18 +10,18 @@ const useClasses = makeStyles(theme => ({
         padding: theme.spacing(2)
     }
 }))
-const info = [
-    { icon: <LineAwesome icon={SvgEye} />, title: 'Viewed', description: '164' },
-    { icon: <LineAwesome icon={SvgFileAlt} />, title: 'Posted Jobs', description: '4' },
-    { icon: <LineAwesome icon={SvgMap} />, title: 'Locations', description: 'United States, San Diego' },
-    { icon: <LineAwesome icon={SvgBarsSolid} />, title: 'Categories', description: 'Arts, Design, Media' },
-    { icon: <LineAwesome icon={SvgClock} />, title: 'Since', description: '2002' },
-    { icon: <LineAwesome icon={SvgUsersSolid} />, title: 'Team Size', description: '15' },
-    { icon: <LineAwesome icon={SvgUser} />, title: 'Followers', description: '15' },
-
-]
-export const CompanyInformation = () => {
+export const CompanyInformation = ({number_of_employees,establishment_date,follows,address,category}) => {
     const classes = useClasses()
+    const info = [
+        // { icon: <LineAwesome icon={SvgEye} />, title: 'Viewed', description: '164' },
+        // { icon: <LineAwesome icon={SvgFileAlt} />, title: 'Posted Jobs', description: '4' },
+        { icon: <LineAwesome icon={SvgMap} />, title: 'Locations', description: address },
+        { icon: <LineAwesome icon={SvgBarsSolid} />, title: 'Category', description:category },
+        { icon: <LineAwesome icon={SvgClock} />, title: 'Since', description:establishment_date },
+        { icon: <LineAwesome icon={SvgUsersSolid} />, title: 'Team Size', description: number_of_employees },
+        { icon: <LineAwesome icon={SvgUser} />, title: 'Followers', description: follows },
+    
+    ]
     return (
         <Grid item xs={12} md={4}>
             <Typography variant="h6">&nbsp;Company Information</Typography>

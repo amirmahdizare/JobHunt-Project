@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import {
     Accordion, AccordionDetails, AccordionSummary,
@@ -25,18 +25,30 @@ const useStyles = makeStyles(theme => ({
 export const AccordionFilterBox = (props) => {
     const classes = useStyles()
     let initialState = {}
-    if (props.items)
+    if (props.items) {
         props.items.forEach((item) => {
-            initialState[item.name] = false
+            initialState[item.id] = false
         })
+    }
+
     const [state, setState] = useState(initialState);
     const [expand, setExpand] = useState(true)
-
-    const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
+    const { handleFilter } = props
+    const handleChange = (obj) => {
+        setState({ ...state, ...obj });
     };
+    useEffect(() => {
+        const filters = []
+        for (const key in state) {
+           if (state[key] )  filters.push(key) 
+        }
+        handleFilter(filters)
+        return () => {
+            // cleanup
+        }
+    }, [state])
     return (
-        <Jh_Card  >
+        <Jh_Card >
             <Accordion square expanded={expand} elevation={0} classes={{ root: classes.root }}  >
                 <AccordionSummary
                     expandIcon={<IconButton onClick={() => setExpand(!expand)} >{expand ? <RemoveIcon /> : <AddIcon />}</IconButton>}
@@ -49,8 +61,9 @@ export const AccordionFilterBox = (props) => {
                 <AccordionDetails>
                     <FormGroup >
                         {props.items ? props.items.map(item => (<FormControlLabel
-                            control={<Checkbox checked={state[item.name]} onChange={handleChange} name={item.name} color="primary" />}
-                            label={<Typography variant="body2">{item.name}&nbsp;{item.number ? <>&nbsp;({item.number})</> : undefined}</Typography>}
+                            key={item.id}
+                            control={<Checkbox checked={state[item.id]} onChange={() => handleChange({ [item.id]: !state[item.id] })} id={item.id} color="primary" />}
+                            label={<Typography variant="body2">{item.title}&nbsp;{item.number ? <>&nbsp;({item.number})</> : undefined}</Typography>}
                         />)) : <Typography>No Item Found!</Typography>}
 
                     </FormGroup>

@@ -64,7 +64,7 @@ export const EmployerMenu = () => {
             <Button href="/dashboard/resumes" classes={location=="/dashboard/resumes" ? activePageButton  : buttonClasses} size="large"  startIcon={<LineAwesome icon={SvgPaperPlane} />}><Typography>Resumes</Typography></Button>
             <Button href="/dashboard/packages" classes={location=="/dashboard/packages" ? activePageButton  : buttonClasses} size="large"  startIcon={<LineAwesome icon={SvgUser} />}><Typography>Packages</Typography></Button>
             <Button href="/dashboard/postjob" classes={location=="/dashboard/postjob" ? activePageButton  : buttonClasses} size="large"  startIcon={<LineAwesome icon={SvgFile} />}><Typography>Post a New Job</Typography></Button>
-            <Button href="/dashboard/jobalert" classes={location=="/dashboard/jobalert" ? activePageButton  : buttonClasses} size="large"  startIcon={<LineAwesome icon={SvgFlaskSolid} />}><Typography>Job Alerts</Typography></Button>
+            {/* <Button href="/dashboard/jobalert" classes={location=="/dashboard/jobalert" ? activePageButton  : buttonClasses} size="large"  startIcon={<LineAwesome icon={SvgFlaskSolid} />}><Typography>Job Alerts</Typography></Button> */}
             <Button href="/dashboard/changepassword" classes={location=="/dashboard/changepassword" ? activePageButton  : buttonClasses} size="large"  startIcon={<LineAwesome icon={SvgLockSolid} />}><Typography>Change Password</Typography></Button>
             <Button href="/home" onClick={()=>auth.signout()} classes={ buttonClasses} size="large"  startIcon={<LineAwesome icon={SvgUnlinkSolid} />}><Typography>Logout</Typography></Button>
         </Box>

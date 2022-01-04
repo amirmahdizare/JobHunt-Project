@@ -2,16 +2,21 @@ import { api } from "../../config/apiConfig"
 import { getLanguage, getToken } from "../../utils"
 
 const getCompany = async () => {
-    const response = await api.get('/companies/employer', {
-        headers: {
-            Lang: getLanguage(),
-            Authorization: getToken()
-        },
-        params: {
-            page: 1,
-        }
-    })
-    return response.data.data.entities
+    try {
+        const response = await api.get('/companies/employer', {
+            headers: {
+                Lang: getLanguage(),
+                Authorization: getToken()
+            },
+            params: {
+                page: 1,
+            }
+        })
+        return Promise.resolve(response.data?.data)
+
+    } catch (error) {
+        return Promise.reject(error.response.data.message)
+    }
 }
 
 const storeCompany = async (dataObj) => {
@@ -34,7 +39,7 @@ const storeCompany = async (dataObj) => {
     }
 }
 
-const deleteCompany = async (id) => {
+const deleteCompany = async ({ id }) => {
     try {
         const response = await api.delete(`/companies/employer/${id}`, {
             headers: {
@@ -43,20 +48,21 @@ const deleteCompany = async (id) => {
             }
         })
         if (response.status == '200')
-            return Promise.resolve()
+            return Promise.resolve(true)
 
     } catch (error) {
-        return Promise.reject()
+        return Promise.reject(false)
     }
 }
 
 const updateCompany = async (dataObj) => {
+    if(dataObj?.logo.size > 1000000) return Promise.reject({logo:['Your Logo size is bigger than 1Mb!']})
     const data = new FormData()
     for (let item in dataObj) {
         data.append(`${item}`, dataObj[item])
     }
     try {
-        const response = await api.post(`/companies/employer/${dataObj.id}/update`, data, {
+        const response = await api.post(`/companies/employer/update`, data, {
             headers: {
                 Lang: getLanguage(),
                 Authorization: getToken()
@@ -76,24 +82,28 @@ const postJob = async (dataObj) => {
         const response = await api.post('/jobs/offers/employer', data, {
             headers: {
                 Lang: getLanguage(),
-                Authorization: getToken()
+                Authorization: getToken(),
+                'Content-Type': 'application/json'
             }
         })
         if (response.statusText == "ok")
-            return Promise.resolve()
+            return Promise.resolve(response.data.data.id)
     } catch (error) {
         return Promise.reject(error.response.data.message)
     }
 
 }
 
-const updateJob = async (dataObj, id) => {
+const updateJob = async (dataObj) => {
     const data = JSON.stringify(dataObj)
     try {
+        const { id } = dataObj
         const response = await api.put(`/jobs/offers/employer/${id}`, data, {
             headers: {
                 Lang: getLanguage(),
-                Authorization: getToken()
+                Authorization: getToken(),
+                'Content-Type': 'application/json'
+
             }
         })
         if (response.statusText == "ok")
@@ -103,7 +113,7 @@ const updateJob = async (dataObj, id) => {
     }
 }
 
-const deleteJob = async (id) => {
+const deleteJob = async ({ id }) => {
     try {
         const response = await api.delete(`/jobs/offers/employer/${id}`, {
             headers: {
@@ -111,30 +121,32 @@ const deleteJob = async (id) => {
                 Authorization: getToken()
             }
         })
-        if (response.statusText == "ok")
-            return Promise.resolve()
+        if (response.data.code == "200")
+            return Promise.resolve(true)
     } catch (error) {
         return Promise.reject(error.response.data.message)
     }
 
 }
 
-const getActivePackages = async () => {
+const getActivePackage = async ({ id }) => {
     try {
-        const response = await api.get('/packages/users', {
+        const response = await api.get('/packages/employers/' + id, {
             headers: {
                 Lang: getLanguage(),
                 Authorization: getToken()
             }
         })
-        if (response.statusText == "ok")
-            return Promise.resolve(response.data)////Need to be Modified
+        if (response.data.code == "200") {
+            return Promise.resolve(response.data.data)
+        }
     } catch (error) {
         return Promise.reject(error.response.data.message)
     }
 }
 
-const getSentResumes = async (job_offer_id) => {
+const getSentResumes = async ({ job_offer_id }) => {
+    if (!job_offer_id) return
     const response = await api.get(`/candidate-apply/employer/${job_offer_id}`, {
         headers: {
             Lang: getLanguage(),
@@ -144,7 +156,8 @@ const getSentResumes = async (job_offer_id) => {
             page: 1,
         }
     })
-    return response.data.data.entities
+    const  { data: { data: { entities, number_of_pages } } }  = response
+    return { entities, number_of_pages }
 }
 
 const getSingleSentResume = async (job_offer_id, id) => {
@@ -160,19 +173,20 @@ const getSingleSentResume = async (job_offer_id, id) => {
     return response.data.data.entities
 }
 
-const UpdateSentResumeStatus = async (job_offer_id, id, status) => {
+const UpdateSentResumeStatus = async ({ job_offer_id, id, status }) => {
     try {
-        const response = await api.put(`/candidate-apply/employer/${job_offer_id}/${id}`, '', {
+        const response = await api.put(`/candidate-apply/employer/${job_offer_id}/${id}`, JSON.stringify({ "page": 1 }), {
             headers: {
                 Lang: getLanguage(),
-                Authorization: getToken()
+                Authorization: getToken(),
+                'Content-Type': 'application/json'
             },
             params: {
                 status: status
             }
         })
-        if (response.statusText == "ok")
-            return Promise.resolve()
+        if (response.data.code == "200")
+            return Promise.resolve(response.data.data.status)
     } catch (error) {
         return Promise.reject(error.response.data.message)
     }
@@ -196,11 +210,58 @@ const postComment = async (info, id, parent_id) => {
     }
 
 }
+
+const getCompanyJobs = async ({ page, pagination_size, status = null }) => {
+    try {
+        const response = await api.get(`/jobs/offers/employer`, {
+            headers: {
+                Lang: getLanguage(),
+                Authorization: getToken()
+            },
+            params: {
+                page, pagination_size, status
+            }
+
+        })
+        const { data: { data: { entities, number_of_entities, number_of_pages } } } = response
+        return { entities, number_of_entities, number_of_pages }
+
+
+    } catch (error) {
+        return error.response.data.message
+    }
+}
+const getCompanyAllJobs = async () => {
+    try {
+        const { number_of_entities } = await getCompanyJobs({ page: 1 })
+        const response = await getCompanyJobs({ page: 1, pagination_size: number_of_entities })
+        return response
+
+    } catch (error) {
+
+    }
+}
+const getCompanyJob = async ({ id }) => {
+    try {
+        const response = await api.get(`/jobs/offers/employer/${id}`, {
+            headers: {
+                Lang: getLanguage(),
+                Authorization: getToken()
+            },
+
+
+        })
+        return response.data.data
+
+    } catch (error) {
+        return error.response.data.message
+    }
+}
 export {
     getCompany, deleteCompany,
     storeCompany, updateCompany,
     postJob, updateJob, deleteJob,
-    getActivePackages, getSentResumes,
+    getActivePackage, getSentResumes,
     getSingleSentResume, UpdateSentResumeStatus,
-    postComment
+    postComment, getCompanyJobs, getCompanyJob, getCompanyAllJobs
 }

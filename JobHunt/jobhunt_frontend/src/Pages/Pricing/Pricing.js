@@ -5,12 +5,12 @@ import { HomePagesHeader } from '../../components/HomePagesHeader'
 import { useGetData } from '../../hooks/useGetData'
 import { Plan } from './components/Plan'
 
-const Pricing = () => {
+const Pricing = ({mode}) => {
     const [data, error, loading] = useGetData(getPricing)
 
     return (
         <Box>
-            <HomePagesHeader page="Pricing" description="Keep up to date with the latest news" />
+            {mode !='outter' && <HomePagesHeader page="Pricing" description="Keep up to date with the latest news" />}
             <Container maxWidth="lg">
                 <Box my={5}>
                     <Grid container spacing={2}>

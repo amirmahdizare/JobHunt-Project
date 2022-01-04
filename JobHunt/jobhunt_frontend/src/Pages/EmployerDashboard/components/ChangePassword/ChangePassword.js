@@ -1,55 +1,35 @@
-import { Box, Button, CircularProgress, Grid, TextField, Typography } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
-import React from 'react'
+import React, { useState } from 'react'
+import { Box, Grid } from '@material-ui/core'
 import { LineAwesome, SvgKeySolid } from 'react-line-awesome-svg'
 import { SectionHeader } from '../../../../components/SectionHeader'
-import { capitalizeFirstLetter } from '../../../../utils'
-import { useSendRequest } from './hooks/useSendRequest'
-import { useStyles } from './hooks/useStyles'
-import { useValues } from './hooks/useValues'
+import { EnterInfo } from './Steps/EnterInfo'
+import { SetPassword } from './Steps/SetPassword/SetPassword'
+import { VerifyCode } from './Steps/VerifyCode'
 
 export const ChangePassword = () => {
-    const classes = useStyles()
-    const [passwordChanged, loading, error, sendRequest,setError] = useSendRequest()
-    const [values, handleChange] = useValues(setError)
+    const [step, setStep] = useState(1)
+    const goToNextStep = () => setStep(step + 1)
+
+    const SelectSection = () => {
+        switch (step) {
+            case 1: return <EnterInfo goToNextStep={goToNextStep} />
+            case 2: return <VerifyCode goToNextStep={goToNextStep} />
+            case 3: return <SetPassword goToNextStep={goToNextStep} />
+            default: return <></>
+        }
+    }
+
+
     return (
         <Box>
             <SectionHeader title="Change Password" />
-            <Box display="flex" m={2}>
-                <Box flex="1">
-                    {passwordChanged && <Alert severity="success" variant="filled"> Password Successfully Changed</Alert>}
-                    <Typography >New Password</Typography>
-                    <TextField
-                        fullWidth
-                        margin="dense"
-                        variant="outlined"
-                        value={values.password}
-                        type="password"
-                        onChange={(e) => handleChange('password', e.target.value)}
-                    />
-                    {error?.password && error.password.map((err) => <Alert style={{margin:'4px 0'}} severity="error" variant="filled">{capitalizeFirstLetter(err)}</Alert>)}
-                    <Typography >Confirm New Password</Typography>
-                    <TextField
-                        fullWidth
-                        margin="dense"
-                        variant="outlined"
-                        value={values.password_confirmation}
-                        type="password"
-                        onChange={(e) => handleChange('password_confirmation', e.target.value)}
-                    />
-                    {error?.password_confirmation && error.password_confirmation.map((err) => <Alert style={{margin:'4px 0'}} severity="error" variant="filled">{capitalizeFirstLetter(err)}</Alert>)}
-
-                    {loading && <CircularProgress />}
-                    <Button
-                        className={classes.button}
-                        color="primary"
-                        variant="contained"
-                        onClick={() => sendRequest(values)}
-
-                    >
-
-                        Update</Button>
-                </Box>
+            <Box display="flex" flexDirection={'column'} m={2}>
+                <Grid container xs={12} md={6} spacing={2} alignContent='flex-start'>
+                    <SelectSection />
+                {/* <VerifyCode  goToNextStep={goToNextStep} /> */}
+                {/* <SetPassword  goToNextStep={goToNextStep} /> */}
+                </Grid>
+                {/* <EnterInfo  goToNextStep={goToNextStep} /> */}
                 <Box flex="1" display={{ xs: 'none', md: 'flex' }}>
                     <LineAwesome width="100%" fill="#e2e2e2" fontSize="15em" icon={SvgKeySolid} />
                 </Box>

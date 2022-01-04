@@ -5,6 +5,8 @@ const useGetData = (request, params ) => {
     const [data, setData] = useState()
     const [error, setError] = useState()
     const [loading, setLoading] = useState(false)
+    const [refresh,setRefresh]=useState(false)
+     const refreshData = () => setRefresh(!refresh)
 
     useEffect(() => {
         setLoading(true)
@@ -12,8 +14,8 @@ const useGetData = (request, params ) => {
             .then((data) => setData(data))
             .catch((error) => setError(error))
             .finally(() => setLoading(false))
-    }, [params?.page, params?.pagination_size,language])
-    return [data, error, loading]
+    }, [params?.page, params?.pagination_size,language?.suf,refresh])
+    return [data, error, loading,refreshData]
 
 }
 export { useGetData }

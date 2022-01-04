@@ -1,7 +1,8 @@
-import { Box, CircularProgress, makeStyles } from '@material-ui/core'
+import { Box, CircularProgress, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
 import { getTopJobs } from '../../../../../api/public/index.js'
 import Jh_JobCard from '../../../../../components/Jh_JobCard.js'
+import JobCardSkeleton from '../../../../../components/JobCardSkeleton.js'
 import { useGetData } from '../../../../../hooks/useGetData.js'
 const useClasses = makeStyles((theme) => ({
     root: {
@@ -20,21 +21,10 @@ const JobsContainer = () => {
 
     return (
         <Box className={classes.root}>
-            {loading && <CircularProgress/>}
-            {!loading && data ? data.map((job) =>
-
-                <Jh_JobCard
-                    key={job.id}
-                    jobTitle={job.title}
-                    companyName={job.company_name}
-                    companyLocation={job.city_id}
-                    workTime={job.cooperation_kind_title}
-                    workTimeColor={job.cooperation_kind_color}
-                    companyLogo={job.company_logo}
-                />
-
-
-            ): null}
+            {/* {loading && <CircularProgress/>} */}
+            {!loading && data ? data.map((job) => <Jh_JobCard {...job} />): null}
+            {loading && [0,1,2,3,4,5].map(e=> <JobCardSkeleton key={e}/>)}
+            {!loading && !data && <Typography>There is no current Job Offer</Typography>}
 
         </Box>
     )
