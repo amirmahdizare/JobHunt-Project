@@ -6,7 +6,7 @@ export const Email_Sort = () => {
     return (
         <Grid container alignItems="center"  spacing={1}>
             <Grid item xs={12} md={4}   >
-                <Button fullWidth  variant="outlined" startIcon={<MailOutlineIcon color="action" />} href="/mailto"> Email me Jobs Like These</Button>
+                {/* <Button fullWidth  variant="outlined" startIcon={<MailOutlineIcon color="action" />} href="/mailto"> Email me Jobs Like These</Button> */}
             </Grid>
             <Grid item xs={2} md={4} style={{textAlign:'right'}}>
                     <Typography  display="inline">Sort By</Typography>

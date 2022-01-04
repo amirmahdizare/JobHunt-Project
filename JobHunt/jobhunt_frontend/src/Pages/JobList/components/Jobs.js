@@ -1,18 +1,24 @@
 import { Box, Button, Divider, Typography } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Jh_BigJobCard from '../../../components/Jh_BigJobCard'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { useGetAllJobs } from '../../../hooks/useGetAllJobs'
+import { connect } from 'react-redux'
+import { getJobs } from '../../../Store/Actions/jobAction'
 
-export const Jobs = () => {
+const Jobs = ({ JobReducer, getJobs }) => {
     const [numberOfRecords, setNumberOfRecords] = useState(10);
-    const { entities, number_of_entities } = useGetAllJobs(1, 30)
+
+    useEffect(() => {
+        getJobs(1, 10)
+    }, []);
+
     return (
         <Box my={2} >
-            <Typography variant="h5">{number_of_entities} Jobs & Vacancies</Typography>
+            <Typography variant="h5">{JobReducer?.jobs?.number_of_entities} Jobs & Vacancies</Typography>
             <Box mx={-2} my={2} >
                 {/* <Divider light variant="fullWidth"/> */}
-                {entities?.map((item, index) => {
+                {JobReducer?.jobs?.entities?.map((item, index) => {
                     return (
                         <Jh_BigJobCard
                             job={item}
@@ -29,3 +35,10 @@ export const Jobs = () => {
         </Box>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        JobReducer: state.JobReducer
+    };
+};
+export default connect(mapStateToProps, { getJobs })(Jobs);
