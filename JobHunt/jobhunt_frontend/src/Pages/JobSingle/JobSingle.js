@@ -83,21 +83,21 @@ const JobSingle = () => {
                                 'Must be able to work under pressure and meet deadlines while maintaining a positive attitude and providing exemplary customer service',
                                 'Ability to work independently and to carry out assignments to completion within parameters of instructions given, prescribed routines, and standard accepted practices'
                             ]} /> */}
-                        <Divider light />
-                        <Box width={1 / 4} my={2}>
+                        {/* <Divider light /> */}
+                        {/* <Box width={1 / 4} my={2}>
                             <Jh_Share />
-                        </Box>
-                        <Divider light />
+                        </Box> */}
+                        {/* <Divider light /> */}
                         {/* <RecentJobs /> */}
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <ApplyBox job={job} />
                         <JobOverview job={job} />
-                        <JobLocation company={company} />
+                        {/* <JobLocation company={company} /> */}
                         <Jh_StatisticCard
                             itemicon={<LineAwesome icon={SvgClock} />}
-                            itemName="Days"
-                            itemNumber="35"
+                            // itemName="Days"
+                            itemNumber={formatDate(job.updated_at)}
                         />
                         <Jh_StatisticCard
                             itemicon={<LineAwesome icon={SvgSearchPlusSolid} />}

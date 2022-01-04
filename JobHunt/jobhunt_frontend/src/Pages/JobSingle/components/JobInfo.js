@@ -25,6 +25,17 @@ const useStyles = makeStyles(theme => ({
         border: '2px solid #e2e2e2',
         borderRadius: theme.spacing(1),
         objectFit: 'contain'
+    },
+    companyInfo: {
+        display: 'flex',
+        marginLeft: 15,
+        textDecoration: 'none',
+    },
+    companyInfoTxt: {
+        marginLeft: 5,
+        '&:hover': {
+            color: '#1D96F6'
+        }
     }
 }))
 export const JobInfo = (props) => {
@@ -45,9 +56,9 @@ export const JobInfo = (props) => {
                     <Typography variant="h5" >{companyName}</Typography>
                     <Button disableRipple startIcon={<LocationOnOutlinedIcon color="action" />}> <Typography color="textSecondary" >{location}</Typography></Button>
                     <Box display="flex" flexWrap="wrap"  >
-                        <Button disableRipple startIcon={<LinkIcon color="action" />}> <Typography variant="body2" color="textSecondary">{website}</Typography></Button>
-                        <Button disableRipple startIcon={<PhoneIcon color="action" />} ><Typography variant="body2" color="textSecondary">{phoneNumber}</Typography></Button>
-                        <Button disableRipple startIcon={<MailOutlineIcon color="action" />} ><Typography variant="body2" color="textSecondary">{emailAddress}</Typography></Button>
+                        <a className={classes.companyInfo} href={`http://${website}}`}><LinkIcon color="action" /> <Typography className={classes.companyInfoTxt} variant="body2" color="textSecondary">{website}</Typography></a>
+                        <a className={classes.companyInfo} href={`tel:${phoneNumber}`} ><PhoneIcon color="action" /><Typography className={classes.companyInfoTxt} variant="body2" color="textSecondary">{phoneNumber}</Typography></a>
+                        <a className={classes.companyInfo} href={`mailto:${emailAddress}`} ><MailOutlineIcon color="action" /><Typography className={classes.companyInfoTxt} variant="body2" color="textSecondary">{emailAddress}</Typography></a>
                     </Box>
                 </Grid>
             </Grid>
