@@ -18,7 +18,8 @@ const initialState = {
   specialismList: [],
   categoriesListCopy: [],
   specialismListCopy: [],
-  allFilters: []
+  allFilters: [],
+  cooperationsList: []
 };
 
 const JobReducer = (state = initialState, action) => {
@@ -62,18 +63,19 @@ const JobReducer = (state = initialState, action) => {
       var { prop, value } = action.payload;
       var specificFilter = [...state[prop]];
       var filterIndex = specificFilter.findIndex(m => m == value);
+      var allFiltersCopy = [...state.allFilters];
+
       if (filterIndex == -1) {
-        specificFilter.push(value)
+        specificFilter.push(value);
+        allFiltersCopy.push({
+          field: prop,
+          value
+        })
       }
       else {
-        specificFilter = specificFilter.filter(i => i !== value)
+        specificFilter = specificFilter.filter(i => i !== value);
+        allFiltersCopy = allFiltersCopy.filter(m => (m.value !== value))
       }
-
-      var allFiltersCopy = [...state.allFilters];
-      allFiltersCopy.push({
-        field: prop,
-        value
-      })
 
       return {
         ...state,
@@ -95,6 +97,25 @@ const JobReducer = (state = initialState, action) => {
         ...state,
         categoriesList,
         categoriesListCopy: categoriesList,
+      }
+    }
+
+    case (ActionTypes.ON_GET_COOPERATION): {
+
+      const cooperationsList = action.payload;
+
+      var corporationsObject = [];
+      for (var i in Object.values(cooperationsList)) {
+
+        corporationsObject.push({
+          "name": Object.values(cooperationsList)[i],
+          "id": Object.keys(cooperationsList)[i],
+        });
+      }
+
+      return {
+        ...state,
+        cooperationsList: corporationsObject
       }
     }
 
@@ -133,6 +154,16 @@ const JobReducer = (state = initialState, action) => {
         ...state,
         [field]: specificFilter,
         allFilters: allFiltersCopy
+      }
+    }
+
+    case (ActionTypes.ON_FILTER_JOBS): {
+
+      var jobs = action.payload
+
+      return {
+        ...state,
+        jobs,
       }
     }
 

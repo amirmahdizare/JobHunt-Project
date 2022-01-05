@@ -219,8 +219,8 @@ const getAllCorporations = async () => {
     return response.data.data
 }
 
-const getAllJobs = async (page, paginationSize) => {
-    const response = await api.get(`/jobs/offers/guests?page=${page}&pagination_size=${paginationSize}`, {
+const getAllJobs = async (page, paginationSize, query) => {
+    const response = await api.get(`/jobs/offers/guests?page=${page}&pagination_size=${paginationSize}${query ? `${query}` : ''}`, {
         headers: {
             Lang: getLanguage()
         }

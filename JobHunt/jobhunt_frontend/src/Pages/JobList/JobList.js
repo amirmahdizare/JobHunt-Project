@@ -10,29 +10,15 @@ import SearchTags from './components/SearchTags'
 import { StillNeedHelp } from './components/StillNeedHelp'
 import { useGetAllCorporations } from '../../hooks/useGetAllCorporations'
 import { connect } from 'react-redux';
-import { getCategories } from '../../Store/Actions/jobAction'
+import { getCategories, getCooperation } from '../../Store/Actions/jobAction'
 
-const JobList = ({ JobReducer, getCategories }) => {
+const JobList = ({ JobReducer, getCategories, getCooperation }) => {
 
-    const getCorporations = useGetAllCorporations();
-    const [corporations, setCorporations] = useState([])
 
     useEffect(() => {
-        getCategories()
+        getCategories();
+        getCooperation();
     }, [])
-
-    useEffect(() => {
-        var corporationsObject = [];
-        if (getCorporations) {
-            for (var i in Object.values(getCorporations)) {
-
-                corporationsObject.push({
-                    "name": Object.values(getCorporations)[i],
-                });
-            }
-            setCorporations(corporationsObject)
-        }
-    }, [getCorporations])
 
     return (
         <Box>
@@ -56,7 +42,7 @@ const JobList = ({ JobReducer, getCategories }) => {
                         />
                         <Jh_AccordionFilterBox
                             title="Job Type"
-                            items={corporations}
+                            items={JobReducer?.cooperationsList}
                             filterProp='jobType'
                         // items={corporations ? Object.values(corporations) : []}
                         />
@@ -127,7 +113,7 @@ const JobList = ({ JobReducer, getCategories }) => {
                     <Grid item xs={12} md={9} >
                         <SearchTags />
                         <Email_Sort />
-                        <Jobs corporations={corporations} />
+                        <Jobs corporations={JobReducer?.cooperationsList} />
                     </Grid>
 
                 </Grid>
@@ -140,4 +126,4 @@ const mapStateToProps = state => {
         JobReducer: state.JobReducer
     };
 };
-export default connect(mapStateToProps, { getCategories })(JobList);
+export default connect(mapStateToProps, { getCategories, getCooperation })(JobList);
