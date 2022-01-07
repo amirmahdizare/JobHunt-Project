@@ -18,7 +18,7 @@ import { useIndustryJobs } from '../../../../../../hooks/useIndustryJobs.js'
 
 export const JobInformation = (props) => {
 
-    const categories = useCategories()
+    const [categories] = useCategories()
     const worktimes = useJobWorktimes()
     const currencies = useCurrencies()
     const { info, handleChange, postJob, postJobStatus, mode } = props
@@ -80,7 +80,7 @@ export const JobInformation = (props) => {
                                 Select Category
                             </MenuItem>
 
-                            {categories?.length ? categories.map((option) => (
+                            {categories ? categories.map((option) => (
                                 <MenuItem key={option.title} value={option.id}>
                                     {option.title}
                                 </MenuItem>
@@ -102,7 +102,7 @@ export const JobInformation = (props) => {
                         >
                             <MenuItem value="unset" disabled className='placeholder'>Select Cooperation Kind</MenuItem>
 
-                            {worktimes?.length
+                            {worktimes
                                 ? worktimes.map((option) => (
                                     <MenuItem key={option.cooperation_kind_id} value={option.cooperation_kind_id}>
                                         {capitalizeFirstLetter(option.title)}
