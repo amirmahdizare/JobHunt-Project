@@ -8,12 +8,12 @@ export const JobOverview = ({ job }) => {
             <Jh_Overview
                 title="Job Overview"
                 items={[
-                    { icon: <LineAwesome icon={SvgMoneyBillAlt} />, title: "Offerd Salary", description: `$${job?.salary?.amount}` },
+                    { icon: <LineAwesome icon={SvgMoneyBillAlt} />, title: "Offerd Salary", description: `${job?.salary?.amount}${job?.salary?.currency} / ${job?.salary?.type}` },
                     { icon: <LineAwesome icon={SvgMarsDoubleSolid} />, title: "Gender", description: "Female" },
-                    { icon: <LineAwesome icon={SvgThumbtackSolid} />, title: "Career Level", description: "Executive" },
-                    { icon: <LineAwesome icon={SvgPuzzlePieceSolid} />, title: "Industry", description: "Management" },
+                    { icon: <LineAwesome icon={SvgThumbtackSolid} />, title: "Career Level", description: `${job?.career_job}` },
+                    { icon: <LineAwesome icon={SvgPuzzlePieceSolid} />, title: "Industry", description: `${job?.industry_job}` },
                     { icon: <LineAwesome icon={SvgShieldAltSolid} />, title: "Experience", description: `${job.min_work_experience} Years` },
-                    { icon: <LineAwesome icon={SvgChartBar} />, title: "Qualification", description: "Bachelor Degree" },
+                    { icon: <LineAwesome icon={SvgChartBar} />, title: "Qualification", description: `${job?.qualification}` },
                 ]} />
         </>
     )

@@ -1,0 +1,8 @@
+export const ON_GET_JOBS = 'ON_GET_JOBS';
+export const ON_SET_FILTER = 'ON_SET_FILTER';
+export const ON_GET_CATEGORIES = 'ON_GET_CATEGORIES';
+export const SEARCH_IN_FILTERS = 'SEARCH_IN_FILTERS';
+export const SET_SEARCH = 'SET_SEARCH';
+export const REMOVE_FILTER = 'REMOVE_FILTER';
+export const ON_GET_COOPERATION = 'ON_GET_COOPERATION';
+export const ON_FILTER_JOBS = 'ON_FILTER_JOBS';

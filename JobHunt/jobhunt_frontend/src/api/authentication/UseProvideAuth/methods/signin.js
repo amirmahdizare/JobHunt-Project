@@ -23,10 +23,7 @@ const _signin = async function (setUser, {country_code, identifier, password }) 
     }
   } catch (error) {
     return Promise.reject(error.response.data.message)
-    
   }
- 
-  
-
 }
+
 export { _signin }
