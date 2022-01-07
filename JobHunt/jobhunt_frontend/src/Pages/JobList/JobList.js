@@ -26,8 +26,8 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
             <Container maxWidth="lg" style={{ overflow: 'hidden' }} >
                 <Grid container spacing={4} >
                     <Grid item xs={12} md={3} style={{ borderRight: '1px solid #edeff7' }}>
-                        <Jh_SearchKeyword />
-                        <Jh_SelectLocation />
+                        {/* <Jh_SearchKeyword />
+                        <Jh_SelectLocation /> */}
                         <Jh_AccordionFilterBox
                             title="Date Posted"
                             items={[
@@ -97,7 +97,12 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
                         <Jh_AccordionFilterBox
                             title="Industry"
                             filterProp='industry'
-                            items={JobReducer.industriesList} />
+                            items={[
+                                { name: 'Speicalize Jobs ' },
+                                { name: 'Business Jobs' },
+                                { name: 'Meezan Job' },
+                                { name: 'Services' },
+                                { name: 'Non-Services' }]} />
                         <Jh_AccordionFilterBox
                             title="Qualification"
                             filterProp='qualification'
@@ -107,7 +112,7 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
                                 { name: 'Gradute' },
 
                             ]} />
-                        <StillNeedHelp />
+                        {/* <StillNeedHelp /> */}
                     </Grid>
                     {/* <Divider orientation="vertical" flexItem light /> */}
                     <Grid item xs={12} md={9} >
