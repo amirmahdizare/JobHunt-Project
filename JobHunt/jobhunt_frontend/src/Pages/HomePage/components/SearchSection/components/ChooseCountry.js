@@ -1,16 +1,14 @@
 import React from 'react'
-import {
-    Grid, List, ListItem,
-    ListItemText, makeStyles, MenuItem,
-    MenuList, Paper, Typography
-} from '@material-ui/core'
-import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
+import { Grid, makeStyles, Paper, TextField } from '@material-ui/core'
+import { useChinaStates } from '../../../../../hooks/useChinaStates'
+import Autocomplete from '@material-ui/lab/Autocomplete';
 const useClasses = makeStyles((theme) => ({
     root: {
         borderRadius: theme.spacing(1),
         display: 'flex',
         justifyContent: 'flex-end',
         position: 'relative',
+        backgroundColor: 'white',
         '& .MuiList-root': {
             padding: '0',
             width: '100%'
@@ -42,70 +40,27 @@ const useClasses = makeStyles((theme) => ({
         }
     }
 }));
-const options = [
-    'New York',
-    'Istanbul',
-    'London',
-    'Russia',
-];
-const ChooseCountry = () => {
+
+const ChooseCountry = ({ setState, state }) => {
     const classes = useClasses()
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(1);
-
-    const handleClickListItem = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuItemClick = (event, index) => {
-        setSelectedIndex(index);
-        setAnchorEl(null);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const [states, error, loading] = useChinaStates()
 
     return (
         <Grid item xs={12} sm={4} md={3}>
             <Paper component="div" className={classes.root}>
-                <List component="nav" aria-label="Device settings" style={{ position: 'relative' }}>
-                    <ListItem
-                        button
-                        aria-haspopup="true"
-                        aria-controls="lock-menu"
-                        aria-label="Select Country"
-                        onClick={handleClickListItem}
-                    >
-                        <LocationOnOutlinedIcon fontSize="large" color="secondary" />
-                        <ListItemText secondary={options[selectedIndex]} />
-                    </ListItem>
-                </List>
-                <MenuList
-                    className={classes.menuList}
-                    id="lock-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-
-                    style={{ display: anchorEl ? 'block' : 'none', direction: 'ltr' }}>
-                    {options.map((option, index) => (
-                        <MenuItem
-                            className={classes.menuItem}
-                            key={option}
-                            // disabled={index === 0}
-                            selected={index === selectedIndex}
-                            onClick={(event) => handleMenuItemClick(event, index)}
-                        >
-                            <Typography style={{ fontSize: '0.875em' }}>{option}</Typography>
-                        </MenuItem>
-                    ))}
-                </MenuList>
+                {loading && <TextField fullWidth size='medium' style={{ height: '100%', borderColor: 'white', direction: 'ltr' }} value={'Loading States'} variant="outlined" />}
+                {!loading && states && <Autocomplete
+                    id="select-state"
+                    options={states}
+                    getOptionLabel={(option) => option.name}
+                    fullWidth
+                    value={state}
+                    onChange={(event, option) => setState(option)}
+                    renderInput={(params) => <TextField size='medium' style={{ height: '100%', borderColor: 'white', direction: 'ltr' }} {...params} placeholder='Select State' variant="outlined" />}
+                />}
             </Paper>
 
-        </Grid>
+        </Grid >
     )
 }
 export default ChooseCountry
