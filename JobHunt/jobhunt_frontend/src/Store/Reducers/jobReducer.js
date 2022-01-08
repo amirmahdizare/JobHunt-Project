@@ -133,11 +133,25 @@ const JobReducer = (state = initialState, action) => {
 
     case (ActionTypes.SET_SEARCH): {
 
-      const { prop, value } = action.payload
+      const { prop, value } = action.payload;
+
+      var allFiltersCopy = [...state.allFilters];
+      var filterIndex = allFiltersCopy.findIndex(m => m.field == prop);
+
+      if (filterIndex == -1) {
+        allFiltersCopy.push({
+          field: prop,
+          value
+        })
+      }
+      else {
+        allFiltersCopy[filterIndex].value = value
+      }
 
       return {
         ...state,
-        [prop]: value
+        [prop]: value,
+        allFilters: allFiltersCopy
       }
     }
 
@@ -152,7 +166,7 @@ const JobReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        [field]: specificFilter,
+        [field]: field == 'searchKeyword' ? '' : specificFilter,
         allFilters: allFiltersCopy
       }
     }

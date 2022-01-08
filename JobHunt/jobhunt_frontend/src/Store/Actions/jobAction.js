@@ -9,6 +9,7 @@ import {
     ON_FILTER_JOBS
 } from './types';
 import { getAllJobs, getAllCategories, getAllCorporations } from "../../api/public"
+import { filterDate } from '../../components'
 
 export const getJobs = (page, paginationSize) => async (
     dispatch
@@ -48,6 +49,8 @@ export const filterJobs = (page, paginationSize) => async (
     var industryFieldIndex = -1;
     var qualificationIndex = -1;
     var qualificationFieldIndex = -1;
+    var datePostedIndex = -1;
+    var datePostedFieldIndex = -1;
 
     for (var i = 0; i < getState().JobReducer.allFilters.length; i++) {
 
@@ -113,6 +116,21 @@ export const filterJobs = (page, paginationSize) => async (
             }
             qualificationIndex += 1
         }
+        else if (getState().JobReducer?.allFilters[i]?.field == 'searchKeyword') {
+            queryFilter += `&filters[${fieldIndex}][field]=title.en&filters[${fieldIndex}][value]=${`%${getState().JobReducer?.allFilters[i]?.value}%`}&filters[${fieldIndex}][operator]=like`
+            fieldIndex += 1
+        }
+        else if (getState().JobReducer?.allFilters[i]?.field == 'datePosted') {
+
+            if (datePostedIndex == -1) {
+                queryFilter += `&filters[${fieldIndex}][field]=created_at&filters[${fieldIndex}][value]=${filterDate(getState().JobReducer?.allFilters[i]?.value)}&filters[${fieldIndex}][operator]=>`
+            } else {
+                queryFilter += `&filters[${fieldIndex}][field]=created_at&filters[${fieldIndex}][value]=${filterDate(getState().JobReducer?.allFilters[i]?.value)}&filters[${fieldIndex}][operator]=>&filters[${datePostedFieldIndex}][command]=or`
+            }
+            datePostedFieldIndex = fieldIndex;
+            datePostedIndex += 1;
+            fieldIndex += 1
+        }
     }
 
     getAllJobs(page, paginationSize, queryFilter).then((data) => dispatch({
@@ -145,11 +163,14 @@ export const searchInFiltersList = (prop, value) => async (
 }
 
 export const setSearch = (prop, value) => async (
-    dispatch
+    dispatch, getState
 ) => {
     dispatch({
         type: SET_SEARCH, payload: { prop, value }
     })
+    setTimeout(() => {
+        filterJobs(1, 10)(dispatch, getState)
+    }, 200);
 }
 
 export const removeFilter = (data) => async (

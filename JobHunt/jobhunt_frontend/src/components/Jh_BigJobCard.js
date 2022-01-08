@@ -142,9 +142,9 @@ const Jh_BigJobCard = (props) => {
                             <FavoriteBorderIcon className={classes.icon} style={{ color: !like ? 'gray' : 'red' }} onClick={() => setLike(!like)} />
                             <Box>
                                 <Button className={classes.workTime} style={{ color: job?.cooperation_kind?.color, borderColor: job?.cooperation_kind?.color }} variant="outlined">{job?.cooperation_kind?.title} </Button>
-                                {job.updated_at &&
+                                {job.created_at &&
                                     <Typography display="block" variant="body2" color="textSecondary" className={classes.dateTxt}>
-                                        {formatDate(job.updated_at)}
+                                        {formatDate(job.created_at)}
                                     </Typography>}
                             </Box>
                         </Grid>

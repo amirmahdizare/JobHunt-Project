@@ -26,8 +26,8 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
             <Container maxWidth="lg" style={{ overflow: 'hidden' }} >
                 <Grid container spacing={4} >
                     <Grid item xs={12} md={3} style={{ borderRight: '1px solid #edeff7' }}>
-                        {/* <Jh_SearchKeyword />
-                        <Jh_SelectLocation /> */}
+                        <Jh_SearchKeyword />
+                        <Jh_SelectLocation />
                         <Jh_AccordionFilterBox
                             title="Date Posted"
                             items={[
@@ -36,7 +36,7 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
                                 { name: 'Last 7 Days' },
                                 { name: 'Last 14 Days' },
                                 { name: 'Last 30 Days' },
-                                { name: 'All' }
+                                // { name: 'All' }
                             ]}
                             filterProp='datePosted'
                         />

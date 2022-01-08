@@ -2,7 +2,8 @@ import { Box, Grid, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
 import { Jh_Button } from '../../../components/Jh_Button'
 import { LineAwesome, SvgHeart, SvgLinkedinIn, SvgPaperPlane, SvgInfoSolid } from 'react-line-awesome-svg';
-import { _applyJob } from '../../../api/condidate/applyJob'
+import { _applyJob } from '../../../api/Condidate/applyJob';
+
 import { useHistory } from 'react-router';
 export const ApplyBox = ({ job }) => {
     const [shortList, toggleShortList] = useState(false);
