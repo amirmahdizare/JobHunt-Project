@@ -1,19 +1,22 @@
 import React from 'react'
 import {
     ClickAwayListener, List,
-     ListItem,ListItemText, makeStyles, MenuItem,
+    ListItem, ListItemText, makeStyles, MenuItem,
     MenuList, Paper, Typography
 } from '@material-ui/core'
 import { ExpandMoreOutlined } from '@material-ui/icons';
+import { changePagination } from '../Store/Actions/jobAction';
+import { connect } from 'react-redux';
+
 const useClasses = makeStyles((theme) => ({
     root: {
         borderRadius: theme.spacing(0.5),
         display: 'flex',
         justifyContent: 'flex-end',
         position: 'relative',
-        backgroundColor:'#f4f5fa',
-        boxShadow:'unset',
-        color:'black',
+        backgroundColor: '#f4f5fa',
+        boxShadow: 'unset',
+        color: 'black',
         '& .MuiList-root': {
             padding: '0',
             width: '100%'
@@ -40,12 +43,12 @@ const useClasses = makeStyles((theme) => ({
 
         }
     },
-    listItem:{
-        padding:theme.spacing(0.75)
+    listItem: {
+        padding: theme.spacing(0.75)
     }
 }));
 const Jh_SelectMenu = (props) => {
-    const {options} = props;
+    const { options } = props;
     const classes = useClasses()
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -73,9 +76,9 @@ const Jh_SelectMenu = (props) => {
                         aria-controls="lock-menu"
                         aria-label="Select Country"
                         onClick={handleClickListItem}
-                        classes={{root:classes.listItem}}
+                        classes={{ root: classes.listItem }}
                     >
-                        <ListItemText  secondary={options[selectedIndex]} />
+                        <ListItemText secondary={options[selectedIndex].name} />
                         <ExpandMoreOutlined color="action" />
                     </ListItem>
                 </List>
@@ -84,10 +87,8 @@ const Jh_SelectMenu = (props) => {
                     id="lock-menu"
                     anchorEl={anchorEl}
                     keepMounted
-
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
-
                     style={{ display: anchorEl ? 'block' : 'none', direction: 'ltr' }}>
                     {options.map((option, index) => (
                         <MenuItem
@@ -95,15 +96,22 @@ const Jh_SelectMenu = (props) => {
                             key={option}
                             // disabled={index === 0}
                             selected={index === selectedIndex}
-                            onClick={(event) => handleMenuItemClick(event, index)}
+                            onClick={() => props.changePagination(options[index].id)}
                         >
-                            <Typography variant="body2">{option}</Typography>
+                            <Typography variant="body2">{option.name}</Typography>
                         </MenuItem>
                     ))}
                 </MenuList>
             </Paper>
 
-            </ClickAwayListener>
+        </ClickAwayListener>
     )
 }
-export default Jh_SelectMenu
+
+const mapStateToProps = state => {
+    return {
+        JobReducer: state.JobReducer
+    };
+};
+
+export default connect(mapStateToProps, { changePagination })(Jh_SelectMenu);

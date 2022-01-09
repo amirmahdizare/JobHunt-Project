@@ -19,7 +19,13 @@ const initialState = {
   categoriesListCopy: [],
   specialismListCopy: [],
   allFilters: [],
-  cooperationsList: []
+  cooperationsList: [],
+  states: [],
+  statesList: [],
+  statesListCopy: [],
+  page: 1,
+  paginationSize: 30,
+  numberOfEntities: 0
 };
 
 const JobReducer = (state = initialState, action) => {
@@ -31,15 +37,15 @@ const JobReducer = (state = initialState, action) => {
 
       var specialisms = [];
 
-      var jobs = action.payload
+      var { jobs, numberOfEntities } = action.payload
 
-      for (var i = 0; i < jobs.entities.length; i++) {
-        jobs?.entities[i]?.industry_job && industries.push({ name: jobs.entities[i].industry_job });
-        for (var j = 0; j < jobs.entities[i]?.tags?.length; j++) {
-          const SpecialismsIndex = specialisms.findIndex(m => m.name == jobs.entities[i]?.tags[j]);
+      for (var i = 0; i < jobs.length; i++) {
+        jobs[i]?.industry_job && industries.push({ name: jobs[i].industry_job });
+        for (var j = 0; j < jobs[i]?.tags?.length; j++) {
+          const SpecialismsIndex = specialisms.findIndex(m => m.name == jobs[i]?.tags[j]);
           if (SpecialismsIndex == -1) {
             specialisms.push({
-              name: jobs.entities[i]?.tags[j],
+              name: jobs[i]?.tags[j],
               number: 1
             })
           }
@@ -54,7 +60,8 @@ const JobReducer = (state = initialState, action) => {
         jobs,
         industriesList: industries,
         specialismList: specialisms,
-        specialismListCopy: specialisms
+        specialismListCopy: specialisms,
+        numberOfEntities: numberOfEntities
       }
     }
 
@@ -173,11 +180,90 @@ const JobReducer = (state = initialState, action) => {
 
     case (ActionTypes.ON_FILTER_JOBS): {
 
-      var jobs = action.payload
+      var { jobs, status, numberOfEntities } = action.payload;
+
+      var jobsList = status == 'nextPage' ? [...state.jobs] : [];
+      var industries = status == 'nextPage' ? [] : [...state.industriesList];
+      var specialisms = status == 'nextPage' ? [] : [...state.specialismList];
+
+      jobsList.push(...jobs);
+
+      if (status == 'nextPage') {
+        for (var i = 0; i < jobsList.length; i++) {
+          jobsList[i]?.industry_job && industries.push({ name: jobsList[i].industry_job });
+          for (var j = 0; j < jobsList[i]?.tags?.length; j++) {
+            const SpecialismsIndex = specialisms.findIndex(m => m.name == jobsList[i]?.tags[j]);
+            if (SpecialismsIndex == -1) {
+              specialisms.push({
+                name: jobsList[i]?.tags[j],
+                number: 1
+              })
+            }
+            else {
+              specialisms[SpecialismsIndex].number += 1
+            }
+          }
+        }
+      }
 
       return {
         ...state,
-        jobs,
+        jobs: jobsList,
+        industriesList: industries,
+        specialismList: specialisms,
+        specialismListCopy: specialisms,
+        page: status == 'nextPage' ? state.page : 1
+      }
+    }
+
+    case (ActionTypes.ON_GET_CHINA_STATES): {
+
+      const statesList = action.payload;
+
+      return {
+        ...state,
+        statesList,
+        statesListCopy: statesList,
+      }
+    }
+
+    case (ActionTypes.SET_QUERY_SEARCH): {
+
+      const { prop, prop2, value } = action.payload;
+      const values = value.split(',');
+      var allFilters = [...state.allFilters];
+      var specificFilter = [];
+
+      for (var i = 0; i < values.length; i++) {
+        allFilters.push(
+          {
+            field: prop,
+            value: state[prop2].filter(m => m.id == values[i])[0].name
+          }
+        );
+        specificFilter.push(state[prop2].filter(m => m.id == values[i])[0].name);
+      }
+
+      return {
+        ...state,
+        allFilters,
+        [prop]: specificFilter
+      }
+    }
+
+    case (ActionTypes.NEXT_PAGE): {
+
+      return {
+        ...state,
+        page: state.page + 1
+      }
+    }
+
+    case (ActionTypes.CHANGE_PAGINATION): {
+
+      return {
+        ...state,
+        paginationSize: action.payload
       }
     }
 
@@ -188,4 +274,3 @@ const JobReducer = (state = initialState, action) => {
 };
 
 export { JobReducer as default };
-

@@ -10,15 +10,30 @@ import SearchTags from './components/SearchTags'
 import { StillNeedHelp } from './components/StillNeedHelp'
 import { useGetAllCorporations } from '../../hooks/useGetAllCorporations'
 import { connect } from 'react-redux';
-import { getCategories, getCooperation } from '../../Store/Actions/jobAction'
+import { getCategories, getCooperation, onGetChinaStates, setQuerySearch } from '../../Store/Actions/jobAction'
+import { getQueryParameterByName } from '../../components'
 
-const JobList = ({ JobReducer, getCategories, getCooperation }) => {
-
+const JobList = ({ JobReducer, getCategories, getCooperation, onGetChinaStates, setQuerySearch }) => {
 
     useEffect(() => {
-        getCategories();
         getCooperation();
+        onGetCategories()
+        onGetStates();
     }, [])
+
+    const onGetCategories = async () => {
+        const result = await getCategories();
+        if (result.length > 0 && getQueryParameterByName('categories')) {
+            setQuerySearch('categories', 'categoriesList', getQueryParameterByName('categories'))
+        }
+    }
+
+    const onGetStates = async () => {
+        const result = await onGetChinaStates();
+        if (result.length > 0 && getQueryParameterByName('states')) {
+            setQuerySearch('states', 'statesList', getQueryParameterByName('states'))
+        }
+    }
 
     return (
         <Box>
@@ -50,13 +65,19 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
                             variant="withSearch"
                             title="Specialism"
                             filterProp='specialism'
-                            items={JobReducer.specialismListCopy} />
+                            items={JobReducer?.specialismListCopy} />
 
                         <Jh_AccordionFilterBox
                             variant="withSearch"
                             title="Categories"
                             filterProp='categories'
-                            items={JobReducer.categoriesListCopy} />
+                            items={JobReducer?.categoriesListCopy} />
+
+                        <Jh_AccordionFilterBox
+                            variant="withSearch"
+                            title="States"
+                            filterProp='states'
+                            items={JobReducer?.statesListCopy} />
 
                         <Jh_AccordionFilterBox
                             title="Offerd Salary"
@@ -131,4 +152,4 @@ const mapStateToProps = state => {
         JobReducer: state.JobReducer
     };
 };
-export default connect(mapStateToProps, { getCategories, getCooperation })(JobList);
+export default connect(mapStateToProps, { getCategories, getCooperation, onGetChinaStates, setQuerySearch })(JobList);
