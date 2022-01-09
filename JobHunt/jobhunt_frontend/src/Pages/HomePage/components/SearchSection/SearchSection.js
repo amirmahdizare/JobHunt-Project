@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import { Grid, makeStyles } from '@material-ui/core'
 import ChooseCountry from './components/ChooseCountry';
 import EnterJobTitle from './components/EnterJobTitle';
@@ -32,13 +32,15 @@ const useClasses = makeStyles((theme) => ({
 }))
 const BackgroundImage = () => {
     const classes = useClasses()
+    const [state,setState] = useState()
+    const [category,setCategory]=useState()
     return (
         <Grid container className={classes.root}>
             <Grid container className={classes.container} spacing={2} >
-                <TextContainer />
-                <EnterJobTitle />
-                <ChooseCountry />
-                <SearchButton />
+                <TextContainer  />
+                <EnterJobTitle setCategory={setCategory}/>
+                <ChooseCountry setState={setState} />
+                <SearchButton {...{category,state}}  />
             </Grid>
         </Grid>
     )

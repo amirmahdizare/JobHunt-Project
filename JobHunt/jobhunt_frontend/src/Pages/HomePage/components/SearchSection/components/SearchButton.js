@@ -1,6 +1,7 @@
-import React from 'react'
-import { Button, Grid , makeStyles } from '@material-ui/core'
+import React, { useEffect, useState } from 'react'
+import { Button, Grid, makeStyles } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
+//import {useSearchParams} from 'react-router-dom'
 const useClasses = makeStyles((theme) => ({
     root: {
         justifyContent: 'center',
@@ -22,7 +23,7 @@ const useClasses = makeStyles((theme) => ({
     },
     searchButton: {
         backgroundColor: theme.palette.primary.light,
-        padding: '14px',
+        padding: theme.spacing(1.25),
         width: '100%',
         borderRadius: theme.spacing(1),
         float: 'left',
@@ -38,11 +39,20 @@ const useClasses = makeStyles((theme) => ({
     },
 
 }));
-const SearchButton = () => {
+const SearchButton = ({ category, state }) => {
     const classes = useClasses()
+    const [queries, setQueries] = useState('')
+    useEffect(() => {
+        var temp = {}
+        if (category?.id) temp = {categories:category.title}
+        if (state?.id ) temp = { ...temp,statesList:state.name}
+        setQueries( new URLSearchParams(temp))
+       
+    }, [category?.id, state?.id])
     return (
         <Grid item xs={12} sm={1} md={1}>
             <Button
+                href={queries ? '/jobs?' + queries : '/jobs'}
                 className={classes.searchButton}
                 color="primary"
                 variant="contained"
