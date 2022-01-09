@@ -4,8 +4,6 @@ services:
   {{ front_service_name }}:
     build:
       image: {{ front_service_image_url }}
-      args: 
-        - APP_ENV=production
     container_name: {{ front_service_name }}
     hostname: {{ front_service_name }}
     restart: always
