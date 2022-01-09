@@ -2,7 +2,10 @@ version: "3.7"
 
 services:
   {{ front_service_name }}:
-    image: {{ front_service_image_url }}
+    build:
+      image: {{ front_service_image_url }}
+      args: 
+        - APP_ENV=production
     container_name: {{ front_service_name }}
     hostname: {{ front_service_name }}
     restart: always
