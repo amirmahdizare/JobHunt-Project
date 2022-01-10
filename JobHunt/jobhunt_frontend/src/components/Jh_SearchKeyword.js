@@ -5,9 +5,9 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Jh_Card } from './Jh_Card'
 import SearchIcon from '@material-ui/icons/Search';
 import { connect } from 'react-redux';
-import { setSearch } from '../Store/Actions/jobAction'
+import { onJobChange, setSearch } from '../Store/Actions/jobAction'
 
-const Jh_SearchKeyword = ({ JobReducer, setSearch }) => {
+const Jh_SearchKeyword = ({ JobReducer, setSearch, onJobChange }) => {
 
     const [searchTxt, setSearchTxt] = useState('')
 
@@ -28,7 +28,7 @@ const Jh_SearchKeyword = ({ JobReducer, setSearch }) => {
                 style={{ flex: 1 }}
                 placeholder="Search Keyword"
                 inputProps={{ 'aria-label': 'Search Keyword' }}
-                onChange={(e) => setSearchTxt(e.target.value)}
+                onChange={(e) => { setSearchTxt(e.target.value); onJobChange('searchKeyword', e.target.value) }}
                 value={JobReducer.searchKeyword}
             />
             <IconButton type="submit" aria-label="search">
@@ -43,4 +43,4 @@ const mapStateToProps = state => {
         JobReducer: state.JobReducer
     };
 };
-export default connect(mapStateToProps, { setSearch })(Jh_SearchKeyword);
+export default connect(mapStateToProps, { setSearch, onJobChange })(Jh_SearchKeyword);

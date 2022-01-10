@@ -10,10 +10,19 @@ import {
     ON_GET_CHINA_STATES,
     SET_QUERY_SEARCH,
     NEXT_PAGE,
-    CHANGE_PAGINATION
+    CHANGE_PAGINATION,
+    ON_JOB_CHANGE
 } from './types';
 import { getAllJobs, getAllCategories, getAllCorporations, getChinaStates } from "../../api/public"
 import { filterDate } from '../../components'
+
+export const onJobChange = (prop, value) => async (
+    dispatch
+) => {
+    dispatch({
+        type: ON_JOB_CHANGE, payload: { prop, value }
+    })
+}
 
 export const getJobs = () => async (
     dispatch, getState

@@ -91,7 +91,7 @@ const JobSingle = () => {
                         {/* <RecentJobs /> */}
                     </Grid>
                     <Grid item xs={12} md={4}>
-                        <ApplyBox job={job} />
+                        <ApplyBox job={job} companyId={companyId} />
                         <JobOverview job={job} />
                         {/* <JobLocation company={company} /> */}
                         <Jh_StatisticCard

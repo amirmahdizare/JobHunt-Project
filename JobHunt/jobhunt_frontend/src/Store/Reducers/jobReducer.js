@@ -31,6 +31,16 @@ const initialState = {
 const JobReducer = (state = initialState, action) => {
   switch (action.type) {
 
+    case (ActionTypes.ON_JOB_CHANGE): {
+
+      const { prop, value } = action.payload
+
+      return {
+        ...state,
+        [prop]: value
+      }
+    }
+
     case (ActionTypes.ON_GET_JOBS): {
 
       var industries = [];
@@ -145,11 +155,14 @@ const JobReducer = (state = initialState, action) => {
       var allFiltersCopy = [...state.allFilters];
       var filterIndex = allFiltersCopy.findIndex(m => m.field == prop);
 
-      if (filterIndex == -1) {
+      if (filterIndex == -1 && value) {
         allFiltersCopy.push({
           field: prop,
           value
         })
+      }
+      else if (filterIndex !== -1 && !value) {
+        allFiltersCopy.splice(filterIndex, 1);
       }
       else {
         allFiltersCopy[filterIndex].value = value
@@ -212,7 +225,8 @@ const JobReducer = (state = initialState, action) => {
         industriesList: industries,
         specialismList: specialisms,
         specialismListCopy: specialisms,
-        page: status == 'nextPage' ? state.page : 1
+        page: status == 'nextPage' ? state.page : 1,
+        numberOfEntities
       }
     }
 

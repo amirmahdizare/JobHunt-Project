@@ -95,19 +95,15 @@ const Jh_BigJobCard = (props) => {
     const [like, setLike] = useState(false)
     const [logoImage, setLogoImage] = useState(false)
     const classes = useClasses()
-    const { name, logo, address } = useGetSpecificCompany(job.company_id);
-    // const { title, color } = useGetSpecificCorporation(job.cooperation_kind_id);
 
     const getImage = async () => {
-        if (logo) {
-            const onGetImage = await generateImageURL('jobhunt', Object.values(logo)[0]);
+        if ((job?.company?.logo)) {
+            const onGetImage = await generateImageURL('jobhunt', Object.values(job?.company?.logo)[0]);
             return onGetImage
         }
     }
 
-    useEffect(() => {
-        getImage().then(data => setLogoImage(data))
-    }, [logo])
+    getImage().then(data => setLogoImage(data))
 
     return (
         <Card className={classes.root}>
@@ -118,21 +114,21 @@ const Jh_BigJobCard = (props) => {
                     justifyContent="space-between"
                     alignItems="center"
                 >
-                    <Grid container direction="column" xs={24} sm={hideDetail ? 12 : 8} >
+                    <Grid contain
+                        er direction="column" xs={24} sm={hideDetail ? 12 : 8} >
                         <Grid container xs={24}>
                             <Grid item xs={12} sm={hideDetail ? 5 : 3} className={classes.companyLogoContainer}>
-                                {logo && <CardMedia
+                                <CardMedia
                                     className={classes.companyLogo}
                                     image={logoImage}
                                 />
-                                }
                             </Grid>
                             <Grid item xs={12} sm={hideDetail ? 12 : 8} >
                                 <Typography className={classes.jobTitle} variant="body1" component="b">{job?.title}</Typography>
-                                <Typography className={classes.companyName} color="primary" variant="body1">{name}</Typography>
+                                <Typography className={classes.companyName} color="primary" variant="body1">{job?.company?.name}</Typography>
                                 <Grid item className={classes.locationContainer} style={{ marginLeft: 0 }}>
                                     <LocationOnOutlinedIcon />
-                                    <Typography variant="body2" >{address}</Typography>
+                                    <Typography variant="body2" >{job?.company?.address}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
