@@ -11,7 +11,8 @@ import {
     SET_QUERY_SEARCH,
     NEXT_PAGE,
     CHANGE_PAGINATION,
-    ON_JOB_CHANGE
+    ON_JOB_CHANGE,
+    CLEAR_FILTERS
 } from './types';
 import { getAllJobs, getAllCategories, getAllCorporations, getChinaStates } from "../../api/public"
 import { filterDate } from '../../components'
@@ -253,6 +254,17 @@ export const changePagination = (value) => async (
 ) => {
     dispatch({
         type: CHANGE_PAGINATION, payload: value
+    })
+    setTimeout(() => {
+        filterJobs('')(dispatch, getState)
+    }, 200);
+}
+
+export const clearFilters = (value) => async (
+    dispatch, getState
+) => {
+    dispatch({
+        type: CLEAR_FILTERS,
     })
     setTimeout(() => {
         filterJobs('')(dispatch, getState)

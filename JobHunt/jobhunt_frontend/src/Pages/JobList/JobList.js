@@ -42,7 +42,7 @@ const JobList = ({ JobReducer, getCategories, getCooperation, onGetChinaStates, 
                 <Grid container spacing={4} >
                     <Grid item xs={12} md={3} style={{ borderRight: '1px solid #edeff7' }}>
                         <Jh_SearchKeyword />
-                        <Jh_SelectLocation />
+                        {/* <Jh_SelectLocation /> */}
                         <Jh_AccordionFilterBox
                             title="Date Posted"
                             items={[
@@ -79,7 +79,7 @@ const JobList = ({ JobReducer, getCategories, getCooperation, onGetChinaStates, 
                             filterProp='states'
                             items={JobReducer?.statesListCopy} />
 
-                        <Jh_AccordionFilterBox
+                        {/* <Jh_AccordionFilterBox
                             title="Offerd Salary"
                             filterProp='offeredSalary'
                             items={[
@@ -89,7 +89,7 @@ const JobList = ({ JobReducer, getCategories, getCooperation, onGetChinaStates, 
                                 { name: '30K-40K' },
                                 { name: '40K-50K' },
                                 { name: 'Up To 50K' },
-                            ]} />
+                            ]} /> */}
                         <Jh_AccordionFilterBox
                             title="Career Level"
                             filterProp='careerLevel'
@@ -99,7 +99,7 @@ const JobList = ({ JobReducer, getCategories, getCooperation, onGetChinaStates, 
                                 { name: 'Special' },
                                 { name: 'Experienced' },
                             ]} />
-                        <Jh_AccordionFilterBox
+                        {/* <Jh_AccordionFilterBox
                             title="Experince"
                             filterProp='experience'
                             items={[
@@ -107,7 +107,7 @@ const JobList = ({ JobReducer, getCategories, getCooperation, onGetChinaStates, 
                                 { name: '2 Year to 3 Year' },
                                 { name: '3 year to 4 Year' },
                                 { name: '4 Year to 5 Year' },
-                            ]} />
+                            ]} /> */}
                         {/* <Jh_AccordionFilterBox
                             title="Gender"
                             items={[
@@ -137,7 +137,7 @@ const JobList = ({ JobReducer, getCategories, getCooperation, onGetChinaStates, 
                     </Grid>
                     {/* <Divider orientation="vertical" flexItem light /> */}
                     <Grid item xs={12} md={9} >
-                        <SearchTags />
+                        {JobReducer?.allFilters?.length > 0 && <SearchTags />}
                         <Email_Sort />
                         <Jobs corporations={JobReducer?.cooperationsList} />
                     </Grid>

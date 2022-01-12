@@ -281,6 +281,26 @@ const JobReducer = (state = initialState, action) => {
       }
     }
 
+    case (ActionTypes.CLEAR_FILTERS): {
+
+      return {
+        ...state,
+        allFilters: [],
+        searchKeyword: '',
+        searchLocation: '',
+        datePosted: [],
+        jobType: [],
+        specialism: [],
+        offeredSalary: [],
+        careerLevel: [],
+        experience: [],
+        industry: [],
+        qualification: [],
+        categories: [],
+        states: [],
+      }
+    }
+
     default:
       return state;
   }

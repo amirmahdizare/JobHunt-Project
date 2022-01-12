@@ -11,3 +11,4 @@ export const SET_QUERY_SEARCH = 'SET_QUERY_SEARCH';
 export const NEXT_PAGE = 'NEXT_PAGE';
 export const CHANGE_PAGINATION = 'CHANGE_PAGINATION';
 export const ON_JOB_CHANGE = 'ON_JOB_CHANGE';
+export const CLEAR_FILTERS = 'CLEAR_FILTERS';
