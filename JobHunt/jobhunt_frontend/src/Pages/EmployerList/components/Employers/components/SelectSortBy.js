@@ -14,6 +14,7 @@ const useClasses = makeStyles((theme) => ({
         backgroundColor:'#f4f5fa',
         boxShadow:'unset',
         color:'black',
+        width:'fit-content',
         '& .MuiList-root': {
             padding: '0',
             width: '100%'
@@ -45,28 +46,30 @@ const useClasses = makeStyles((theme) => ({
     }
 }));
 const options = [
-    '30 Per Page',
-    '40 Per Page',
-    '50 Per Page',
-    '60 Per Page',
+    {label : '10 Per Page' , value : 10},
+    {label : '15 Per Page' , value : 15},
+    {label : '20 Per Page' , value : 20},
+    {label : '25 Per Page' , value : 25},
 ];
-const SelectSortBy = () => {
+const SelectSortBy = ({handleChange,pagination_size}) => {
     const classes = useClasses()
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
+    // const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     const handleClickListItem = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
     const handleMenuItemClick = (event, index) => {
-        setSelectedIndex(index);
+        handleChange(index)
         setAnchorEl(null);
     };
 
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+
 
     return (
         <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
@@ -76,11 +79,11 @@ const SelectSortBy = () => {
                         button
                         aria-haspopup="true"
                         aria-controls="lock-menu"
-                        aria-label="Select Country"
+                        aria-label="Select page size"
                         onClick={handleClickListItem}
                         classes={{root:classes.listItem}}
                     >
-                        <ListItemText  secondary={options[selectedIndex]} />
+                        <ListItemText  secondary={pagination_size +' Per Page'} />
                         <ExpandMoreOutlined color="action" />
                     </ListItem>
                 </List>
@@ -94,15 +97,14 @@ const SelectSortBy = () => {
                     onClose={handleClose}
 
                     style={{ display: anchorEl ? 'block' : 'none', direction: 'ltr' }}>
-                    {options.map((option, index) => (
+                    {options.map((option) => (
                         <MenuItem
                             className={classes.menuItem}
-                            key={option}
-                            // disabled={index === 0}
-                            selected={index === selectedIndex}
-                            onClick={(event) => handleMenuItemClick(event, index)}
+                            key={option.value}
+                            selected={option.value == pagination_size}
+                            onClick={(event) => handleMenuItemClick(event, option.value)}
                         >
-                            <Typography variant="body2">{option}</Typography>
+                            <Typography variant="body2">{option.label}</Typography>
                         </MenuItem>
                     ))}
                 </MenuList>

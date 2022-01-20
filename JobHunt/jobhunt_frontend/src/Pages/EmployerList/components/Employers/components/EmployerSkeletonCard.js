@@ -35,19 +35,20 @@ const useClasses = makeStyles(theme => ({
     imageBox: {
         display:'flex',
         alignItems:'center',
+        justifyContent:"center",
         [theme.breakpoints.only('xs')]:
             { display: 'flex', alignItems: 'center', flexDirection: 'column', textAlign: 'center' }
    
     }
 }))
-export const EmployerSkeletonCard = ({key}) => {
+export const EmployerSkeletonCard = ({}) => {
     const classes = useClasses()
     return (
-        <Card className={classes.cardRoot} key={key}>
+        <Card className={classes.cardRoot}>
             <CardActionArea className={classes.actionArea} >
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={2} className={classes.imageBox} justifyContent="center">
-                        <Skeleton variant='rectangle' width={'4em'} height={'3.5rem'} />
+                    <Grid item xs={12} sm={2} className={classes.imageBox} >
+                        <Skeleton variant='rect' width={'4em'} height={'3.5rem'} />
                     </Grid>
                     <Grid item xs={12} sm={10} className={classes.alignItemsinXs}>
                         <Skeleton variant='text' />

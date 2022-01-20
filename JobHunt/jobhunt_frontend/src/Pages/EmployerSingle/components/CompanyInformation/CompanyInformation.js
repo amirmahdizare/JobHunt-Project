@@ -1,6 +1,6 @@
 import { Box, Grid, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
-import { LineAwesome, SvgBarsSolid, SvgClock, SvgEye, SvgFileAlt, SvgMap, SvgUser, SvgUsersSolid } from 'react-line-awesome-svg'
+import { LineAwesome, SvgBarsSolid, SvgClock, SvgMap, SvgUser, SvgUsersSolid } from 'react-line-awesome-svg'
 import { InfoItem } from './components/InfoItem'
 const useClasses = makeStyles(theme => ({
     infoBox: {
@@ -27,7 +27,7 @@ export const CompanyInformation = ({number_of_employees,establishment_date,follo
             <Typography variant="h6">&nbsp;Company Information</Typography>
             <Box className={classes.infoBox}>
                 {info.map((info) => (
-                    <InfoItem icon={info.icon} title={info.title} description={info.description} />
+                    <InfoItem key={info.title} icon={info.icon} title={info.title} description={info.description} />
                 ))}
 
             </Box>

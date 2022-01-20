@@ -1,18 +1,30 @@
-import { IconButton, InputBase } from '@material-ui/core'
-import React from 'react'
-import { Jh_Card } from '../../../../components/Jh_Card' 
+import { Box, IconButton, InputBase } from '@material-ui/core'
+import React, { useEffect, useState } from 'react'
+import { Jh_Card } from '../../../../components/Jh_Card'
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined'
-export const LocationFilter = () => {
+import SearchState from '../../../../components/SearchState'
+export const LocationFilter = ({ addFilter, clearFilter }) => {
+	const [state, setState] = useState()
+
+	useEffect(() => {
+		if (!state) {
+			clearFilter('stateFilter')
+		}
+		else
+			addFilter(
+				'stateFilter',{
+
+					field: 'state_id',
+					value: state.id,
+					command: 'and'
+
+				}
+			)
+
+	}, [state])
 	return (
-		<Jh_Card>
-			<InputBase
-				style={{ flex: 1 }}
-				placeholder='Select Location'
-				inputProps={{ 'aria-label': 'Select Location' }}
-			/>
-			<IconButton disableFocusRipple type='submit' aria-label='search'>
-				<LocationOnOutlinedIcon color='secondary' />
-			</IconButton>
-		</Jh_Card>
+		<Box my={2}>
+			<SearchState setState={setState} state={state} />
+		</Box>
 	)
 }

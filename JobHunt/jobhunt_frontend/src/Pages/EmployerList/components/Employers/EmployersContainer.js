@@ -1,21 +1,31 @@
-import { Box } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
+
+import { Box, Grid } from '@material-ui/core'
 import { getCompanies } from '../../../../api/public'
 import { useGetData } from '../../../../hooks/useGetData'
 import { EmployerCard } from './components/EmployerCard'
 import { Jh_Pagination } from '../../../../components/Jh_Pagination.js'
 import { EmployerSkeletonCard } from './components/EmployerSkeletonCard'
+import { NumberOfEmployers } from './components/NumberOfEmployers'
+import { PaginationSize } from './components/PaginationSize'
 export const EmployersContainer = ({ filter }) => {
 
     const [page, setPage] = useState(1)
-    const [data, error, loading, refreshData] = useGetData(getCompanies, { data: filter, page: 1, pagination_size: 10 })
-    const { number_of_pages = 0, entities } = data || {}
+    const [pagination_size, setPagination_size] = useState(10)
+    const [data, , loading, refreshData] = useGetData(getCompanies, { filter, page: 1, pagination_size })
+    const { number_of_pages = 0, entities, number_of_entities } = data || {}
     
-    useEffect(() => refreshData, [filter])
-    
+    useEffect(() => refreshData(), [filter])
+
     const handleChange = (event, value) => setPage(value)
     return (
         <Box mt={3}>
+
+            <Grid container alignItems='center'>
+                <NumberOfEmployers loading={loading} number_of_entities={number_of_entities} />
+                {!loading && number_of_entities > 10 && <PaginationSize pagination_size={pagination_size} handleChange={setPagination_size} />}
+            </Grid>
+
             {!loading && entities && entities.map(emp =>
                 <EmployerCard
                     location={emp.address}
@@ -24,17 +34,9 @@ export const EmployersContainer = ({ filter }) => {
                 />
             )}
 
-            {loading && '1234567891'.split('').map((r) => <EmployerSkeletonCard key={r} />)}
+            {loading && 'abcdefgjiz'.split('').map((r) => <EmployerSkeletonCard key={r} />)}
 
-            {/* <EmployerCard
-                logo="https://creativelayers.net/themes/jobhunt-html/images/resource/em2.jpg"
-                numberOfOpenPositions={4}
-                name="Telimed"
-                category="Accounting Assistant, Arts, Design, and Media"
-                location=" Toronto, Ontario"
-            description="The Heavy Equipment / Grader Operator is responsible for operating one or several types construction equipment, such as front end loader, roller, bulldozer, or excavator to move,…" />*/}
-
-            {number_of_pages > 1 && <Jh_Pagination pages={number_of_pages} page={page} handleChange={handleChange}/>}
+            {number_of_pages > 1 && <Jh_Pagination pages={number_of_pages} page={page} handleChange={handleChange} />}
         </Box>
     )
 }

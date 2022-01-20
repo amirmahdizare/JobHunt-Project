@@ -1,7 +1,7 @@
 import moment from "moment"
 import { formatDate } from "../../components"
 import { api, centralApi } from "../../config/apiConfig"
-import { centralApiHeaderObj, getLanguage, getServiceId, getUserToken } from "../../utils"
+import { centralApiHeaderObj, getLanguage, getServiceId, getUserToken, makeSearchQueryString } from "../../utils"
 import { generateImageURL } from "../OSS/minioAPI"
 
 const getPopularCategories = async (customParams) => {
@@ -303,11 +303,22 @@ const getCompanyDetailById = async (id) => {
         const response = await api.get('/companies/guest/' + id, {
             headers: { Lang: getLanguage() },
         })
-        const logoPath = Object.values(response.data.data.logo)?.[0]
-        if (logoPath)
-            var logo = await generateImageURL('jobhunt', logoPath)
-        const category = await getCategoryDetailById(response.data.data?.category_id)
-        return { ...response.data.data, logo, category }
+        const { data: { data: { logo, category_id } } } = response
+        const category = await getCategoryDetailById(category_id) || null
+        if (typeof logo =='object') {
+            const logoPath = Object.values(logo)?.[0]
+            try {
+                const logo = await generateImageURL('jobhunt', logoPath)
+                return Promise.resolve({ ...response.data.data, category, logo })
+
+            } catch (error) {
+                //error
+            }
+
+        }
+        else {
+            return Promise.resolve({ ...response.data.data, category })
+        }
 
     } catch (error) {
         return Promise.reject(new Error('No Info Found'))
@@ -432,26 +443,31 @@ const getCandidateInfo = async ({ id }) => {
     }
 }
 
-const getCompanies = async ({ page, pagination_size, data }) => {
+const getCompanies = async ({ page, pagination_size, filter }) => {
     try {
-        const response = await api.get(`/companies/guest`, {
+        const filters = makeSearchQueryString(filter)
+        const response = await api.get(`/companies/guest?` + (filters || ''), {
             headers: {
                 Lang: getLanguage(),
                 'Content-Type': 'application/json'
             },
             params: {
-                data: JSON.stringify({ page: 2 }),
                 page, pagination_size
             }
         })
-        var { data: { data: { entities, number_of_pages } } } = response
-        console.log(entities, number_of_pages)
+        var { data: { data: { entities, number_of_pages, number_of_entities } } } = response
         entities = await Promise.all(entities.map(async (emp) => {
-            const logoPath = Object.values(emp.logo)[0]
-            return { ...emp, logo: logoPath ? await generateImageURL('jobhunt', logoPath) : null }
+            if (emp.logo) {
+
+                const logoPath = emp?.logo ? Object.values(emp?.logo)?.[0] : null
+                return { ...emp, logo: logoPath ? await generateImageURL('jobhunt', logoPath) : null }
+            }
+            else
+                return emp
+
         }
         ))
-        return Promise.resolve({ entities, number_of_pages })
+        return Promise.resolve({ entities, number_of_pages, number_of_entities })
 
     } catch (error) {
         return Promise.reject(error.response.data.message)

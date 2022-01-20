@@ -5,7 +5,7 @@ import {
     Checkbox, FormControlLabel, FormGroup,
     IconButton, makeStyles, Typography
 } from '@material-ui/core'
-import { Jh_Card } from '../../../components/Jh_Card'
+import { Jh_Card } from '../../../../../components/Jh_Card'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 const useStyles = makeStyles(theme => ({
@@ -51,10 +51,11 @@ export const AccordionFilterBox = (props) => {
         <Jh_Card >
             <Accordion square expanded={expand} elevation={0} classes={{ root: classes.root }}  >
                 <AccordionSummary
-                    expandIcon={<IconButton onClick={() => setExpand(!expand)} >{expand ? <RemoveIcon /> : <AddIcon />}</IconButton>}
+                    expandIcon={<IconButton style={{padding:'0'}}  >{expand ? <RemoveIcon /> : <AddIcon />}</IconButton>}
                     aria-controls={`${props.title} Filter`}
                     id={`${props.title} Filter`}
                     classes={{ root: classes.summary, expandIcon: classes.expandIcon }}
+                    onClick={() => setExpand(!expand)}
                 >
                     <Typography  >{props.title}</Typography>
                 </AccordionSummary>
