@@ -38,6 +38,7 @@ const useClasses = makeStyles(theme => ({
     imageBox: {
         display: 'flex',
         alignItems: 'center',
+        justifyContent:'center',
         [theme.breakpoints.only('xs')]:
             { display: 'flex', alignItems: 'center', flexDirection: 'column', textAlign: 'center' }
 
@@ -51,7 +52,7 @@ export const EmployerCard = (props) => {
             <Card className={classes.cardRoot} >
                 <CardActionArea className={classes.actionArea} >
                     <Grid container spacing={3}>
-                        <Grid item xs={12} sm={2} className={classes.imageBox} justifyContent="center">
+                        <Grid item xs={12} sm={2} className={classes.imageBox}>
 
                             <CardMedia
                                 className={classes.cardMedia}

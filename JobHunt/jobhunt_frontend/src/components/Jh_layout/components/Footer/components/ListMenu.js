@@ -44,11 +44,12 @@ const ListMenu = (props) => {
     return (
         <MenuList className={classes.root}>
             {props.menuItems.map((item) => (
-                <MenuItem className={classes.menuItem} >
+                <MenuItem className={classes.menuItem} key={item.name} >
                     <Link
                         className={classes.link}
                         href={item.href}>
                         {item.name}
+                        
                     </Link>
                 </MenuItem>
             ))}
