@@ -19,11 +19,27 @@ const initialState = {
   categoriesListCopy: [],
   specialismListCopy: [],
   allFilters: [],
-  cooperationsList: []
+  cooperationsList: [],
+  states: [],
+  statesList: [],
+  statesListCopy: [],
+  page: 1,
+  paginationSize: 30,
+  numberOfEntities: 0
 };
 
 const JobReducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case (ActionTypes.ON_JOB_CHANGE): {
+
+      const { prop, value } = action.payload
+
+      return {
+        ...state,
+        [prop]: value
+      }
+    }
 
     case (ActionTypes.ON_GET_JOBS): {
 
@@ -31,15 +47,15 @@ const JobReducer = (state = initialState, action) => {
 
       var specialisms = [];
 
-      var jobs = action.payload
+      var { jobs, numberOfEntities } = action.payload
 
-      for (var i = 0; i < jobs.entities.length; i++) {
-        jobs?.entities[i]?.industry_job && industries.push({ name: jobs.entities[i].industry_job });
-        for (var j = 0; j < jobs.entities[i]?.tags?.length; j++) {
-          const SpecialismsIndex = specialisms.findIndex(m => m.name == jobs.entities[i]?.tags[j]);
+      for (var i = 0; i < jobs.length; i++) {
+        jobs[i]?.industry_job && industries.push({ name: jobs[i].industry_job });
+        for (var j = 0; j < jobs[i]?.tags?.length; j++) {
+          const SpecialismsIndex = specialisms.findIndex(m => m.name == jobs[i]?.tags[j]);
           if (SpecialismsIndex == -1) {
             specialisms.push({
-              name: jobs.entities[i]?.tags[j],
+              name: jobs[i]?.tags[j],
               number: 1
             })
           }
@@ -54,7 +70,8 @@ const JobReducer = (state = initialState, action) => {
         jobs,
         industriesList: industries,
         specialismList: specialisms,
-        specialismListCopy: specialisms
+        specialismListCopy: specialisms,
+        numberOfEntities: numberOfEntities
       }
     }
 
@@ -133,11 +150,28 @@ const JobReducer = (state = initialState, action) => {
 
     case (ActionTypes.SET_SEARCH): {
 
-      const { prop, value } = action.payload
+      const { prop, value } = action.payload;
+
+      var allFiltersCopy = [...state.allFilters];
+      var filterIndex = allFiltersCopy.findIndex(m => m.field == prop);
+
+      if (filterIndex == -1 && value) {
+        allFiltersCopy.push({
+          field: prop,
+          value
+        })
+      }
+      else if (filterIndex !== -1 && !value) {
+        allFiltersCopy.splice(filterIndex, 1);
+      }
+      else {
+        allFiltersCopy[filterIndex].value = value
+      }
 
       return {
         ...state,
-        [prop]: value
+        [prop]: value,
+        allFilters: allFiltersCopy
       }
     }
 
@@ -152,18 +186,119 @@ const JobReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        [field]: specificFilter,
+        [field]: field == 'searchKeyword' ? '' : specificFilter,
         allFilters: allFiltersCopy
       }
     }
 
     case (ActionTypes.ON_FILTER_JOBS): {
 
-      var jobs = action.payload
+      var { jobs, status, numberOfEntities } = action.payload;
+
+      var jobsList = status == 'nextPage' ? [...state.jobs] : [];
+      var industries = status == 'nextPage' ? [] : [...state.industriesList];
+      var specialisms = status == 'nextPage' ? [] : [...state.specialismList];
+
+      jobsList.push(...jobs);
+
+      if (status == 'nextPage') {
+        for (var i = 0; i < jobsList.length; i++) {
+          jobsList[i]?.industry_job && industries.push({ name: jobsList[i].industry_job });
+          for (var j = 0; j < jobsList[i]?.tags?.length; j++) {
+            const SpecialismsIndex = specialisms.findIndex(m => m.name == jobsList[i]?.tags[j]);
+            if (SpecialismsIndex == -1) {
+              specialisms.push({
+                name: jobsList[i]?.tags[j],
+                number: 1
+              })
+            }
+            else {
+              specialisms[SpecialismsIndex].number += 1
+            }
+          }
+        }
+      }
 
       return {
         ...state,
-        jobs,
+        jobs: jobsList,
+        industriesList: industries,
+        specialismList: specialisms,
+        specialismListCopy: specialisms,
+        page: status == 'nextPage' ? state.page : 1,
+        numberOfEntities
+      }
+    }
+
+    case (ActionTypes.ON_GET_CHINA_STATES): {
+
+      const statesList = action.payload;
+
+      return {
+        ...state,
+        statesList,
+        statesListCopy: statesList,
+      }
+    }
+
+    case (ActionTypes.SET_QUERY_SEARCH): {
+
+      const { prop, prop2, value } = action.payload;
+      const values = value.split(',');
+      var allFilters = [...state.allFilters];
+      var specificFilter = [];
+
+      for (var i = 0; i < values.length; i++) {
+        console.log("Values",values)
+        allFilters.push(
+          {
+            field: prop,
+            value: state[prop2].filter(m => m.name == values[i])[0].name
+          }
+        );
+        specificFilter.push(state[prop2].filter(m => m.name == values[i])[0].name);
+      }
+
+      return {
+        ...state,
+        allFilters,
+        [prop]: specificFilter
+      }
+    }
+
+    case (ActionTypes.NEXT_PAGE): {
+
+      return {
+        ...state,
+        page: state.page + 1
+      }
+    }
+
+    case (ActionTypes.CHANGE_PAGINATION): {
+
+      return {
+        ...state,
+        paginationSize: action.payload
+      }
+    }
+
+    case (ActionTypes.CLEAR_FILTERS): {
+
+      return {
+        ...state,
+        allFilters: [],
+        searchKeyword: '',
+        searchLocation: '',
+        datePosted: [],
+        jobType: [],
+        specialism: [],
+        offeredSalary: [],
+        careerLevel: [],
+        experience: [],
+        industry: [],
+        qualification: [],
+        categories: [],
+        states: [],
       }
     }
 
@@ -174,4 +309,3 @@ const JobReducer = (state = initialState, action) => {
 };
 
 export { JobReducer as default };
-

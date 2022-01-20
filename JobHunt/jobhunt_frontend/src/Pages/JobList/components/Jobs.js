@@ -1,24 +1,21 @@
-import { Box, Button, Divider, Typography } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import { Box, Button, Typography } from '@material-ui/core'
+import React, { useEffect } from 'react'
 import Jh_BigJobCard from '../../../components/Jh_BigJobCard'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import { useGetAllJobs } from '../../../hooks/useGetAllJobs'
 import { connect } from 'react-redux'
-import { getJobs } from '../../../Store/Actions/jobAction'
+import { getJobs, nextPage } from '../../../Store/Actions/jobAction'
 
-const Jobs = ({ JobReducer, getJobs }) => {
-    const [numberOfRecords, setNumberOfRecords] = useState(10);
+const Jobs = ({ JobReducer, getJobs, nextPage }) => {
 
     useEffect(() => {
-        getJobs(1, 10)
+        getJobs()
     }, []);
 
     return (
         <Box my={2} >
-            <Typography variant="h5">{JobReducer?.jobs?.number_of_entities} Jobs & Vacancies</Typography>
+            <Typography variant="h5">{JobReducer?.numberOfEntities} Jobs & Vacancies</Typography>
             <Box mx={-2} my={2} >
-                {/* <Divider light variant="fullWidth"/> */}
-                {JobReducer?.jobs?.entities?.map((item, index) => {
+                {JobReducer?.jobs?.map((item, index) => {
                     return (
                         <Jh_BigJobCard
                             job={item}
@@ -30,7 +27,7 @@ const Jobs = ({ JobReducer, getJobs }) => {
             </Box>
             <Box display="flex" justifyContent="center">
 
-                <Button startIcon={<MoreHorizIcon color="action" />} onClick={() => setNumberOfRecords(numberOfRecords + 10)} variant="outlined" color="default">View More</Button>
+                <Button startIcon={<MoreHorizIcon color="action" />} onClick={nextPage} variant="outlined" color="default">View More</Button>
             </Box>
         </Box>
     )
@@ -41,4 +38,4 @@ const mapStateToProps = state => {
         JobReducer: state.JobReducer
     };
 };
-export default connect(mapStateToProps, { getJobs })(Jobs);
+export default connect(mapStateToProps, { getJobs, nextPage })(Jobs);

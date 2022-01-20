@@ -6,15 +6,30 @@ import {
     SET_SEARCH,
     REMOVE_FILTER,
     ON_GET_COOPERATION,
-    ON_FILTER_JOBS
+    ON_FILTER_JOBS,
+    ON_GET_CHINA_STATES,
+    SET_QUERY_SEARCH,
+    NEXT_PAGE,
+    CHANGE_PAGINATION,
+    ON_JOB_CHANGE,
+    CLEAR_FILTERS
 } from './types';
-import { getAllJobs, getAllCategories, getAllCorporations } from "../../api/public"
+import { getAllJobs, getAllCategories, getAllCorporations, getChinaStates } from "../../api/public"
+import { filterDate } from '../../components'
 
-export const getJobs = (page, paginationSize) => async (
+export const onJobChange = (prop, value) => async (
     dispatch
 ) => {
-    getAllJobs(page, paginationSize).then((data) => dispatch({
-        type: ON_GET_JOBS, payload: data
+    dispatch({
+        type: ON_JOB_CHANGE, payload: { prop, value }
+    })
+}
+
+export const getJobs = () => async (
+    dispatch, getState
+) => {
+    getAllJobs(1, getState().JobReducer?.paginationSize).then((data) => dispatch({
+        type: ON_GET_JOBS, payload: { jobs: data.entities, numberOfEntities: data.number_of_entities }
     }))
 }
 
@@ -26,11 +41,11 @@ export const setFilter = (prop, value) => async (
     });
 
     setTimeout(() => {
-        filterJobs(1, 10)(dispatch, getState)
+        filterJobs('')(dispatch, getState)
     }, 200);
 }
 
-export const filterJobs = (page, paginationSize) => async (
+export const filterJobs = (nextPage) => async (
     dispatch, getState
 ) => {
 
@@ -48,6 +63,10 @@ export const filterJobs = (page, paginationSize) => async (
     var industryFieldIndex = -1;
     var qualificationIndex = -1;
     var qualificationFieldIndex = -1;
+    var datePostedIndex = -1;
+    var datePostedFieldIndex = -1;
+    var statesIndex = -1;
+    var statesFieldIndex = -1;
 
     for (var i = 0; i < getState().JobReducer.allFilters.length; i++) {
 
@@ -113,19 +132,49 @@ export const filterJobs = (page, paginationSize) => async (
             }
             qualificationIndex += 1
         }
+        else if (getState().JobReducer?.allFilters[i]?.field == 'searchKeyword') {
+            queryFilter += `&filters[${fieldIndex}][field]=title.en&filters[${fieldIndex}][value]=${`%${getState().JobReducer?.allFilters[i]?.value}%`}&filters[${fieldIndex}][operator]=like`
+            fieldIndex += 1
+        }
+        else if (getState().JobReducer?.allFilters[i]?.field == 'datePosted') {
+
+            if (datePostedIndex == -1) {
+                queryFilter += `&filters[${fieldIndex}][field]=created_at&filters[${fieldIndex}][value]=${filterDate(getState().JobReducer?.allFilters[i]?.value)}&filters[${fieldIndex}][operator]=>`
+            } else {
+                queryFilter += `&filters[${fieldIndex}][field]=created_at&filters[${fieldIndex}][value]=${filterDate(getState().JobReducer?.allFilters[i]?.value)}&filters[${fieldIndex}][operator]=>&filters[${datePostedFieldIndex}][command]=or`
+            }
+            datePostedFieldIndex = fieldIndex;
+            datePostedIndex += 1;
+            fieldIndex += 1
+        }
+        else if (getState().JobReducer?.allFilters[i]?.field == 'states') {
+            const stateId = getState().JobReducer?.statesList?.filter(m => m.name == getState().JobReducer?.allFilters[i]?.value)[0]?.id;
+            if (statesIndex == -1) {
+                statesFieldIndex = fieldIndex
+                queryFilter += `&filters[${fieldIndex}][field]=state_id&filters[${fieldIndex}][value][${statesIndex + 1}]=${stateId}&filters[${fieldIndex}][command]=inArr`
+                fieldIndex += 1
+            } else {
+                queryFilter += `&filters[${statesFieldIndex}][value][${statesIndex + 1}]=${stateId}`
+            }
+            statesIndex += 1
+        }
     }
 
-    getAllJobs(page, paginationSize, queryFilter).then((data) => dispatch({
-        type: ON_FILTER_JOBS, payload: data
+    getAllJobs(nextPage ? getState().JobReducer?.page : 1, getState().JobReducer?.paginationSize, queryFilter).then((data) => dispatch({
+        type: ON_FILTER_JOBS, payload: { jobs: data.entities, status: nextPage, numberOfEntities: data.number_of_entities }
     }))
 }
 
 export const getCategories = () => async (
     dispatch
 ) => {
-    getAllCategories().then((data) => dispatch({
-        type: ON_GET_CATEGORIES, payload: data
-    }))
+    return getAllCategories().then((data) => {
+        dispatch({
+            type: ON_GET_CATEGORIES, payload: data
+        })
+        return data;
+    }
+    )
 }
 
 export const getCooperation = () => async (
@@ -145,11 +194,14 @@ export const searchInFiltersList = (prop, value) => async (
 }
 
 export const setSearch = (prop, value) => async (
-    dispatch
+    dispatch, getState
 ) => {
     dispatch({
         type: SET_SEARCH, payload: { prop, value }
     })
+    setTimeout(() => {
+        filterJobs('')(dispatch, getState)
+    }, 200);
 }
 
 export const removeFilter = (data) => async (
@@ -159,6 +211,62 @@ export const removeFilter = (data) => async (
         type: REMOVE_FILTER, payload: data
     })
     setTimeout(() => {
-        filterJobs(1, 10)(dispatch, getState)
+        filterJobs('')(dispatch, getState)
+    }, 200);
+}
+
+export const onGetChinaStates = () => async (
+    dispatch
+) => {
+    return getChinaStates().then((data) => {
+        dispatch({
+            type: ON_GET_CHINA_STATES, payload: data
+        })
+        return data
+    }
+    )
+}
+
+export const setQuerySearch = (prop, prop2, value) => async (
+    dispatch, getState
+) => {
+    dispatch({
+        type: SET_QUERY_SEARCH, payload: { prop, prop2, value }
+    })
+    setTimeout(() => {
+        filterJobs('')(dispatch, getState)
+    }, 200);
+}
+
+export const nextPage = () => async (
+    dispatch, getState
+) => {
+    dispatch({
+        type: NEXT_PAGE
+    })
+    setTimeout(() => {
+        filterJobs('nextPage')(dispatch, getState)
+    }, 200);
+}
+
+export const changePagination = (value) => async (
+    dispatch, getState
+) => {
+    dispatch({
+        type: CHANGE_PAGINATION, payload: value
+    })
+    setTimeout(() => {
+        filterJobs('')(dispatch, getState)
+    }, 200);
+}
+
+export const clearFilters = (value) => async (
+    dispatch, getState
+) => {
+    dispatch({
+        type: CLEAR_FILTERS,
+    })
+    setTimeout(() => {
+        filterJobs('')(dispatch, getState)
     }, 200);
 }

@@ -1,24 +1,38 @@
-import { Box, Container, Divider, Grid } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import { Box, Container, Grid } from '@material-ui/core'
+import React, { useEffect } from 'react'
 import Jh_AccordionFilterBox from '../../components/Jh_AccordionFilterBox'
 import { ContentHeader } from '../../components/ContentHeader'
 import Jh_SearchKeyword from '../../components/Jh_SearchKeyword'
-import Jh_SelectLocation from '../../components/Jh_SelectLocation'
+// import Jh_SelectLocation from '../../components/Jh_SelectLocation'
 import { Email_Sort } from './components/Email_Sort'
 import Jobs from './components/Jobs'
 import SearchTags from './components/SearchTags'
-import { StillNeedHelp } from './components/StillNeedHelp'
-import { useGetAllCorporations } from '../../hooks/useGetAllCorporations'
+// import { StillNeedHelp } from './components/StillNeedHelp'
 import { connect } from 'react-redux';
-import { getCategories, getCooperation } from '../../Store/Actions/jobAction'
+import { getCategories, getCooperation, onGetChinaStates, setQuerySearch } from '../../Store/Actions/jobAction'
+import { getQueryParameterByName } from '../../components'
 
-const JobList = ({ JobReducer, getCategories, getCooperation }) => {
-
+const JobList = ({ JobReducer, getCategories, getCooperation, onGetChinaStates, setQuerySearch }) => {
 
     useEffect(() => {
-        getCategories();
         getCooperation();
+        onGetCategories()
+        onGetStates();
     }, [])
+
+    const onGetCategories = async () => {
+        const result = await getCategories();
+        if (result.length > 0 && getQueryParameterByName('categories')) {
+            setQuerySearch('categories', 'categoriesList', getQueryParameterByName('categories'))
+        }
+    }
+
+    const onGetStates = async () => {
+        const result = await onGetChinaStates();
+        if (result.length > 0 && getQueryParameterByName('states')) {
+            setQuerySearch('states', 'statesList', getQueryParameterByName('states'))
+        }
+    }
 
     return (
         <Box>
@@ -26,8 +40,8 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
             <Container maxWidth="lg" style={{ overflow: 'hidden' }} >
                 <Grid container spacing={4} >
                     <Grid item xs={12} md={3} style={{ borderRight: '1px solid #edeff7' }}>
-                        {/* <Jh_SearchKeyword />
-                        <Jh_SelectLocation /> */}
+                        <Jh_SearchKeyword />
+                        {/* <Jh_SelectLocation /> */}
                         <Jh_AccordionFilterBox
                             title="Date Posted"
                             items={[
@@ -36,7 +50,7 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
                                 { name: 'Last 7 Days' },
                                 { name: 'Last 14 Days' },
                                 { name: 'Last 30 Days' },
-                                { name: 'All' }
+                                // { name: 'All' }
                             ]}
                             filterProp='datePosted'
                         />
@@ -50,15 +64,21 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
                             variant="withSearch"
                             title="Specialism"
                             filterProp='specialism'
-                            items={JobReducer.specialismListCopy} />
+                            items={JobReducer?.specialismListCopy} />
 
                         <Jh_AccordionFilterBox
                             variant="withSearch"
                             title="Categories"
                             filterProp='categories'
-                            items={JobReducer.categoriesListCopy} />
+                            items={JobReducer?.categoriesListCopy} />
 
                         <Jh_AccordionFilterBox
+                            variant="withSearch"
+                            title="States"
+                            filterProp='states'
+                            items={JobReducer?.statesListCopy} />
+
+                        {/* <Jh_AccordionFilterBox
                             title="Offerd Salary"
                             filterProp='offeredSalary'
                             items={[
@@ -68,7 +88,7 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
                                 { name: '30K-40K' },
                                 { name: '40K-50K' },
                                 { name: 'Up To 50K' },
-                            ]} />
+                            ]} /> */}
                         <Jh_AccordionFilterBox
                             title="Career Level"
                             filterProp='careerLevel'
@@ -78,7 +98,7 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
                                 { name: 'Special' },
                                 { name: 'Experienced' },
                             ]} />
-                        <Jh_AccordionFilterBox
+                        {/* <Jh_AccordionFilterBox
                             title="Experince"
                             filterProp='experience'
                             items={[
@@ -86,7 +106,7 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
                                 { name: '2 Year to 3 Year' },
                                 { name: '3 year to 4 Year' },
                                 { name: '4 Year to 5 Year' },
-                            ]} />
+                            ]} /> */}
                         {/* <Jh_AccordionFilterBox
                             title="Gender"
                             items={[
@@ -114,9 +134,8 @@ const JobList = ({ JobReducer, getCategories, getCooperation }) => {
                             ]} />
                         {/* <StillNeedHelp /> */}
                     </Grid>
-                    {/* <Divider orientation="vertical" flexItem light /> */}
                     <Grid item xs={12} md={9} >
-                        <SearchTags />
+                        {JobReducer?.allFilters?.length > 0 && <SearchTags />}
                         <Email_Sort />
                         <Jobs corporations={JobReducer?.cooperationsList} />
                     </Grid>
@@ -131,4 +150,4 @@ const mapStateToProps = state => {
         JobReducer: state.JobReducer
     };
 };
-export default connect(mapStateToProps, { getCategories, getCooperation })(JobList);
+export default connect(mapStateToProps, { getCategories, getCooperation, onGetChinaStates, setQuerySearch })(JobList);

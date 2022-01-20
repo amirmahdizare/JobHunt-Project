@@ -1,15 +1,15 @@
 import { Box, Container, Divider, Grid } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import { LineAwesome, SvgClock, SvgFile, SvgSearchPlusSolid, SvgSearchSolid } from 'react-line-awesome-svg'
+import { LineAwesome, SvgClock, SvgFile, SvgSearchPlusSolid } from 'react-line-awesome-svg'
 import { Jh_JobSingleHeader } from '../../components/Jh_JobSingleHeader'
-import { Jh_Share } from '../../components/Jh_Share'
+// import { Jh_Share } from '../../components/Jh_Share'
 import { Jh_StatisticCard } from '../../components/Jh_StatisticCard'
 import { ApplyBox } from './components/ApplyBox'
 import { JobDetailContainer } from './components/JobDetailContainer'
 import { JobInfo } from './components/JobInfo'
-import { JobLocation } from './components/JobLocation'
+// import { JobLocation } from './components/JobLocation'
 import { JobOverview } from './components/JobOverview'
-import { RecentJobs } from './components/RecentJobs';
+// import { RecentJobs } from './components/RecentJobs';
 import { useGetSpecificCompany } from '../../hooks/useGetSpecificCompany';
 import { useGetSingleJob } from '../../hooks/useGetSingleJob';
 import { useHistory } from 'react-router';
@@ -26,7 +26,7 @@ const JobSingle = () => {
     const company = useGetSpecificCompany(companyId);
     const [logoImage, setLogoImage] = useState(false)
 
-
+    console.log(company)
     const getImage = async () => {
         if (company.logo) {
             const onGetImage = await generateImageURL('jobhunt', Object.values(company.logo)[0]);
@@ -55,34 +55,13 @@ const JobSingle = () => {
                             companyLogo={logoImage}
                             location={company.address}
                             website={company.website}
-                            phoneNumber="+90 538 963 54 87"
-                            emailAddress="ali.tufan@jobhunt.com"
+                            phoneNumber={company?.phoneNumber}
+                            emailAddress={company?.email}
                         />
                         <Divider light />
                         <JobDetailContainer
                             title="Job Description"
                             text={[job.description]} />
-                        {/* <JobDetailContainer
-                            title="Required Knowledge, Skills, and Abilitie"
-                            items={[
-                                'Ability to write code – HTML & CSS (SCSS flavor of SASS preferred when writing CSS)',
-                                'Proficient in Photoshop, Illustrator, bonus points for familiarity with Sketch (Sketch is our preferred concepting)',
-                                'Cross-browser and platform testing as standard practice',
-                                'Experience using Invision a plus',
-                                'Experience in video production a plus or, at a minimum, a willingness to learn'
-                            ]} />
-                        <JobDetailContainer
-                            title="Education + Experience"
-                            items={[
-                                'Advanced degree or equivalent experience in graphic and web design',
-                                '3 or more years of professional design experience',
-                                'Direct response email experience',
-                                'Ecommerce website design experience',
-                                'Familiarity with mobile and web apps preferred',
-                                'Excellent communication skills, most notably a demonstrated ability to solicit and address creative and design feedback',
-                                'Must be able to work under pressure and meet deadlines while maintaining a positive attitude and providing exemplary customer service',
-                                'Ability to work independently and to carry out assignments to completion within parameters of instructions given, prescribed routines, and standard accepted practices'
-                            ]} /> */}
                         {/* <Divider light /> */}
                         {/* <Box width={1 / 4} my={2}>
                             <Jh_Share />
@@ -91,7 +70,7 @@ const JobSingle = () => {
                         {/* <RecentJobs /> */}
                     </Grid>
                     <Grid item xs={12} md={4}>
-                        <ApplyBox job={job} />
+                        <ApplyBox job={job} companyId={companyId} />
                         <JobOverview job={job} />
                         {/* <JobLocation company={company} /> */}
                         <Jh_StatisticCard

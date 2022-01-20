@@ -45,7 +45,7 @@ const SearchButton = ({ category, state }) => {
     useEffect(() => {
         var temp = {}
         if (category?.id) temp = {categories:category.title}
-        if (state?.id ) temp = { ...temp,statesList:state.name}
+        if (state?.id ) temp = { ...temp,states:state.name}
         setQueries( new URLSearchParams(temp))
        
     }, [category?.id, state?.id])
