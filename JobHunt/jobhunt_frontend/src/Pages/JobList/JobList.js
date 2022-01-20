@@ -1,14 +1,13 @@
-import { Box, Container, Divider, Grid } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import { Box, Container, Grid } from '@material-ui/core'
+import React, { useEffect } from 'react'
 import Jh_AccordionFilterBox from '../../components/Jh_AccordionFilterBox'
 import { ContentHeader } from '../../components/ContentHeader'
 import Jh_SearchKeyword from '../../components/Jh_SearchKeyword'
-import Jh_SelectLocation from '../../components/Jh_SelectLocation'
+// import Jh_SelectLocation from '../../components/Jh_SelectLocation'
 import { Email_Sort } from './components/Email_Sort'
 import Jobs from './components/Jobs'
 import SearchTags from './components/SearchTags'
-import { StillNeedHelp } from './components/StillNeedHelp'
-import { useGetAllCorporations } from '../../hooks/useGetAllCorporations'
+// import { StillNeedHelp } from './components/StillNeedHelp'
 import { connect } from 'react-redux';
 import { getCategories, getCooperation, onGetChinaStates, setQuerySearch } from '../../Store/Actions/jobAction'
 import { getQueryParameterByName } from '../../components'
@@ -135,7 +134,6 @@ const JobList = ({ JobReducer, getCategories, getCooperation, onGetChinaStates, 
                             ]} />
                         {/* <StillNeedHelp /> */}
                     </Grid>
-                    {/* <Divider orientation="vertical" flexItem light /> */}
                     <Grid item xs={12} md={9} >
                         {JobReducer?.allFilters?.length > 0 && <SearchTags />}
                         <Email_Sort />

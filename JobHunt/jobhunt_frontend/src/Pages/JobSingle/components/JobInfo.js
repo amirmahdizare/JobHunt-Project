@@ -56,9 +56,9 @@ export const JobInfo = (props) => {
                     <Typography variant="h5" >{companyName}</Typography>
                     <Button disableRipple startIcon={<LocationOnOutlinedIcon color="action" />}> <Typography color="textSecondary" >{location}</Typography></Button>
                     <Box display="flex" flexWrap="wrap"  >
-                        <a className={classes.companyInfo} href={`http://${website}}`}><LinkIcon color="action" /> <Typography className={classes.companyInfoTxt} variant="body2" color="textSecondary">{website}</Typography></a>
-                        <a className={classes.companyInfo} href={`tel:${phoneNumber}`} ><PhoneIcon color="action" /><Typography className={classes.companyInfoTxt} variant="body2" color="textSecondary">{phoneNumber}</Typography></a>
-                        <a className={classes.companyInfo} href={`mailto:${emailAddress}`} ><MailOutlineIcon color="action" /><Typography className={classes.companyInfoTxt} variant="body2" color="textSecondary">{emailAddress}</Typography></a>
+                        {website && <a className={classes.companyInfo} href={`http://${website}`}><LinkIcon color="action" /> <Typography className={classes.companyInfoTxt} variant="body2" color="textSecondary">{website}</Typography></a>}
+                        {phoneNumber && <a className={classes.companyInfo} href={`tel:${phoneNumber}`} ><PhoneIcon color="action" /><Typography className={classes.companyInfoTxt} variant="body2" color="textSecondary">{phoneNumber}</Typography></a>}
+                        {emailAddress && <a className={classes.companyInfo} href={`mailto:${emailAddress}`} ><MailOutlineIcon color="action" /><Typography className={classes.companyInfoTxt} variant="body2" color="textSecondary">{emailAddress}</Typography></a>}
                     </Box>
                 </Grid>
             </Grid>

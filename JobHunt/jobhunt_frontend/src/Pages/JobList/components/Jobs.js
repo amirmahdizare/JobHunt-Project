@@ -1,8 +1,7 @@
-import { Box, Button, Divider, Typography } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import { Box, Button, Typography } from '@material-ui/core'
+import React, { useEffect } from 'react'
 import Jh_BigJobCard from '../../../components/Jh_BigJobCard'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import { useGetAllJobs } from '../../../hooks/useGetAllJobs'
 import { connect } from 'react-redux'
 import { getJobs, nextPage } from '../../../Store/Actions/jobAction'
 
@@ -16,7 +15,6 @@ const Jobs = ({ JobReducer, getJobs, nextPage }) => {
         <Box my={2} >
             <Typography variant="h5">{JobReducer?.numberOfEntities} Jobs & Vacancies</Typography>
             <Box mx={-2} my={2} >
-                {/* <Divider light variant="fullWidth"/> */}
                 {JobReducer?.jobs?.map((item, index) => {
                     return (
                         <Jh_BigJobCard

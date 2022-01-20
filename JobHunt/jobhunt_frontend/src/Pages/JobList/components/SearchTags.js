@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React  from 'react'
 import { Box, Button, Chip, makeStyles, Typography } from '@material-ui/core'
 import { Jh_Card } from '../../../components/Jh_Card'
-import SaveAltIcon from '@material-ui/icons/SaveAlt';
+// import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from 'react-redux';
 import { removeFilter, clearFilters } from '../../../Store/Actions/jobAction'
