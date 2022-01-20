@@ -249,13 +249,14 @@ const JobReducer = (state = initialState, action) => {
       var specificFilter = [];
 
       for (var i = 0; i < values.length; i++) {
+        console.log("Values",values)
         allFilters.push(
           {
             field: prop,
-            value: state[prop2].filter(m => m.id == values[i])[0].name
+            value: state[prop2].filter(m => m.name == values[i])[0].name
           }
         );
-        specificFilter.push(state[prop2].filter(m => m.id == values[i])[0].name);
+        specificFilter.push(state[prop2].filter(m => m.name == values[i])[0].name);
       }
 
       return {
