@@ -3,44 +3,33 @@ import React from 'react'
 import CategoriesContainer from './components/CategoriesContainer'
 import { makeStyles } from '@material-ui/core'
 import JumpButton from './JumpButton/JumpButton'
+import { useGetData } from '../../../../hooks/useGetData'
+import { getAllJobOffers, getTodayJobs } from '../../../../api/public'
 const useClasses = makeStyles(theme => ({
     root: {
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'column',
         textAlign: 'center',
-        color:'black',
-        position:'relative'
+        color: 'black',
+        position: 'relative'
     }
-    ,
-    button: {
-        borderRadius: theme.spacing(1),
-        border: '2px solid',
-        borderColor: theme.palette.secondary.main,
-        color: theme.palette.text.primary,
-        marginBottom: theme.spacing(5),
-        padding: theme.spacing(1.5),
-        textTransform: 'none',
-        transition: 'all .4s ease',
 
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.main,
-            border: '2px solid',
-            borderColor: theme.palette.secondary.main,
-            color: theme.palette.secondary.contrastText
-        }
-    }
 }))
 const PopularCategories = () => {
     const classes = useClasses()
+    const [number_of_jobs] = useGetData(getAllJobOffers)
+    const [todayJobs] = useGetData(getTodayJobs)
     return (
         <Container maxWidth="lg" className={classes.root}>
-            <JumpButton/>
+            <JumpButton />
             <Box id="categories" position="absolute" top="-30px"></Box>
             <Box mb={3} mt={10}><Typography variant="h4">Popular Categories</Typography></Box>
-            <Box ><Typography >37 jobs live - 0 added today.</Typography></Box>
+            <Box >
+                {number_of_jobs && <Typography >{number_of_jobs} jobs live </Typography>}
+                {todayJobs?.number_of_entities && <Typography>{todayJobs?.number_of_entities}-  added today.</Typography>}
+            </Box>
             <CategoriesContainer />
-            <Button href="/jobs"  className={classes.button} color="secondary" variant="outlined"><Typography variant="h6" style={{fontSize:'16px'}} >Browse All Categories</Typography></Button>
         </Container>
     )
 }

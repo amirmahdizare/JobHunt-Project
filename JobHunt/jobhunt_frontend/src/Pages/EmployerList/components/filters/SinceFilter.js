@@ -68,7 +68,6 @@ export const SinceFilter = (props) => {
         setRange({ min: range[0], max: range[1] })
 
     }
-    console.log(range)
     return (
         <Jh_Card>
             <Accordion defaultExpanded elevation={0} classes={{ root: classes.root }}>

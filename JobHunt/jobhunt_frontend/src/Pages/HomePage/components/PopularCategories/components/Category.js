@@ -75,13 +75,13 @@ const Category = (props) => {
 
     return (
         <Grid item xs={12} sm={6} md={4} lg={3} p={2} >
-            <Card className={classes.root} component={Link} href={`/jobs?categoryId=${id}`} color="inherit" underline="none">
+            <Card className={classes.root} component={Link} href={`/jobs`} color="inherit" underline="none">
                 <CardActionArea>
                     <CardContent className={classes.content}>
                         {icon && <i  className={classes.icon} class={icon}></i>}
                         {!icon && title && <Avatar className={classes.defaultIcon} >{title[0]}</Avatar>}
                         <Typography variant="h5" component="b" className={classes.categoryName} >{title}</Typography>
-                        {openPositions ? <Typography variant="h6" className={classes.categoryStatus} >({openPositions}&nbsp;Open Positions</Typography> : null}
+                        { openPositions ? <Typography variant="h6" className={classes.categoryStatus} >({openPositions})&nbsp;Open Positions</Typography> : null}
                     </CardContent>
                 </CardActionArea>
             </Card>

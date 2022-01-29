@@ -17,7 +17,6 @@ const useClasses=makeStyles(theme=>({
 }))
 export const Jh_TimeLineStepper = (props) => {
     const classes=useClasses()
-    // console.log(props)
     return (
         <Box className={classes.root} >
             {props.items.map((item)=>(

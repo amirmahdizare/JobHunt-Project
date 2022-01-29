@@ -52,7 +52,6 @@ export const KeepInTouch = () => {
         postContactUs(data)
             .then((response) => {
                 const res = response[0]
-                console.log(res);
                 if (res.code == 200) {
                     setAlert({
                         status: true,

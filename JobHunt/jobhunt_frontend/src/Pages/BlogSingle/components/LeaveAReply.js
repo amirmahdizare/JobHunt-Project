@@ -32,7 +32,6 @@ export const LeaveAReply = (props) => {
                         message: 'error'
                     })
                 }
-                console.log(res, "res")
             })
             .catch((error) =>
                 setAlert({

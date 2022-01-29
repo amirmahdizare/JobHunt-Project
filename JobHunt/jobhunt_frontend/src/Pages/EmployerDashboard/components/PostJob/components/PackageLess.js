@@ -3,7 +3,6 @@ import { Box, Button, CircularProgress, Typography } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 
 export const PackageLess = ({ loading }) => {
-    console.log(loading)
     return (
         <Box m={2}>
             <Alert style={{ display: 'flex', alignItems: 'center' }} severity='warning' variant='filled' >

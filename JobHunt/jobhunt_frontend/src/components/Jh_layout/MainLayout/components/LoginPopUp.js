@@ -92,7 +92,6 @@ export const LoginPopUp = (props) => {
 					setTimeout(() => onClose(), 2000)
 				})
 				.catch((e) => {
-					console.log(e.message)
 					if (e.text == 'unAuthorized') return setLoginState('unAuthorized')
 					setLoginState('error')
 				})
@@ -144,7 +143,6 @@ export const LoginPopUp = (props) => {
 			default:
 				showAlertContent = undefined
 		}
-		console.log('inja')
 		return (
 			<Grow
 				in={true}

@@ -10,7 +10,8 @@ const getPopularCategories = async (customParams) => {
         headers: { Lang: getLanguage() },
         params: reqParams
     })
-    return await Object.values(response.data.data)
+    const data = Promise.all(Object.values(response.data.data).map(async (item) => ({ ...item, openPositions: await getCategoryOpenPositions(item.id) })))
+    return data
 }
 
 const getAllCategories = async () => {
@@ -305,7 +306,7 @@ const getCompanyDetailById = async (id) => {
         })
         const { data: { data: { logo, category_id } } } = response
         const category = await getCategoryDetailById(category_id) || null
-        if (typeof logo =='object') {
+        if (typeof logo == 'object') {
             const logoPath = Object.values(logo)?.[0]
             try {
                 const logo = await generateImageURL('jobhunt', logoPath)
@@ -388,7 +389,6 @@ const getBlogSingle = async ({ id }) => {
     return fullDetailData
 }
 const getBlogSingleComment = async ({ entity_id, page, pagination_size }) => {
-    // console.log(entity_id, page);
 
     const response = await api.get(`/comments/guests`, {
         headers: {
@@ -473,6 +473,55 @@ const getCompanies = async ({ page, pagination_size, filter }) => {
         return Promise.reject(error.response.data.message)
     }
 }
+
+const getCategoryOpenPositions = async (id) => {
+    try {
+        const response = await api.get(`/jobs/offers/guests?page=1&filters[0][field]=category_id&filters[0][value][0]=${id}`, {
+            headers: {
+                Lang: getLanguage(),
+                'Content-Type': 'application/json'
+            },
+        })
+        return response.data.data.number_of_entities
+
+    } catch (error) {
+        return Promise.reject(error.response.data.message)
+    }
+}
+const getAllJobOffers = async() =>{
+    try {
+        const response = await api.get(`/jobs/offers/guests`, {
+            headers: {
+                Lang: getLanguage(),
+                'Content-Type': 'application/json'
+            },
+            params:{
+                page:1
+            }
+        })
+        return response.data.data.number_of_entities
+
+    } catch (error) {
+        return Promise.reject(error.response.data.message)
+    }
+}
+const getTodayJobs = async () =>{
+    try {
+        const response = await api.get(`/jobs/offers/guests?page=1&filters[0][field]=created_at&filters[0][value][0]=${(new Date).toISOString()}`, {
+            headers: {
+                Lang: getLanguage(),
+                'Content-Type': 'application/json'
+            },
+            params:{
+                page:1
+            }
+        })
+        return response.data.data
+
+    } catch (error) {
+        return Promise.reject(error.response.data.message)
+    }
+}
 export {
     getPopularCategories,
     getAllCategories,
@@ -509,5 +558,6 @@ export {
     getStateCities,
     getCandidateInfo,
     getCompanies,
-
+    getAllJobOffers,
+    getTodayJobs
 }

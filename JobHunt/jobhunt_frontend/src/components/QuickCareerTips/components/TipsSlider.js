@@ -122,7 +122,6 @@ export default function TipsSlider() {
     if (pages > page) setPage((prev) => prev + 1)
 
   }, [isLoadMore])
-   console.log(data)
   return (
     <Container maxWidth="lg" className={classes.root} id="tips">
 

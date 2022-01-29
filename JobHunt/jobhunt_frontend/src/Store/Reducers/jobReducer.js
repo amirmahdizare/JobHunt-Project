@@ -249,7 +249,6 @@ const JobReducer = (state = initialState, action) => {
       var specificFilter = [];
 
       for (var i = 0; i < values.length; i++) {
-        console.log("Values",values)
         allFilters.push(
           {
             field: prop,

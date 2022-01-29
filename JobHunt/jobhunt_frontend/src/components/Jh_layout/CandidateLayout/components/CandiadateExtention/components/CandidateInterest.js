@@ -35,7 +35,6 @@ export const CandidateInterest = () => {
         setAnchorEl(anchorEl ? null : event.currentTarget);
     };
     const handleClickAway = () => {
-        console.log("dVD")
         setAnchorEl(null)
     }
     const open = Boolean(anchorEl);

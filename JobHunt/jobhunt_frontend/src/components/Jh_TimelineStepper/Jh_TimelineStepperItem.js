@@ -12,7 +12,6 @@ const useClasses = makeStyles(theme => ({
     }
 }))
 export const Jh_TimelineStepperItem = (props) => {
-    console.log(props)
     const classes = useClasses()
     return (
         <Box p={2} className="Jh_TimelineStepperItem" display="flex" flex="1" position="relative" >

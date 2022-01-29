@@ -26,7 +26,6 @@ const JobSingle = () => {
     const company = useGetSpecificCompany(companyId);
     const [logoImage, setLogoImage] = useState(false)
 
-    console.log(company)
     const getImage = async () => {
         if (company.logo) {
             const onGetImage = await generateImageURL('jobhunt', Object.values(company.logo)[0]);

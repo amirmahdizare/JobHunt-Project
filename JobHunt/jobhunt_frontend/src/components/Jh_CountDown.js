@@ -21,7 +21,6 @@ import React, { useEffect, useState } from 'react'
     
       useEffect(() => {
         if (countDown < 0 && runTimer) {
-          console.log("expired");
           setRunTimer(false);
           setCountDown(0);
         }
