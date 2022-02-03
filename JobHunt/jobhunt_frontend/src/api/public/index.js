@@ -507,7 +507,7 @@ const getAllJobOffers = async () => {
 }
 const getTodayJobs = async () => {
     try {
-        const response = await api.get(`/jobs/offers/guests?page=1&filters[0][field]=created_at&filters[0][value][0]=${(new Date).toISOString()}`, {
+        const response = await api.get(`/jobs/offers/guests?page=1&filters[0][field]=created_at&filters[0][value]=${(new Date).toISOString()}`, {
             headers: {
                 Lang: getLanguage(),
                 'Content-Type': 'application/json'
