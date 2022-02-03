@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { storeServiceIdAndDefineLanguage } from "../../api/initilizeApp";
-import { generateImageURL } from "../../api/OSS/minioAPI";
 import { getCountryInfoToSignup } from "../../api/public";
 import { getLanguage } from "../../utils";
 
@@ -25,7 +24,7 @@ function useProvideLangauge() {
                 if (language.suf == availableLanguages[item].suf) defaultLanguageTitle = availableLanguages[item].title
             }
             const data = await getCountryInfoToSignup(defaultLanguageTitle)
-            const flagUrl = await generateImageURL('central', Object.values(data[0]['flag'])[0]['path'])
+            const flagUrl =  Object.values(data[0]['flag'])[0]
             setLanguage({ ...language, url: flagUrl })
         } catch (error) {
             //error
@@ -40,8 +39,8 @@ function useProvideLangauge() {
                 Promise.all(
                     availableLanguages.map(async (country) => {
                         const flagurl = await getCountryInfoToSignup(country.title)
-                        const path = Object.values(flagurl[0]['flag'])[0]['path']
-                        return { ...country, url: await generateImageURL('central', path) }
+                        const path = Object.values(flagurl[0]['flag'])[0]
+                        return { ...country, url: path }
 
                     })
                 ).then((data) => {

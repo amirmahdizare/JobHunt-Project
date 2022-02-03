@@ -1,8 +1,6 @@
 import moment from "moment"
-import { formatDate } from "../../components"
 import { api, centralApi } from "../../config/apiConfig"
 import { centralApiHeaderObj, getLanguage, getServiceId, getUserToken, makeSearchQueryString } from "../../utils"
-import { generateImageURL } from "../OSS/minioAPI"
 
 const getPopularCategories = async (customParams) => {
     const reqParams = customParams && customParams.page && customParams.pagination_size ? customParams : { page: 1, pagination_size: 6 }
@@ -73,7 +71,7 @@ const getFeaturedJobs = async () => {
         },
         params: {
             page: 1,
-            pagination_size: 6
+            pagination_size: 6,
         }
     })
     const { data: { data } } = response
@@ -92,7 +90,7 @@ const getExperiences = async () => {
         }
     })
     const { data: { data: { entities } } } = response
-    const fullDetailData = Promise.all(entities.map(async (experience) => ({ ...experience, image: experience.user_info.image ? await generateImageURL('central', Object.values(experience.user_info.image)[0].path) : null })))
+    const fullDetailData = Promise.all(entities.map(async (experience) => ({ ...experience, image: experience.user_info.image ? Object.values(experience.user_info.image)[0] : null })))
     return fullDetailData
 }
 
@@ -106,7 +104,7 @@ const getPartners = async (customParams) => {
 
     })
     const { data: { data: { entities, number_of_pages } } } = response
-    const fullDetailData = await Promise.all(entities.map(async (partner) => ({ ...partner, logo: await generateImageURL('jobhunt', Object.values(partner.logo)[0]) })))
+    const fullDetailData = await Promise.all(entities.map(async (partner) => ({ ...partner, logo: Object.values(partner.logo)[0] })))
 
     return { partners: fullDetailData, pages: number_of_pages }
 }
@@ -119,7 +117,9 @@ const getBlogs = async (params) => {
         params: params ? params : { page: 1, pagination_size: 3 }
     })
     const { data: { data: { entities, number_of_pages } } } = response
-    const posts = await Promise.all(entities.map(async (blog, index) => ({ ...blog, image: await generateImageURL('jobhunt', Object.values(blog.medias)[0]), date: moment(blog.created_at).format('DD MMM, YYYY') })))
+    console.log(entities)
+
+    const posts = await Promise.all(entities.map(async (blog, index) => ({ ...blog, image: Object.values(blog.medias)[0], date: moment(blog.created_at).format('DD MMM, YYYY') })))
     return { posts, pages: number_of_pages }
 }
 
@@ -175,7 +175,7 @@ const getAboutUsDescription = async () => {
     })
 
     const { data: { data } } = response
-    const fullDetailData = { ...data, image: await generateImageURL('jobhunt', Object.values(data.media)[0]) }
+    const fullDetailData = { ...data, image: Object.values(data.media)[0] }
     return fullDetailData
 }
 
@@ -277,15 +277,21 @@ const getContactInfo = async () => {
 const getTopJobs = async () => {
     const response = await api.get('/jobs/offers/guests', {
         headers: { Lang: getLanguage() },
-        params: { page: 1, pagination_size: 6 }
+        params: {
+            page: 1,
+            pagination_size: 6,
+            // 'filters[0][field]': 'is_special',
+            // 'filters[0][value]': 'true'
+        }
     })
     const plainJobs = response.data.data.entities
+    console.log(plainJobs)
     return await Promise.all(plainJobs.map(async (job) => await jobDetailGenerator(job)))
 }
 const jobDetailGenerator = async (job) => {
     try {
         var { logo, name } = await getCompanyDetailById(job.company?.id)
-        // var logourl = await generateImageURL('jobhunt', Object.values(logo)[0])
+        console.log(await getCompanyDetailById(job.company?.id))
         var { title, color } = await getCooperationKindById(job.cooperation_kind_id)
     } catch (error) {
         //catch error
@@ -308,14 +314,7 @@ const getCompanyDetailById = async (id) => {
         const category = await getCategoryDetailById(category_id) || null
         if (typeof logo == 'object') {
             const logoPath = Object.values(logo)?.[0]
-            try {
-                const logo = await generateImageURL('jobhunt', logoPath)
-                return Promise.resolve({ ...response.data.data, category, logo })
-
-            } catch (error) {
-                //error
-            }
-
+            return Promise.resolve({ ...response.data.data, category, logo:logoPath })
         }
         else {
             return Promise.resolve({ ...response.data.data, category })
@@ -345,7 +344,7 @@ const getHowWorks = async (page) => {
     })
 
     const { data: { data: { entities } } } = response
-    const fullDetailData = Promise.all(entities.map(async (info) => ({ ...info, image: await generateImageURL('jobhunt', Object.values(info.media)[0]) })))
+    const fullDetailData = Promise.all(entities.map(async (info) => ({ ...info, image: Object.values(info.media)[0]})))
     return fullDetailData
 }
 const getPolicies = async (customParams) => {
@@ -385,11 +384,12 @@ const getBlogSingle = async ({ id }) => {
 
     })
     const { data: { data } } = response
-    const fullDetailData = { ...data, image: await generateImageURL('jobhunt', Object.values(data.medias)[0]), date: moment(data.created_at).format('DD MMM, YYYY') }
+    const fullDetailData = { ...data, image:  Object.values(data.medias)[0], date: moment(data.created_at).format('DD MMM, YYYY') }
+    
     return fullDetailData
 }
 const getBlogSingleComment = async ({ entity_id, page, pagination_size }) => {
-
+    
     const response = await api.get(`/comments/guests`, {
         headers: {
             Lang: getLanguage()
@@ -402,8 +402,8 @@ const getBlogSingleComment = async ({ entity_id, page, pagination_size }) => {
 
     })
     const { data: { data: { entities, number_of_pages, number_of_entities } } } = response
-    const comments = await Promise.all(entities.map(async (comment, index) => ({ ...comment, image: comment.user_info.image ? await generateImageURL('jobhunt', Object.values(comment.user_info.image)[0].path) : null, date: moment(comment.created_at).format('DD MMM, YYYY') })))
-
+    const comments = await Promise.all(entities.map(async (comment, index) => ({ ...comment, image: comment.user_info.image ?  Object.values(comment.user_info.image)[0].path : null, date: moment(comment.created_at).format('DD MMM, YYYY') })))
+    
     return { comments, pages: number_of_pages, number_of_entities }
 }
 
@@ -460,7 +460,7 @@ const getCompanies = async ({ page, pagination_size, filter }) => {
             if (emp.logo) {
 
                 const logoPath = emp?.logo ? Object.values(emp?.logo)?.[0] : null
-                return { ...emp, logo: logoPath ? await generateImageURL('jobhunt', logoPath) : null }
+                return { ...emp, logo: logoPath ?  logoPath : null }
             }
             else
                 return emp
@@ -488,15 +488,15 @@ const getCategoryOpenPositions = async (id) => {
         return Promise.reject(error.response.data.message)
     }
 }
-const getAllJobOffers = async() =>{
+const getAllJobOffers = async () => {
     try {
         const response = await api.get(`/jobs/offers/guests`, {
             headers: {
                 Lang: getLanguage(),
                 'Content-Type': 'application/json'
             },
-            params:{
-                page:1
+            params: {
+                page: 1
             }
         })
         return response.data.data.number_of_entities
@@ -505,15 +505,15 @@ const getAllJobOffers = async() =>{
         return Promise.reject(error.response.data.message)
     }
 }
-const getTodayJobs = async () =>{
+const getTodayJobs = async () => {
     try {
         const response = await api.get(`/jobs/offers/guests?page=1&filters[0][field]=created_at&filters[0][value][0]=${(new Date).toISOString()}`, {
             headers: {
                 Lang: getLanguage(),
                 'Content-Type': 'application/json'
             },
-            params:{
-                page:1
+            params: {
+                page: 1
             }
         })
         return response.data.data

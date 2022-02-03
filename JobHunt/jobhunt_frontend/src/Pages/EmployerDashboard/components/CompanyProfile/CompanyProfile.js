@@ -4,7 +4,6 @@ import { noImage } from '../../../../asset'
 import { SectionHeader } from '../../../../components/SectionHeader'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { generateImageURL } from '../../../../api/OSS/minioAPI';
 import { getCompany, storeCompany, updateCompany } from '../../../../api/employer';
 import { getAllCategories } from '../../../../api/public';
 import DateFnsUtils from '@date-io/date-fns';
@@ -105,7 +104,7 @@ export const CompanyProfile = () => {
         }
         else {
             setPreview({ ...preview, status: 'loading' })
-            generateImageURL('jobhunt', Object.values(logo)[0]).then((url) => setPreview({ content: url, status: 'ready' }))
+            setPreview({ content: Object.values(logo)[0], status: 'ready' })
         }
 
     }, [info.logo, toEditInfo.logo])

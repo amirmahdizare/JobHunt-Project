@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Avatar, CircularProgress, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core'
 import { getSingleCountryInfo, getValidCountriesToSignupDetail } from '../../../api/public'
-import { generateImageURL } from '../../../api/OSS/minioAPI'
 export const SelectCountry = ({ handleChange, country_code }) => {
     const [countriesDetail, setCountriesDetail] = useState([])
     const [countryinfo, setCountryInfo] = useState({
@@ -18,7 +17,7 @@ export const SelectCountry = ({ handleChange, country_code }) => {
             getSingleCountryInfo(countryinfo.name)
                 .then(async (data) => {
                     if (data['flag'].length != 0)
-                        setFlag(await generateImageURL('central',data['flag'][countryinfo.id]['path']))
+                        setFlag(data['flag'][countryinfo.id])
                         else 
                         setFlag(countryinfo.name[0])
                 }

@@ -2,9 +2,6 @@ import { React, useEffect, useState } from 'react'
 import { Box, Button, Card, CardActionArea, CardMedia, Grid, makeStyles, Typography } from '@material-ui/core'
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import { useGetSpecificCompany } from '../hooks/useGetSpecificCompany'
-import { useGetSpecificCorporation } from '../hooks/useGetSpecificCorporation'
-import { generateImageURL } from "../api/OSS/minioAPI";
 import { useHistory } from "react-router";
 import { formatDate } from './index'
 
@@ -98,7 +95,7 @@ const Jh_BigJobCard = (props) => {
 
     const getImage = async () => {
         if ((job?.company?.logo)) {
-            const onGetImage = await generateImageURL('jobhunt', Object.values(job?.company?.logo)[0]);
+            const onGetImage =  Object.values(job?.company?.logo)[0];
             return onGetImage
         }
     }

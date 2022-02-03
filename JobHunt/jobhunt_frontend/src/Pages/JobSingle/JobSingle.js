@@ -14,7 +14,6 @@ import { useGetSpecificCompany } from '../../hooks/useGetSpecificCompany';
 import { useGetSingleJob } from '../../hooks/useGetSingleJob';
 import { useHistory } from 'react-router';
 import { formatDate } from '../../components'
-import { generateImageURL } from "../../api/OSS/minioAPI";
 
 const JobSingle = () => {
 
@@ -28,7 +27,7 @@ const JobSingle = () => {
 
     const getImage = async () => {
         if (company.logo) {
-            const onGetImage = await generateImageURL('jobhunt', Object.values(company.logo)[0]);
+            const onGetImage =  Object.values(company.logo)[0];
             return onGetImage
         }
     }
