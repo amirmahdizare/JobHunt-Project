@@ -10,7 +10,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import {MuiPickersUtilsProvider,} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, } from '@material-ui/pickers';
 import { Loading } from '../../../../components/Loading';
 import { Alert } from '@material-ui/lab';
 import { capitalizeFirstLetter } from '../../../../utils';
@@ -47,10 +47,10 @@ const useStyles = makeStyles(theme => ({
         marginBottom: '8px',
         width: '100%'
     },
-    buttonContainer:{
-        width:'50%',
-        [theme.breakpoints.down('sm')]:{
-            width:'100%'
+    buttonContainer: {
+        width: '50%',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%'
         }
     }
 }))
@@ -113,15 +113,15 @@ export const CompanyProfile = () => {
         if (!loading) {
             setToEditInfo({ ...toEditInfo, [field]: value });
             setInfo({ ...info, [field]: value });
-            setError({...error,[field]:null})
+            setError({ ...error, [field]: null })
             setResult('')
         }
     };
     const handleUpdate = () => {
-        for(let item in error){
-            if(error[item]) {
+        for (let item in error) {
+            if (error[item]) {
                 setResult('error')
-                return 
+                return
             }
         }
         if (state == 'edit') {
@@ -153,9 +153,17 @@ export const CompanyProfile = () => {
         }
     }
 
-    const valueGenerator = (field) => toEditInfo[field] ? toEditInfo[field] : info[field] || ''
+    const valueGenerator = (field) => {
+        console.log(toEditInfo)
+        if (field.split('.').length == 2) {
+            const [key, value] = field.split('.')
+            return toEditInfo?.[key + '[' + value + ']'] ? toEditInfo[key + '[' + value + ']'] : info?.[key]?.[value] || ''
+        }
+        else
+            return toEditInfo[field] ? toEditInfo[field] : info[field] || ''
+    }
 
-    const errorTextGenerator = (field) => error[field] ? capitalizeFirstLetter(error[field].join()) : null
+    const errorTextGenerator = (field) => !!error[field] && !!error[field]?.length ? capitalizeFirstLetter(error[field]?.join()) : null
     return (
         <Box mb={2}>
             <SectionHeader title="My Profile" />
@@ -173,7 +181,7 @@ export const CompanyProfile = () => {
                 </Grid>
 
                 <Grid item xs={12} md={8} className={classes.logoActionContainer}>
-                    <Box  className={classes.buttonContainer} display="flex" flexDirection="row">
+                    <Box className={classes.buttonContainer} display="flex" flexDirection="row">
                         <Button
                             fullWidth
                             variant="contained"
@@ -246,7 +254,7 @@ export const CompanyProfile = () => {
                             value={valueGenerator('establishment_date') || new Date().toISOString()}
                             onChange={(e) => {
                                 try { handleChange('establishment_date', new Date(e).toISOString()) }
-                                catch (error) { setError({...error,['establishment_date']:['Time Format is Invalid']}) }
+                                catch (error) { setError({ ...error, ['establishment_date']: ['Time Format is Invalid'] }) }
                             }
                             }
                             KeyboardButtonProps={{
@@ -271,7 +279,7 @@ export const CompanyProfile = () => {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Typography  gutterBottom>Phone Number</Typography>
+                    <Typography gutterBottom>Phone Number</Typography>
                     <TextField
                         variant="outlined"
                         fullWidth
@@ -282,13 +290,13 @@ export const CompanyProfile = () => {
                             const phones = [e.target.value]
                             handleChange('contacts[phone]', e.target.value)
                         }}
-                        value={valueGenerator('contacts[phone]')}
+                        value={valueGenerator('contacts.phone')}
                     >
                     </TextField>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                    <Typography  gutterBottom>Email</Typography>
+                    <Typography gutterBottom>Email</Typography>
                     <TextField
                         // disabled
                         variant="outlined"
@@ -296,7 +304,7 @@ export const CompanyProfile = () => {
                         error={!!error['contacts[email]']}
                         helperText={errorTextGenerator('contacts[email]')}
                         onChange={(e) => handleChange('contacts[email]', e.target.value)}
-                        value={valueGenerator('contacts[email]')}
+                        value={valueGenerator('contacts.email')}
                     >
                     </TextField>
                 </Grid>
@@ -321,7 +329,7 @@ export const CompanyProfile = () => {
                         error={!!error['social_links[instagram]']}
                         helperText={errorTextGenerator('social_links[instagram]')}
                         onChange={(e) => handleChange('social_links[instagram]', e.target.value)}
-                        value={valueGenerator('social_links[instagram]')}
+                        value={valueGenerator('social_links.instagram')}
                     >
                     </TextField>
                 </Grid>
@@ -333,7 +341,7 @@ export const CompanyProfile = () => {
                         error={!!error['social_links[facebook]']}
                         helperText={errorTextGenerator('social_links[facebook]')}
                         onChange={(e) => handleChange('social_links[facebook]', e.target.value)}
-                        value={valueGenerator('social_links[facebook]')}
+                        value={valueGenerator('social_links.facebook')}
                     >
                     </TextField>
                 </Grid>
@@ -362,7 +370,7 @@ export const CompanyProfile = () => {
                     {!!errorTextGenerator('description') && <Typography color="secondary" variant="subtitle2">&nbsp;{errorTextGenerator('description')}</Typography>}
                 </Grid>
 
-                <Grid item  md={10}>
+                <Grid item md={10}>
                 </Grid>
                 <Grid item xs={12} md={2}>
                     <Button

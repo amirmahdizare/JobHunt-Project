@@ -56,7 +56,7 @@ const deleteCompany = async ({ id }) => {
 }
 
 const updateCompany = async (dataObj) => {
-    if(dataObj?.logo.size > 1000000) return Promise.reject({logo:['Your Logo size is bigger than 1Mb!']})
+    if(dataObj?.logo && dataObj?.logo.size > 1000000) return Promise.reject({logo:['Your Logo size is bigger than 1Mb!']})
     const data = new FormData()
     for (let item in dataObj) {
         data.append(`${item}`, dataObj[item])
