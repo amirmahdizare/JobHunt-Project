@@ -1,5 +1,4 @@
 import React from 'react'
-import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';

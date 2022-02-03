@@ -10,7 +10,7 @@ import { Jh_Logo1 } from '../../../Jh_Logo1';
 import MenuIcon from '@material-ui/icons/Menu';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
-import SearchBox from './components/SearchBox'
+// import SearchBox from './components/SearchBox'
 import Typography from '@material-ui/core/Typography';
 import { createTheme, makeStyles, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
@@ -102,8 +102,8 @@ const MobileViewHeader = () => {
                                     {!auth.user && <> <Divider className={classes.divider} />
                                         <HeaderButtons onButtonClick={toggleExpand} /></>}
                                     <Divider className={classes.divider} />
-                                    <SearchBox />
-                                    <Divider className={classes.divider} />
+                                    {/* <SearchBox />
+                                    <Divider className={classes.divider} /> */}
                                     <HeaderMenus onMenuItemClick={toggleExpand} />
                                 </Container>
                             </Paper>

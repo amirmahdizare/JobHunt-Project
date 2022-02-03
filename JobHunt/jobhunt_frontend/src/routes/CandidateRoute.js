@@ -9,6 +9,8 @@ const ExclusiveCandiadateRoutes = [
 	{ path: '/dashboard/profile', pageName: 'CandidateProfile' },
 	{ path: '/employers', pageName: 'EmployerList' },
 	{ path: '/employer/:id', pageName: 'EmployerSingle' },
+	{ path: "/candidates", pageName: 'CandidateList' },
+    { path: "/candidate/:id", pageName: 'CandidateSingle' },
 	{ path: '/login', redirectTo: userLandingPage.candidate },
 	{ pageName: 'CandidateNotFoundPage' },
 ]

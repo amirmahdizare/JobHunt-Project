@@ -14,18 +14,20 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#0b1b46',
   },
   heading: {
-    color: props => { return props.expanded == props.title ? 'white' : '#96a0bd' },
+    color: props => { return props.expanded === props.title ? 'white' : '#96a0bd' },
     flexBasis: '33.33%',
     flexShrink: 0,
+    fontSize:'1.1rem'
   },
   icon: {
     color: 'white',
   },
   menuItem: {
-    color: props => { return props.expanded == props.title ? 'white' : 'gray' },
+    color: props => { return props.expanded === props.title ? 'white' : 'gray' },
     fontWeight: '600',
     padding: '10px 10px 10px 30px',
     transition: 'all 0.4s ease 0s',
+    fontSize:'0.9rem',
     
     '&:hover': {
       backgroundColor: 'transparent',
@@ -47,10 +49,10 @@ const useStyles = makeStyles((theme) => ({
 const CustomMenu = (props) => {
   const classes = useStyles(props);
   return (
-    <Accordion className={classes.root} expanded={props.expanded == props.title} onChange={props.handleChange(props.title)}>
+    <Accordion className={classes.root} expanded={props.expanded === props.title} onChange={props.handleChange(props.title)}>
       <AccordionSummary
         expandIcon={
-          props.expanded == props.title
+          props.expanded === props.title
             ? <RemoveIcon className={classes.icon} />
             : <AddIcon className={classes.icon} />}
         aria-controls={`${props.title}-content`}

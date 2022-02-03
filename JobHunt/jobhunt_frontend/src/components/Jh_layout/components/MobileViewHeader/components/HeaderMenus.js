@@ -38,20 +38,22 @@ export default function HeaderMenus(props) {
         menuItems={[{ name: 'Blogs List', href: "/bloglist" }]}
         onMenuItemClick={props.onMenuItemClick}
       />
+      {auth.user === 'employer' &&
       <CustomMenu
         expanded={expanded}
         handleChange={handleChange}
-        title="Candidate"
-        menuItems={[{ name: 'Dashboard', href: auth.user == 'candidate' ? '/dashboard' : "/login" }]}
+        title="Candidates"
+        menuItems={[{ name: 'Candidates List', href:'/candidates' }]}
         onMenuItemClick={props.onMenuItemClick}
-      />
+      />}
+      {auth.user === 'candidate' &&
       <CustomMenu
         expanded={expanded}
         handleChange={handleChange}
-        title="Employer"
-        menuItems={[{ name: 'Manage Job', href: auth.user == 'employer' ? '/managejobs' : 'login' }]}
+        title="Employers"
+        menuItems={[{ name: 'Employers List', href:  '/employers'}]}
         onMenuItemClick={props.onMenuItemClick}
-      />
+      />}
 
     </Box>
   );
