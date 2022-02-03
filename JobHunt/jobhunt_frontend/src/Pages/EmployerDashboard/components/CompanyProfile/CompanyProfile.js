@@ -154,7 +154,6 @@ export const CompanyProfile = () => {
     }
 
     const valueGenerator = (field) => {
-        console.log(toEditInfo)
         if (field.split('.').length == 2) {
             const [key, value] = field.split('.')
             return toEditInfo?.[key + '[' + value + ']'] ? toEditInfo[key + '[' + value + ']'] : info?.[key]?.[value] || ''

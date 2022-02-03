@@ -1,10 +1,10 @@
-import React from 'react'
+import React ,{useState} from 'react'
 
 import { useCategories, useJobWorktimes } from '../../../../../../hooks/index.js'
 import { useStyles } from './useStyles.js'
 import { useCurrencies } from '../../../../../../hooks/useCurrencies.js'
 
-import { Box, Button, CircularProgress, Grid, MenuItem, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Chip, CircularProgress, Grid, IconButton, InputAdornment, MenuItem, OutlinedInput, TextField, Typography } from '@material-ui/core'
 import { capitalizeFirstLetter } from '../../../../../../utils'
 import ReactQuill from 'react-quill'
 import { PostJobStatus } from './PostJobStatus.js'
@@ -15,6 +15,8 @@ import { useCarearLevel } from '../../../../../../hooks/useCarearLevel.js'
 import { useQualification } from '../../../../../../hooks/useQualification.js'
 import { useSalaryTypes } from '../../../../../../hooks/useSalaryTypes.js'
 import { useIndustryJobs } from '../../../../../../hooks/useIndustryJobs.js'
+import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
+import InputLabel from '@material-ui/core/InputLabel';
 
 export const JobInformation = (props) => {
 
@@ -24,6 +26,7 @@ export const JobInformation = (props) => {
     const { info, handleChange, postJob, postJobStatus, mode } = props
     const [states, states_error, states_loading] = useChinaStates()
     const [cities, cities_error, cities_loading] = useStateCities(info.state_id)
+    const [tag,setTag]=useState('')
     const salaryTypes = useSalaryTypes()
     const qualification = useQualification()
     const carearLevel = useCarearLevel()
@@ -47,6 +50,15 @@ export const JobInformation = (props) => {
         return { className: !info?.[field] ? "placeholder" : null }
     }
 
+    const handleDeleteTag = (targetTag) => {
+        const tags = info.tags.filter(tag => tag != targetTag)
+        handleChange({ tags })
+    }
+
+    const addTag = () => {
+        // const tags = info.tags.push(tag)
+        handleChange({ tags : [...info.tags , tag] })
+    }
     return (
         <Box m={2} boxSizing="border-box">
 
@@ -287,14 +299,31 @@ export const JobInformation = (props) => {
 
                     <Grid item xs={12} md={12}>
                         <Typography variant="body2" gutterBottom> Tags</Typography>
-                        <TextField
-                            variant="outlined"
-                            placeholder='Example : dev,web,site'
-                            value={info.tags?.[0]}
-                            onChange={(e) => handleChange({ tags: [e.target.value] })}
-                            fullWidth
-                            {...errorGenerator('tags', 'Tags')}
+                        <OutlinedInput
+                            value={tag}
+                            onChange={(e)=> setTag(e.target.value)}
+                           labelWidth={0}
+                            placeholder='Add Tags'
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={addTag}
+                                        edge="end"
+                                    >
+                                      < AddCircleRoundedIcon/>
+                                    </IconButton>
+                                </InputAdornment>
+                            }
                         />
+                        
+                        {info.tags?.map((tag,index) => <Chip
+                            size="medium"
+                            label={tag}
+                            key={index}
+                            onDelete={() => handleDeleteTag(tag)}
+                            style={{margin:'4px'}}
+                        />)}
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="body2" gutterBottom>Description</Typography>
