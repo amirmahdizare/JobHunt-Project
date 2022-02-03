@@ -16,6 +16,20 @@ const DesktopViewHeaderMenus = () => {
                 href='/aboutus'>
                 <Typography color="inherit">About&nbsp;Us</Typography>
             </Button>
+           { auth.user=='candidate' && <Button
+                disableRipple
+                style={{ textTransform: 'none' }}
+                color="inherit"
+                href='/employers'>
+                <Typography color="inherit">Employers</Typography>
+            </Button>}
+            { auth.user=='employer' && <Button
+                disableRipple
+                style={{ textTransform: 'none' }}
+                color="inherit"
+                href='/candidates'>
+                <Typography color="inherit">Candidates</Typography>
+            </Button>}
             {/* <CustomMenu
                 menuTitle="About&nbsp;Us"
                 menuItems={[
@@ -47,6 +61,13 @@ const DesktopViewHeaderMenus = () => {
                 color="inherit"
                 href="/howitworks">
                 <Typography color="inherit">How&nbsp;it&nbsp;works</Typography>
+            </Button>         
+               <Button
+                disableRipple
+                style={{ textTransform: 'none' }}
+                color="inherit"
+                href="/pricing">
+                <Typography color="inherit">Pricing&nbsp;Plan&nbsp;</Typography>
             </Button>
             &nbsp;
             {!auth.user && <HeaderButtons />}

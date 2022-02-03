@@ -8,6 +8,8 @@ const ExclusiveEmployerRoutes = [
     { path: "/dashboard/:section?", pageName: 'EmployerDashboard' },
     { path: "/employers", pageName: 'EmployerList' },
     { path: "/employer/:id", pageName: 'EmployerSingle' },
+    { path: "/candidates", pageName: 'CandidateList' },
+    { path: "/candidate/:id", pageName: 'CandidateSingle' },
     { path: "/login", redirectTo: userLandingPage.employer },
     { pageName: 'EmployerNotFoundPage' },
 ]
