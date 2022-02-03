@@ -27,7 +27,7 @@ const PopularCategories = () => {
             <Box mb={3} mt={10}><Typography variant="h4">Popular Categories</Typography></Box>
             <Box >
                 {number_of_jobs && <Typography >{number_of_jobs} jobs live </Typography>}
-                {todayJobs?.number_of_entities && <Typography>{todayJobs?.number_of_entities}-  added today.</Typography>}
+                {!!todayJobs?.number_of_entities && <Typography>{todayJobs?.number_of_entities}-  added today.</Typography>}
             </Box>
             <CategoriesContainer />
         </Container>

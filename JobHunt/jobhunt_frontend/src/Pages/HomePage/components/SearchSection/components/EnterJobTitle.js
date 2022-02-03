@@ -25,11 +25,11 @@ const useClasses = makeStyles((theme) => ({
 }))
 const EnterJobTitle = ({ setCategory, category }) => {
     const classes = useClasses()
-    const [categories,error,loading] = useCategories()
+    const [categories, error, loading] = useCategories()
     return (
         <Grid item xs={12} sm={6} md={6} className={classes.root} >
             <Paper component="div" className={classes.container}>
-            {loading && <TextField fullWidth size='medium' style={{ height: '100%', borderColor: 'white', direction: 'ltr' }} value={'Loading Categories'} variant="outlined" />}
+                {loading && <TextField fullWidth size='medium' style={{ height: '100%', borderColor: 'white', direction: 'ltr' }} value={'Loading Categories'} variant="outlined" />}
 
                 {!loading && categories && <Autocomplete
                     id="select-state"
@@ -40,6 +40,8 @@ const EnterJobTitle = ({ setCategory, category }) => {
                     onChange={(event, value) => setCategory(value)}
                     renderInput={(params) => <TextField size='medium' style={{ height: '100%', borderColor: 'white', direction: 'ltr' }} {...params} placeholder='Select Category' variant="outlined" />}
                 />}
+                {!loading && !categories  && < TextField disabled fullWidth size='medium' style={{ height: '100%', borderColor: 'white', direction: 'ltr' }} value={'No Available Category'} variant="outlined" />}
+
             </Paper>
             <BrowseJob />
         </Grid>

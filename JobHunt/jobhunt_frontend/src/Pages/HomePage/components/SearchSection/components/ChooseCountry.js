@@ -58,6 +58,8 @@ const ChooseCountry = ({ setState, state }) => {
                     onChange={(event, option) => setState(option)}
                     renderInput={(params) => <TextField size='medium' style={{ height: '100%', borderColor: 'white', direction: 'ltr' }} {...params} placeholder='Select State' variant="outlined" />}
                 />}
+                {!loading && !states  && < TextField disabled fullWidth size='medium' style={{ height: '100%', borderColor: 'white', direction: 'ltr' }} value={'No Available State'} variant="outlined" />}
+
             </Paper>
 
         </Grid >
