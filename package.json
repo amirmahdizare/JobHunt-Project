@@ -2,7 +2,7 @@
   "name": "jobhunt_frontend",
   "version": "0.1.0",
   "engines": {
-    "node": "v6.14.11"
+    "node": "7.x"
   },
   "private": true,
   "dependencies": {
