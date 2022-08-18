@@ -11,7 +11,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "env-cmd": "^10.1.0",
-    "node": "^16.17.0",
+    "node": "^6.14.11",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-line-awesome-svg": "^1.0.12",
