@@ -1,4 +1,6 @@
-A Code Snippet of React Application  that was developed for foreigners who wants to get a job in china.
+# Work-in-China Code Snippet
+
+This React Application that was developed for foreigners who wants to get a job in china.
 
 Section :
 
