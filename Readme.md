@@ -1,4 +1,4 @@
-A part of React Application Code that was developed for foreigners who wants to get a job in china.
+A Code Snippet of React Application  that was developed for foreigners who wants to get a job in china.
 
 Section :
 
@@ -28,4 +28,4 @@ Used Libs :
 
    5-React Router
   
-Developed in Charming Persian (Beijing)
+Developed in Charming Persian (Beijing) 2021 - 2022
