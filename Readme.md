@@ -1,4 +1,4 @@
-# Jobhunt - Project - CodeSnippet
+# JobHunt - Project - CodeSnippet
 
 This React Application that was developed for foreigners who wants to get a job in china.
 
